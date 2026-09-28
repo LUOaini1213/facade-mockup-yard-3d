@@ -1,0 +1,15 @@
+Textures and HDRIs used by the viewer - all CC0 1.0 (public-domain dedication); no attribution required, credits given as a courtesy.
+The files are unmodified downloads.
+
+hdri/mud_road_puresky_2k.hdr                                    Poly Haven "Mud Road (Pure Sky)"                          CC0  https://polyhaven.com/a/mud_road_puresky
+hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr                Poly Haven "Kloofendal 48d Partly Cloudy (Pure Sky)"      CC0  https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky
+brushed_concrete/brushed_concrete_{diff,nor_gl,arm}_2k.jpg      Poly Haven brushed_concrete (Dario Barresi, Dimitrios Savva)  CC0  https://polyhaven.com/a/brushed_concrete
+clean_asphalt/clean_asphalt_{diff,nor_gl,arm}_1k.jpg            Poly Haven clean_asphalt (Dimitrios Savva)                    CC0  https://polyhaven.com/a/clean_asphalt
+corrugated_iron_03/corrugated_iron_03_{diff,nor_gl,arm}_1k.jpg  Poly Haven corrugated_iron_03 (Charlotte Baglioni)            CC0  https://polyhaven.com/a/corrugated_iron_03
+acg/Metal009/Metal009_1K-JPG_{Roughness,NormalGL}.jpg           ambientCG Metal009                                            CC0  https://ambientcg.com/a/Metal009
+
+Viewer processing (viewer.js, at load time; nothing is baked into these files):
+- the sun disc of the partly-cloudy HDRI is clamped (a DirectionalLight at the NOAA sun position is the sun), the sky is
+  white-balanced and the lower hemisphere is replaced by the radiance of the lit yard (ground bounce);
+- the yard concrete uses the luminance of brushed_concrete with added aggregate specks, damp patches and tyre marks;
+- the far backdrop ground is a plane with the clean_asphalt texture, tinted to a weathered grey.

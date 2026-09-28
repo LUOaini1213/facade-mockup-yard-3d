@@ -1,0 +1,2071 @@
+{
+ "AL_RAL7038": {
+  "hex": "#A8AAA4",
+  "hex_sci": "#ABADA7",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.3975,
+  "Y_sci": 0.4115,
+  "Y_sce": 0.3965,
+  "specular_pct": 1.5,
+  "lrv": 0.4115,
+  "linear": [
+   0.3916,
+   0.402,
+   0.3712
+  ],
+  "lab_sci": [
+   70.28,
+   -1.85,
+   2.84
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high"
+ },
+ "AL_T02": {
+  "hex": "#4B5055",
+  "hex_sci": "#51585C",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.0789,
+  "Y_sci": 0.0948,
+  "Y_sce": 0.078,
+  "specular_pct": 1.7,
+  "gloss60_GU": 18.9,
+  "linear": [
+   0.0704,
+   0.0802,
+   0.0908
+  ],
+  "lab_sci": [
+   36.9,
+   -1.5,
+   -3.3
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / medium / low"
+ },
+ "AL_MOUSEGREY": {
+  "hex": "#707370",
+  "hex_sci": "#747775",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.1688,
+  "Y_sci": 0.1825,
+  "Y_sce": 0.1675,
+  "specular_pct": 1.5,
+  "linear": [
+   0.162,
+   0.1714,
+   0.162
+  ],
+  "lab_sci": [
+   49.8,
+   -1.55,
+   0.82
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / low",
+  "codes": {
+   "nearest_ral": "RAL 7005"
+  }
+ },
+ "AL_T01": {
+  "hex": "#414A52",
+  "hex_sci": "#4C555D",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.0663,
+  "Y_sci": 0.0881,
+  "Y_sce": 0.0658,
+  "specular_pct": 2.23,
+  "gloss60_GU": 26,
+  "linear": [
+   0.0529,
+   0.0685,
+   0.0844
+  ],
+  "lab_sci": [
+   35.62,
+   -1.2,
+   -6.1
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / low-medium"
+ },
+ "AL_RAL9016": {
+  "hex": "#F0F0EB",
+  "hex_sci": "#F2F2ED",
+  "metalness": 0.0,
+  "roughness": 0.45,
+  "Y": 0.8684,
+  "Y_sci": 0.8824,
+  "Y_sce": 0.8674,
+  "specular_pct": 1.5,
+  "linear": [
+   0.8714,
+   0.8714,
+   0.8308
+  ],
+  "lab_sci": [
+   95.26,
+   -0.76,
+   2.11
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / medium",
+  "codes": {
+   "ral": "RAL 9016"
+  }
+ },
+ "AL_WOOD": {
+  "hex": "#D0B282",
+  "hex_sci": "#D2B484",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.4686,
+  "Y_sci": 0.4816,
+  "Y_sce": 0.4666,
+  "specular_pct": 1.5,
+  "clearcoat": 0.0,
+  "linear": [
+   0.6308,
+   0.4452,
+   0.2232
+  ],
+  "lab_sci": [
+   74.93,
+   4.16,
+   28.4
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / medium",
+  "procedural": {
+   "type": "woodgrain",
+   "slot": "map",
+   "grain_axis": "along member (vertical)",
+   "value_amplitude": 0.08,
+   "value_amplitude_range": [
+    0.06,
+    0.1
+   ],
+   "grain_period_m": [
+    0.004,
+    0.012
+   ]
+  }
+ },
+ "AL_METBLACK": {
+  "hex": "#2B2C2E",
+  "metalness": 0.6,
+  "roughness": 0.35,
+  "Y": 0.0251,
+  "linear": [
+   0.0242,
+   0.0252,
+   0.0273
+  ],
+  "category": "vmu",
+  "confidence": "low"
+ },
+ "AL_MILL": {
+  "hex": "#C9CED2",
+  "metalness": 1.0,
+  "roughness": 0.4,
+  "Y": 0.6121,
+  "linear": [
+   0.5841,
+   0.6172,
+   0.6445
+  ],
+  "category": "vmu",
+  "confidence": "medium"
+ },
+ "STEEL_HDG": {
+  "hex": "#ADB2B4",
+  "metalness": 0.85,
+  "roughness": 0.5,
+  "Y": 0.4402,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4564
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "textures": {
+   "set": "Metal009",
+   "license": "CC0 ambientCG Metal009",
+   "size_m": 0.5,
+   "roughness_map_mean": 0.469,
+   "roughness_with_map": 1.066,
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "roughnessMap": {
+    "file": "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg",
+    "colorSpace": "linear"
+   }
+  }
+ },
+ "SS_BRUSHED": {
+  "hex": "#C4C6C8",
+  "metalness": 1.0,
+  "roughness": 0.3,
+  "Y": 0.5629,
+  "anisotropy": 0.0,
+  "linear": [
+   0.552,
+   0.5647,
+   0.5776
+  ],
+  "category": "vmu",
+  "confidence": "medium"
+ },
+ "GL01_VISION": {
+  "hex": "#8B9593",
+  "metalness": 0.0,
+  "roughness": 0.02,
+  "Y": 0.2909,
+  "linear": [
+   0.2582,
+   0.3005,
+   0.2918
+  ],
+  "category": "vmu",
+  "confidence": "high / medium",
+  "glass": {
+   "vlt": 0.3,
+   "rext": 0.18,
+   "rint": null,
+   "tint": "#8B9593",
+   "transmission": 1.0,
+   "thickness": 0.0,
+   "ior": 2.33,
+   "specularIntensity": 1.0,
+   "specularColor": [
+    0.8,
+    0.92,
+    1.0
+   ],
+   "specularColorSpace": "linear",
+   "envMapIntensity": 1.0,
+   "side": "double",
+   "transparent": false,
+   "fallback": {
+    "hex": "#2A3238",
+    "opacity": 0.7,
+    "metalness": 0.0,
+    "roughness": 0.04,
+    "envMapIntensity": 1.6
+   },
+   "tint_linear": [
+    0.2582,
+    0.3005,
+    0.2918
+   ],
+   "tint_Y": 0.2909,
+   "f0_luminance": 0.1436,
+   "ior_for_rext": 2.618,
+   "vlt_effective_threejs": 0.2491,
+   "tint_for_vlt_threejs": "#97A2A0"
+  }
+ },
+ "GL02_SPANDREL": {
+  "hex": "#2B2F33",
+  "metalness": 0.0,
+  "roughness": 0.05,
+  "Y": 0.0279,
+  "clearcoat": 1.0,
+  "clearcoatRoughness": 0.02,
+  "linear": [
+   0.0242,
+   0.0284,
+   0.0331
+  ],
+  "category": "vmu",
+  "confidence": "medium",
+  "glass": {
+   "opaque": true,
+   "transmission": 0.0,
+   "ior": 2.2,
+   "specularIntensity": 1.0,
+   "specularColor": [
+    0.8,
+    0.92,
+    1.0
+   ],
+   "specularColorSpace": "linear",
+   "f0_luminance": 0.1266
+  }
+ },
+ "GL03_VISION_B": {
+  "hex": "#ADB2B0",
+  "metalness": 0.0,
+  "roughness": 0.02,
+  "Y": 0.4386,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4342
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "glass": {
+   "vlt": 0.42,
+   "rext": 0.14,
+   "rint": 0.14,
+   "tint": "#ADB2B0",
+   "transmission": 1.0,
+   "thickness": 0.0,
+   "ior": 2.33,
+   "specularIntensity": 1.0,
+   "specularColor": [
+    0.85,
+    0.93,
+    1.0
+   ],
+   "specularColorSpace": "linear",
+   "envMapIntensity": 1.0,
+   "side": "double",
+   "transparent": false,
+   "fallback": {
+    "hex": "#2A3238",
+    "opacity": 0.58,
+    "metalness": 0.0,
+    "roughness": 0.04,
+    "envMapIntensity": 1.6
+   },
+   "tint_linear": [
+    0.4179,
+    0.4452,
+    0.4342
+   ],
+   "tint_Y": 0.4386,
+   "f0_luminance": 0.1464,
+   "ior_for_rext": 2.281,
+   "vlt_effective_threejs": 0.3744,
+   "tint_for_vlt_threejs": "#B6BBB9"
+  }
+ },
+ "GL_DOOR": {
+  "hex": "#B4BAB8",
+  "metalness": 0.0,
+  "roughness": 0.02,
+  "Y": 0.4828,
+  "linear": [
+   0.4564,
+   0.491,
+   0.4793
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "glass": {
+   "vlt": 0.48,
+   "rext": 0.14,
+   "rint": 0.11,
+   "tint": "#B4BAB8",
+   "transmission": 1.0,
+   "thickness": 0.0,
+   "ior": 2.2,
+   "specularIntensity": 1.0,
+   "specularColor": [
+    0.85,
+    0.93,
+    1.0
+   ],
+   "specularColorSpace": "linear",
+   "envMapIntensity": 1.0,
+   "side": "double",
+   "transparent": false,
+   "fallback": {
+    "hex": "#2A3238",
+    "opacity": 0.52,
+    "metalness": 0.0,
+    "roughness": 0.04,
+    "envMapIntensity": 1.6
+   },
+   "tint_linear": [
+    0.4564,
+    0.491,
+    0.4793
+   ],
+   "tint_Y": 0.4828,
+   "f0_luminance": 0.1291,
+   "ior_for_rext": 2.281,
+   "vlt_effective_threejs": 0.4205,
+   "tint_for_vlt_threejs": "#BFC5C3"
+  }
+ },
+ "SEALANT_BLACK": {
+  "hex": "#141516",
+  "metalness": 0.0,
+  "roughness": 0.7,
+  "Y": 0.0074,
+  "linear": [
+   0.007,
+   0.0075,
+   0.008
+  ],
+  "category": "vmu",
+  "confidence": "high"
+ },
+ "GMS_RIBBED": {
+  "hex": "#A7ACAE",
+  "metalness": 0.8,
+  "roughness": 0.5,
+  "Y": 0.4078,
+  "linear": [
+   0.3864,
+   0.4125,
+   0.4233
+  ],
+  "category": "vmu",
+  "confidence": "medium",
+  "procedural": {
+   "type": "ribs_normal",
+   "slot": "normalMap",
+   "axis": "vertical",
+   "pitch_m": 0.21,
+   "depth_m": 0.025,
+   "profile": "trapezoidal"
+  }
+ },
+ "PRECAST_FORMLINER": {
+  "hex": "#B0A89E",
+  "hex_sci": "#B1A99F",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.397,
+  "Y_sci": 0.4004,
+  "Y_sce": 0.3954,
+  "specular_pct": 0.5,
+  "linear": [
+   0.4342,
+   0.3916,
+   0.3419
+  ],
+  "lab_sci": [
+   69.5,
+   1.2,
+   6.0
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "low / high",
+  "textures": {
+   "set": "formliner_rib_ao (generated)",
+   "license": "generated (procedural)",
+   "size_m": 1.0,
+   "roughness_with_map": 0.9,
+   "arm_mean": [
+    0.5448,
+    1.0,
+    0.0
+   ],
+   "armMap": {
+    "file": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAAAECAIAAAD3WM8cAAABU0lEQVR42u2SS0tWYRSFn4EThRBRoUAhL6hRlhfQEEVRoSKsTAhN0bz3KcJnpKCD8hJNDBTth6ZdDLQeD1sOOFEcNIoDi5cXXs7ae63z8EDapFP65Ik8l1cyJm9kUqZkVuYlJ4uyJHl5J+9lVfx3yod5MuKtzMl0LDAsg/JU+qVL2qVF7km9VEul3JJSeZyuPSoT8e1c+CykOvdMsozLiLwMzyRvhxRIodyQEikPw8S2SurkrjSl5fTGlJNUpxf050r9vUQL0epMlDwehb+OvEmKIRmQR9ITG7ZEqFzUviYb8ll2ZFf25UC+xrknX+Lpg6yEf2L7QiqkRu7IfWmVh9Hk+b9+Jr+voeNUv1L9lB+h73Ikh/JNmqVRGqRWbsfcm1ImxVIk3RFqJCIvxYbr8lG2ZFs+xWUzll8PtJYDhplohozRjNGM0YzRjNGM0YzR/5rRM8OSaVDpgxI9AAAAAElFTkSuQmCC",
+    "colorSpace": "linear",
+    "channels": "R = groove AO pre-compensated for the viewer aoMapIntensity 0.7 (effective = physical E), G = 255 (roughness x 1), B = 0"
+   }
+  },
+  "procedural": {
+   "type": "ribs_normal",
+   "slot": "normalMap",
+   "axis": "vertical",
+   "pitch_m": 0.045,
+   "depth_m": 0.02,
+   "rib_w_m": 0.025,
+   "groove_w_m": 0.02,
+   "depths_m": [
+    0.02,
+    0.015,
+    0.01
+   ],
+   "profile": "rectangular"
+  },
+  "range": {
+   "lighter_est": "#C1B8B9",
+   "darker_est": "#A49C9D",
+   "Y": [
+    0.341,
+    0.491
+   ]
+  }
+ },
+ "RC_PLAIN": {
+  "hex": "#8A8C8A",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.2599,
+  "linear": [
+   0.2542,
+   0.2623,
+   0.2542
+  ],
+  "category": "vmu",
+  "confidence": "low"
+ },
+ "PLYWOOD": {
+  "hex": "#A88760",
+  "metalness": 0.0,
+  "roughness": 0.8,
+  "Y": 0.265,
+  "linear": [
+   0.3916,
+   0.2423,
+   0.117
+  ],
+  "category": "vmu",
+  "confidence": "medium"
+ },
+ "CTX_CONCRETE_YARD": {
+  "hex": "#C4B8A3",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.4866,
+  "linear": [
+   0.552,
+   0.4793,
+   0.3663
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "textures": {
+   "set": "brushed_concrete",
+   "license": "CC0 Poly Haven brushed_concrete (Dario Barresi, Dimitrios Savva)",
+   "size_m": 2.5,
+   "roughness_with_map": 1.148,
+   "map_mean_linear": [
+    0.1485,
+    0.1274,
+    0.0996
+   ],
+   "color_with_map_linear": [
+    3.717,
+    3.762,
+    3.677
+   ],
+   "arm_mean": [
+    0.892,
+    0.784,
+    0.007
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/brushed_concrete/brushed_concrete_diff_2k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_nor_gl_2k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_arm_2k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CTX_CONCRETE_YARD_DAMP": {
+  "hex": "#8F8A82",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.2563,
+  "linear": [
+   0.2747,
+   0.2542,
+   0.2232
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "textures": {
+   "set": "brushed_concrete",
+   "license": "CC0 Poly Haven brushed_concrete (Dario Barresi, Dimitrios Savva)",
+   "size_m": 2.5,
+   "roughness_with_map": 0.702,
+   "map_mean_linear": [
+    0.1485,
+    0.1274,
+    0.0996
+   ],
+   "color_with_map_linear": [
+    1.85,
+    1.995,
+    2.241
+   ],
+   "arm_mean": [
+    0.892,
+    0.784,
+    0.007
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/brushed_concrete/brushed_concrete_diff_2k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_nor_gl_2k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_arm_2k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CTX_HOARDING": {
+  "hex": "#9AA0A0",
+  "metalness": 0.5,
+  "roughness": 0.5,
+  "Y": 0.3455,
+  "linear": [
+   0.3231,
+   0.3515,
+   0.3515
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.661,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    2.125,
+    1.926,
+    1.936
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CTX_GANTRY_LEG": {
+  "hex": "#9FB8C2",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.4555,
+  "linear": [
+   0.3467,
+   0.4793,
+   0.5395
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_GANTRY_GIRDER": {
+  "hex": "#DFE3E4",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.7623,
+  "linear": [
+   0.7379,
+   0.7682,
+   0.7758
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_SAFETY_YELLOW": {
+  "hex": "#D4A630",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.4148,
+  "linear": [
+   0.6584,
+   0.3813,
+   0.0296
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_RED_LINE": {
+  "hex": "#C8504A",
+  "metalness": 0.0,
+  "roughness": 0.8,
+  "Y": 0.1851,
+  "linear": [
+   0.5776,
+   0.0802,
+   0.0685
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_RAIL": {
+  "hex": "#8B7B63",
+  "metalness": 0.2,
+  "roughness": 0.7,
+  "Y": 0.2056,
+  "linear": [
+   0.2582,
+   0.1981,
+   0.1248
+  ],
+  "category": "context",
+  "confidence": "medium / low"
+ },
+ "CTX_FACTORY_RC": {
+  "hex": "#CFCFC6",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.6197,
+  "linear": [
+   0.624,
+   0.624,
+   0.5647
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_FACTORY_RC_BASE": {
+  "hex": "#9E9E98",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.3399,
+  "linear": [
+   0.3419,
+   0.3419,
+   0.314
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_CLADDING_RIB": {
+  "hex": "#8A9097",
+  "metalness": 0.3,
+  "roughness": 0.5,
+  "Y": 0.2758,
+  "linear": [
+   0.2542,
+   0.2789,
+   0.3095
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.661,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    1.671,
+    1.528,
+    1.704
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CTX_BAY_VOID": {
+  "hex": "#232629",
+  "metalness": 0.0,
+  "roughness": 0.95,
+  "Y": 0.019,
+  "linear": [
+   0.0168,
+   0.0194,
+   0.0222
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_CONTAINER_WHITE": {
+  "hex": "#D6D8D4",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.6816,
+  "linear": [
+   0.6724,
+   0.6867,
+   0.6584
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_PALM_FROND": {
+  "hex": "#4C5A34",
+  "metalness": 0.0,
+  "roughness": 0.7,
+  "Y": 0.091,
+  "linear": [
+   0.0723,
+   0.1022,
+   0.0343
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_PALM_TRUNK": {
+  "hex": "#9A988E",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.3128,
+  "linear": [
+   0.3231,
+   0.314,
+   0.2705
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_STILLAGE_RED": {
+  "hex": "#8A3A2C",
+  "metalness": 0.0,
+  "roughness": 0.6,
+  "Y": 0.0861,
+  "linear": [
+   0.2542,
+   0.0423,
+   0.0252
+  ],
+  "category": "context",
+  "confidence": "medium"
+ },
+ "CTX_ASPHALT": {
+  "hex": "#6E6D6A",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.1529,
+  "linear": [
+   0.1559,
+   0.1529,
+   0.1441
+  ],
+  "category": "context",
+  "confidence": "low",
+  "textures": {
+   "set": "clean_asphalt",
+   "license": "CC0 Poly Haven clean_asphalt (Dimitrios Savva)",
+   "size_m": 2.1,
+   "roughness_with_map": 1.364,
+   "map_mean_linear": [
+    0.0595,
+    0.0618,
+    0.0621
+   ],
+   "color_with_map_linear": [
+    2.621,
+    2.475,
+    2.321
+   ],
+   "arm_mean": [
+    0.891,
+    0.66,
+    0.005
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/clean_asphalt/clean_asphalt_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/clean_asphalt/clean_asphalt_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/clean_asphalt/clean_asphalt_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CTX_GRASS": {
+  "hex": "#666351",
+  "metalness": 0.0,
+  "roughness": 0.95,
+  "Y": 0.1234,
+  "linear": [
+   0.1329,
+   0.1248,
+   0.0823
+  ],
+  "category": "context",
+  "confidence": "low"
+ },
+ "WHITE": {
+  "hex": "#E8E8E3",
+  "metalness": 0.0,
+  "roughness": 0.8,
+  "Y": 0.8042,
+  "linear": [
+   0.807,
+   0.807,
+   0.7682
+  ],
+  "confidence": "low"
+ },
+ "CTX_RC_BARE": {
+  "hex": "#979A98",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.3196,
+  "linear": [
+   0.3095,
+   0.3231,
+   0.314
+  ],
+  "confidence": "low"
+ },
+ "CTX_GATE_BROWN": {
+  "hex": "#3A2E24",
+  "metalness": 0.3,
+  "roughness": 0.6,
+  "Y": 0.0298,
+  "linear": [
+   0.0423,
+   0.0273,
+   0.0176
+  ],
+  "confidence": "low"
+ },
+ "CTX_YELLOW_LINE": {
+  "hex": "#D4A630",
+  "metalness": 0.0,
+  "roughness": 0.8,
+  "Y": 0.4148,
+  "linear": [
+   0.6584,
+   0.3813,
+   0.0296
+  ],
+  "confidence": "low"
+ },
+ "CTX_ROAD_MARKING_WHITE": {
+  "hex": "#D8D8D0",
+  "metalness": 0.0,
+  "roughness": 0.7,
+  "Y": 0.6826,
+  "linear": [
+   0.6867,
+   0.6867,
+   0.6308
+  ],
+  "confidence": "low"
+ },
+ "CTX_KERB": {
+  "hex": "#B9B6AE",
+  "metalness": 0.0,
+  "roughness": 0.85,
+  "Y": 0.4683,
+  "linear": [
+   0.4851,
+   0.4678,
+   0.4233
+  ],
+  "confidence": "low"
+ },
+ "CTX_BLDG_WHITE": {
+  "hex": "#DCD8CD",
+  "metalness": 0.0,
+  "roughness": 0.85,
+  "Y": 0.6874,
+  "linear": [
+   0.7157,
+   0.6867,
+   0.6105
+  ],
+  "confidence": "medium"
+ },
+ "CTX_ROOF_METAL": {
+  "hex": "#9AA0A0",
+  "metalness": 0.5,
+  "roughness": 0.45,
+  "Y": 0.3455,
+  "linear": [
+   0.3231,
+   0.3515,
+   0.3515
+  ],
+  "confidence": "low",
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.594,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    2.125,
+    1.926,
+    1.936
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CONCRETE_YARD": {
+  "hex": "#C4B8A3",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.4866,
+  "linear": [
+   0.552,
+   0.4793,
+   0.3663
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_CONCRETE_YARD",
+  "legacy": false,
+  "textures": {
+   "set": "brushed_concrete",
+   "license": "CC0 Poly Haven brushed_concrete (Dario Barresi, Dimitrios Savva)",
+   "size_m": 2.5,
+   "roughness_with_map": 1.148,
+   "map_mean_linear": [
+    0.1485,
+    0.1274,
+    0.0996
+   ],
+   "color_with_map_linear": [
+    3.717,
+    3.762,
+    3.677
+   ],
+   "arm_mean": [
+    0.892,
+    0.784,
+    0.007
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/brushed_concrete/brushed_concrete_diff_2k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_nor_gl_2k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_arm_2k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "HOARDING": {
+  "hex": "#9AA0A0",
+  "metalness": 0.5,
+  "roughness": 0.5,
+  "Y": 0.3455,
+  "linear": [
+   0.3231,
+   0.3515,
+   0.3515
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_HOARDING",
+  "legacy": false,
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.661,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    2.125,
+    1.926,
+    1.936
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "GANTRY_LEG": {
+  "hex": "#9FB8C2",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.4555,
+  "linear": [
+   0.3467,
+   0.4793,
+   0.5395
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_GANTRY_LEG",
+  "legacy": false
+ },
+ "GANTRY_GIRDER": {
+  "hex": "#DFE3E4",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.7623,
+  "linear": [
+   0.7379,
+   0.7682,
+   0.7758
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_GANTRY_GIRDER",
+  "legacy": false
+ },
+ "SAFETY_YELLOW": {
+  "hex": "#D4A630",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.4148,
+  "linear": [
+   0.6584,
+   0.3813,
+   0.0296
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_SAFETY_YELLOW",
+  "legacy": false
+ },
+ "RED_LINE": {
+  "hex": "#C8504A",
+  "metalness": 0.0,
+  "roughness": 0.8,
+  "Y": 0.1851,
+  "linear": [
+   0.5776,
+   0.0802,
+   0.0685
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_RED_LINE",
+  "legacy": false
+ },
+ "RAIL": {
+  "hex": "#8B7B63",
+  "metalness": 0.2,
+  "roughness": 0.7,
+  "Y": 0.2056,
+  "linear": [
+   0.2582,
+   0.1981,
+   0.1248
+  ],
+  "category": "context",
+  "confidence": "medium / low",
+  "alias_of": "CTX_RAIL",
+  "legacy": false
+ },
+ "FACTORY_RC": {
+  "hex": "#CFCFC6",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.6197,
+  "linear": [
+   0.624,
+   0.624,
+   0.5647
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_FACTORY_RC",
+  "legacy": false
+ },
+ "CLADDING_RIB": {
+  "hex": "#8A9097",
+  "metalness": 0.3,
+  "roughness": 0.5,
+  "Y": 0.2758,
+  "linear": [
+   0.2542,
+   0.2789,
+   0.3095
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_CLADDING_RIB",
+  "legacy": false,
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.661,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    1.671,
+    1.528,
+    1.704
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "BAY_VOID": {
+  "hex": "#232629",
+  "metalness": 0.0,
+  "roughness": 0.95,
+  "Y": 0.019,
+  "linear": [
+   0.0168,
+   0.0194,
+   0.0222
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_BAY_VOID",
+  "legacy": false
+ },
+ "CONTAINER_WHITE": {
+  "hex": "#D6D8D4",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.6816,
+  "linear": [
+   0.6724,
+   0.6867,
+   0.6584
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_CONTAINER_WHITE",
+  "legacy": false
+ },
+ "PALM_FROND": {
+  "hex": "#4C5A34",
+  "metalness": 0.0,
+  "roughness": 0.7,
+  "Y": 0.091,
+  "linear": [
+   0.0723,
+   0.1022,
+   0.0343
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_PALM_FROND",
+  "legacy": false
+ },
+ "PALM_TRUNK": {
+  "hex": "#9A988E",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.3128,
+  "linear": [
+   0.3231,
+   0.314,
+   0.2705
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_PALM_TRUNK",
+  "legacy": false
+ },
+ "STILLAGE_RED": {
+  "hex": "#8A3A2C",
+  "metalness": 0.0,
+  "roughness": 0.6,
+  "Y": 0.0861,
+  "linear": [
+   0.2542,
+   0.0423,
+   0.0252
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_STILLAGE_RED",
+  "legacy": false
+ },
+ "ASPHALT": {
+  "hex": "#6E6D6A",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.1529,
+  "linear": [
+   0.1559,
+   0.1529,
+   0.1441
+  ],
+  "category": "context",
+  "confidence": "low",
+  "alias_of": "CTX_ASPHALT",
+  "legacy": false,
+  "textures": {
+   "set": "clean_asphalt",
+   "license": "CC0 Poly Haven clean_asphalt (Dimitrios Savva)",
+   "size_m": 2.1,
+   "roughness_with_map": 1.364,
+   "map_mean_linear": [
+    0.0595,
+    0.0618,
+    0.0621
+   ],
+   "color_with_map_linear": [
+    2.621,
+    2.475,
+    2.321
+   ],
+   "arm_mean": [
+    0.891,
+    0.66,
+    0.005
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/clean_asphalt/clean_asphalt_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/clean_asphalt/clean_asphalt_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/clean_asphalt/clean_asphalt_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "GRASS": {
+  "hex": "#666351",
+  "metalness": 0.0,
+  "roughness": 0.95,
+  "Y": 0.1234,
+  "linear": [
+   0.1329,
+   0.1248,
+   0.0823
+  ],
+  "category": "context",
+  "confidence": "low",
+  "alias_of": "CTX_GRASS",
+  "legacy": false
+ },
+ "CONCRETE_YARD_DAMP": {
+  "hex": "#8F8A82",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.2563,
+  "linear": [
+   0.2747,
+   0.2542,
+   0.2232
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_CONCRETE_YARD_DAMP",
+  "legacy": false,
+  "textures": {
+   "set": "brushed_concrete",
+   "license": "CC0 Poly Haven brushed_concrete (Dario Barresi, Dimitrios Savva)",
+   "size_m": 2.5,
+   "roughness_with_map": 0.702,
+   "map_mean_linear": [
+    0.1485,
+    0.1274,
+    0.0996
+   ],
+   "color_with_map_linear": [
+    1.85,
+    1.995,
+    2.241
+   ],
+   "arm_mean": [
+    0.892,
+    0.784,
+    0.007
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/brushed_concrete/brushed_concrete_diff_2k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_nor_gl_2k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/brushed_concrete/brushed_concrete_arm_2k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "FACTORY_RC_BASE": {
+  "hex": "#9E9E98",
+  "metalness": 0.0,
+  "roughness": 0.9,
+  "Y": 0.3399,
+  "linear": [
+   0.3419,
+   0.3419,
+   0.314
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_FACTORY_RC_BASE",
+  "legacy": false
+ },
+ "GLASS": {
+  "hex": "#8B9593",
+  "metalness": 0.0,
+  "roughness": 0.02,
+  "Y": 0.2909,
+  "linear": [
+   0.2582,
+   0.3005,
+   0.2918
+  ],
+  "category": "vmu",
+  "confidence": "high / medium",
+  "alias_of": "GL01_VISION",
+  "legacy": true,
+  "glass": {
+   "vlt": 0.3,
+   "rext": 0.18,
+   "rint": null,
+   "tint": "#8B9593",
+   "transmission": 1.0,
+   "thickness": 0.0,
+   "ior": 2.33,
+   "specularIntensity": 1.0,
+   "specularColor": [
+    0.8,
+    0.92,
+    1.0
+   ],
+   "specularColorSpace": "linear",
+   "envMapIntensity": 1.0,
+   "side": "double",
+   "transparent": false,
+   "fallback": {
+    "hex": "#2A3238",
+    "opacity": 0.7,
+    "metalness": 0.0,
+    "roughness": 0.04,
+    "envMapIntensity": 1.6
+   },
+   "tint_linear": [
+    0.2582,
+    0.3005,
+    0.2918
+   ],
+   "tint_Y": 0.2909,
+   "f0_luminance": 0.1436,
+   "ior_for_rext": 2.618,
+   "vlt_effective_threejs": 0.2491,
+   "tint_for_vlt_threejs": "#97A2A0"
+  }
+ },
+ "ALU_DARK": {
+  "hex": "#4B5055",
+  "hex_sci": "#51585C",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.0789,
+  "Y_sci": 0.0948,
+  "Y_sce": 0.078,
+  "specular_pct": 1.7,
+  "gloss60_GU": 18.9,
+  "linear": [
+   0.0704,
+   0.0802,
+   0.0908
+  ],
+  "lab_sci": [
+   36.9,
+   -1.5,
+   -3.3
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / medium / low",
+  "alias_of": "AL_T02",
+  "legacy": true
+ },
+ "ALU_DARK2": {
+  "hex": "#414A52",
+  "hex_sci": "#4C555D",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.0663,
+  "Y_sci": 0.0881,
+  "Y_sce": 0.0658,
+  "specular_pct": 2.23,
+  "gloss60_GU": 26,
+  "linear": [
+   0.0529,
+   0.0685,
+   0.0844
+  ],
+  "lab_sci": [
+   35.62,
+   -1.2,
+   -6.1
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / low-medium",
+  "alias_of": "AL_T01",
+  "legacy": true
+ },
+ "ALU_SILVER": {
+  "hex": "#A8AAA4",
+  "hex_sci": "#ABADA7",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.3975,
+  "Y_sci": 0.4115,
+  "Y_sce": 0.3965,
+  "specular_pct": 1.5,
+  "lrv": 0.4115,
+  "linear": [
+   0.3916,
+   0.402,
+   0.3712
+  ],
+  "lab_sci": [
+   70.28,
+   -1.85,
+   2.84
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "AL_RAL7038",
+  "legacy": true
+ },
+ "ALU_WARMGREY": {
+  "hex": "#A8AAA4",
+  "hex_sci": "#ABADA7",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.3975,
+  "Y_sci": 0.4115,
+  "Y_sce": 0.3965,
+  "specular_pct": 1.5,
+  "lrv": 0.4115,
+  "linear": [
+   0.3916,
+   0.402,
+   0.3712
+  ],
+  "lab_sci": [
+   70.28,
+   -1.85,
+   2.84
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "AL_RAL7038",
+  "legacy": true
+ },
+ "WOODGRAIN": {
+  "hex": "#D0B282",
+  "hex_sci": "#D2B484",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.4686,
+  "Y_sci": 0.4816,
+  "Y_sce": 0.4666,
+  "specular_pct": 1.5,
+  "clearcoat": 0.0,
+  "linear": [
+   0.6308,
+   0.4452,
+   0.2232
+  ],
+  "lab_sci": [
+   74.93,
+   4.16,
+   28.4
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high / medium",
+  "alias_of": "AL_WOOD",
+  "legacy": true,
+  "procedural": {
+   "type": "woodgrain",
+   "slot": "map",
+   "grain_axis": "along member (vertical)",
+   "value_amplitude": 0.08,
+   "value_amplitude_range": [
+    0.06,
+    0.1
+   ],
+   "grain_period_m": [
+    0.004,
+    0.012
+   ]
+  }
+ },
+ "STEEL_GALV": {
+  "hex": "#ADB2B4",
+  "metalness": 0.85,
+  "roughness": 0.5,
+  "Y": 0.4402,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4564
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "STEEL_HDG",
+  "legacy": true,
+  "textures": {
+   "set": "Metal009",
+   "license": "CC0 ambientCG Metal009",
+   "size_m": 0.5,
+   "roughness_map_mean": 0.469,
+   "roughness_with_map": 1.066,
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "roughnessMap": {
+    "file": "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg",
+    "colorSpace": "linear"
+   }
+  }
+ },
+ "STEEL_DARK": {
+  "hex": "#ADB2B4",
+  "metalness": 0.85,
+  "roughness": 0.5,
+  "Y": 0.4402,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4564
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "STEEL_HDG",
+  "legacy": true,
+  "textures": {
+   "set": "Metal009",
+   "license": "CC0 ambientCG Metal009",
+   "size_m": 0.5,
+   "roughness_map_mean": 0.469,
+   "roughness_with_map": 1.066,
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "roughnessMap": {
+    "file": "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg",
+    "colorSpace": "linear"
+   }
+  }
+ },
+ "STAINLESS": {
+  "hex": "#C4C6C8",
+  "metalness": 1.0,
+  "roughness": 0.3,
+  "Y": 0.5629,
+  "anisotropy": 0.0,
+  "linear": [
+   0.552,
+   0.5647,
+   0.5776
+  ],
+  "category": "vmu",
+  "confidence": "medium",
+  "alias_of": "SS_BRUSHED",
+  "legacy": true
+ },
+ "ALU_MILL": {
+  "hex": "#C9CED2",
+  "metalness": 1.0,
+  "roughness": 0.4,
+  "Y": 0.6121,
+  "linear": [
+   0.5841,
+   0.6172,
+   0.6445
+  ],
+  "category": "vmu",
+  "confidence": "medium",
+  "alias_of": "AL_MILL",
+  "legacy": true
+ },
+ "EXT_CANOPY_ALU": {
+  "hex": "#A8AAA4",
+  "hex_sci": "#ABADA7",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.3975,
+  "Y_sci": 0.4115,
+  "Y_sce": 0.3965,
+  "specular_pct": 1.5,
+  "lrv": 0.4115,
+  "linear": [
+   0.3916,
+   0.402,
+   0.3712
+  ],
+  "lab_sci": [
+   70.28,
+   -1.85,
+   2.84
+  ],
+  "colour_basis": "SCE",
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "AL_RAL7038",
+  "legacy": true
+ },
+ "EXT_CANOPY_STEEL": {
+  "hex": "#ADB2B4",
+  "metalness": 0.85,
+  "roughness": 0.5,
+  "Y": 0.4402,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4564
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "STEEL_HDG",
+  "legacy": true,
+  "textures": {
+   "set": "Metal009",
+   "license": "CC0 ambientCG Metal009",
+   "size_m": 0.5,
+   "roughness_map_mean": 0.469,
+   "roughness_with_map": 1.066,
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "roughnessMap": {
+    "file": "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg",
+    "colorSpace": "linear"
+   }
+  }
+ },
+ "EXT_CANOPY_COLUMN": {
+  "hex": "#ADB2B4",
+  "metalness": 0.85,
+  "roughness": 0.5,
+  "Y": 0.4402,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4564
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "STEEL_HDG",
+  "legacy": true,
+  "textures": {
+   "set": "Metal009",
+   "license": "CC0 ambientCG Metal009",
+   "size_m": 0.5,
+   "roughness_map_mean": 0.469,
+   "roughness_with_map": 1.066,
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "roughnessMap": {
+    "file": "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg",
+    "colorSpace": "linear"
+   }
+  }
+ },
+ "CTX_STEEL_GALV": {
+  "hex": "#ADB2B4",
+  "metalness": 0.85,
+  "roughness": 0.5,
+  "Y": 0.4402,
+  "linear": [
+   0.4179,
+   0.4452,
+   0.4564
+  ],
+  "category": "vmu",
+  "confidence": "high",
+  "alias_of": "STEEL_HDG",
+  "legacy": true,
+  "textures": {
+   "set": "Metal009",
+   "license": "CC0 ambientCG Metal009",
+   "size_m": 0.5,
+   "roughness_map_mean": 0.469,
+   "roughness_with_map": 1.066,
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "roughnessMap": {
+    "file": "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg",
+    "colorSpace": "linear"
+   }
+  }
+ },
+ "CTX_GANTRY_BLUE": {
+  "hex": "#9FB8C2",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.4555,
+  "linear": [
+   0.3467,
+   0.4793,
+   0.5395
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_GANTRY_LEG",
+  "legacy": true
+ },
+ "CTX_HOARDING_GREEN": {
+  "hex": "#9AA0A0",
+  "metalness": 0.5,
+  "roughness": 0.5,
+  "Y": 0.3455,
+  "linear": [
+   0.3231,
+   0.3515,
+   0.3515
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_HOARDING",
+  "legacy": true,
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.661,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    2.125,
+    1.926,
+    1.936
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ },
+ "CTX_YELLOW_STEEL": {
+  "hex": "#D4A630",
+  "metalness": 0.0,
+  "roughness": 0.55,
+  "Y": 0.4148,
+  "linear": [
+   0.6584,
+   0.3813,
+   0.0296
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_SAFETY_YELLOW",
+  "legacy": true
+ },
+ "CTX_RED_STEEL": {
+  "hex": "#8A3A2C",
+  "metalness": 0.0,
+  "roughness": 0.6,
+  "Y": 0.0861,
+  "linear": [
+   0.2542,
+   0.0423,
+   0.0252
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_STILLAGE_RED",
+  "legacy": true
+ },
+ "CTX_CONTAINER_0": {
+  "hex": "#D6D8D4",
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "Y": 0.6816,
+  "linear": [
+   0.6724,
+   0.6867,
+   0.6584
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_CONTAINER_WHITE",
+  "legacy": true
+ },
+ "CTX_WALL_CLAD": {
+  "hex": "#8A9097",
+  "metalness": 0.3,
+  "roughness": 0.5,
+  "Y": 0.2758,
+  "linear": [
+   0.2542,
+   0.2789,
+   0.3095
+  ],
+  "category": "context",
+  "confidence": "medium",
+  "alias_of": "CTX_CLADDING_RIB",
+  "legacy": true,
+  "textures": {
+   "set": "corrugated_iron_03",
+   "license": "CC0 Poly Haven corrugated_iron_03 (Charlotte Baglioni)",
+   "size_m": 2.0,
+   "roughness_with_map": 0.661,
+   "map_mean_linear": [
+    0.1521,
+    0.1825,
+    0.1816
+   ],
+   "color_with_map_linear": [
+    1.671,
+    1.528,
+    1.704
+   ],
+   "arm_mean": [
+    0.838,
+    0.757,
+    0.001
+   ],
+   "uv": "UVs in metres; repeat = 1/size_m",
+   "map": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg",
+    "colorSpace": "srgb"
+   },
+   "normalMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg",
+    "colorSpace": "linear",
+    "convention": "OpenGL (+Y)"
+   },
+   "armMap": {
+    "file": "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg",
+    "colorSpace": "linear",
+    "channels": "R=AO, G=roughness, B=metalness"
+   }
+  }
+ }
+}

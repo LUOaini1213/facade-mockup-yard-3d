@@ -1,0 +1,12 @@
+# normalise line endings of text files; the Windows launcher keeps CRLF
+* text=auto
+*.bat text eol=crlf
+
+# binary data: no line-ending conversion, no text diff
+*.glb binary
+*.3dm binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.hdr binary
+*.exr binary

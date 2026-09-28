@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# logs
+*.log
+
+# scratch and temporary output
+scratch/
+_scratch/
+tmp/
+*.tmp
+
+# build intermediates written next to the build scripts (derived from inputs that are not published)
+build/*.npy
+build/*.pkl
+build/*.json
+build/*.png
+build/_selftest/
+model/*_summary.json
+
+# confidential inputs must never be committed (the build scripts read them from MOCKUP_SOURCES)
+/sources
+/research
+/photos
+
+# editor / OS
+.vscode/
+.idea/
+.claude/
+Thumbs.db
+desktop.ini
+.DS_Store

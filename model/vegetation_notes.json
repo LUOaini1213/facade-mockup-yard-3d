@@ -1,0 +1,56 @@
+{
+ "about": "Instanced-vegetation parameters read by viewer.js (royal palm, columnar tree). Units: m.",
+ "royal_palm": {
+  "heights": {
+   "h": "overall palm height (JSON palms[].h); h_crown = frond attachment height"
+  },
+  "fronds": {
+   "colour": "#4C5A34",
+   "count": [
+    14,
+    18
+   ],
+   "length": [
+    3.2,
+    4.2
+   ],
+   "leaflets": "pinnate, 0.6-0.9 m long, drooping at 30-50 deg",
+   "colour_variation": "old #6B6A45, dead #8A7A55",
+   "spear_leaf": {
+    "length": 1.4,
+    "width": 0.14
+   }
+  },
+  "trunk": {
+   "colour": "#9A988E",
+   "radius_base": 0.26,
+   "radius_top": 0.21,
+   "bulge": {
+    "radius": 0.28,
+    "at_fraction": 0.45
+   },
+   "flare": {
+    "radius": 0.34,
+    "height": 0.6
+   }
+  },
+  "crownshaft": {
+   "colour": "#667A40",
+   "roughness": 0.45,
+   "length": 1.6,
+   "radius_base": 0.235,
+   "radius_top": 0.2
+  }
+ },
+ "polyalthia": {
+  "crown": {
+   "colour": "#34482B",
+   "roughness": 0.65,
+   "bottom": 0.6
+  },
+  "trunk": {
+   "colour": "#5E5A50",
+   "radius": 0.08
+  }
+ }
+}

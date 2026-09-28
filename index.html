@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VMU 样板场地</title>
+<style>
+:root{--bg:#0f1418;--panel:rgba(18,24,29,.86);--line:rgba(255,255,255,.12);--text:#e8edf0;--muted:#9fb0ba;--accent:#58b4d1;--hl:#29d3ff;--warn:#ffcf5a}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:13px/1.45 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;overflow:hidden}
+#app{position:fixed;inset:0}
+#app canvas{display:block}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--line);border-radius:10px;backdrop-filter:blur(8px)}
+#side{top:12px;left:12px;width:300px;max-height:calc(100% - 24px);overflow:auto;padding:14px 14px 10px}
+#side h1{font-size:16px;margin:0 0 2px;letter-spacing:.2px}
+#side .sub{color:var(--muted);font-size:12px;margin-bottom:10px}
+.sec{border-top:1px solid var(--line);padding:9px 0 8px}
+.sec h2{font-size:12px;font-weight:600;color:var(--muted);margin:0 0 7px;letter-spacing:.4px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.btns.one{grid-template-columns:1fr}
+button,select{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);border-radius:6px;padding:6px 7px;font:inherit;cursor:pointer;text-align:left}
+select option{background:#1b2227;color:var(--text)}
+button:hover{background:rgba(88,180,209,.16);border-color:rgba(88,180,209,.5)}
+button.on{background:rgba(88,180,209,.22);border-color:var(--accent)}
+button.hl.on{background:rgba(41,211,255,.18);border-color:var(--hl);box-shadow:inset 0 0 0 1px rgba(41,211,255,.35)}
+button:disabled{opacity:.45;cursor:default}
+label.tg{display:flex;align-items:center;gap:8px;margin:4px 0;cursor:pointer}
+label.tg input{accent-color:var(--accent)}
+.row{display:flex;align-items:center;gap:8px;margin:5px 0}
+.row input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
+.row input[type=date]{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);border-radius:5px;padding:3px 5px;font:inherit}
+.row .k{min-width:62px;color:var(--muted);font-size:12px}
+.val{min-width:78px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.val.s{min-width:44px}
+.note{color:var(--muted);font-size:11.5px}
+.note b{color:var(--text);font-weight:600}
+.warn{display:none;margin-top:6px;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,207,90,.55);background:rgba(255,207,90,.1);color:#ffe7a8;font-size:11.5px}
+.warn code{color:#fff;background:rgba(0,0,0,.35);padding:0 3px;border-radius:3px}
+#info{right:12px;top:12px;width:320px;padding:12px 14px;display:none;max-height:calc(100% - 140px);overflow:auto}
+#info h3{margin:0 0 6px;font-size:14px}
+#info table{width:100%;border-collapse:collapse;font-size:12px}
+#info td{padding:3px 0;border-bottom:1px solid var(--line);vertical-align:top;word-break:break-word}
+#info td:first-child{color:var(--muted);width:86px}
+#info .sw{display:inline-block;width:11px;height:11px;border-radius:2px;border:1px solid rgba(255,255,255,.4);vertical-align:-1px;margin-right:4px}
+#stats{right:12px;bottom:12px;padding:6px 10px;font-size:11px;color:var(--muted);max-width:min(620px,calc(50% - 175px))}
+#compass{right:12px;bottom:74px;width:62px;height:62px;border-radius:50%;padding:0}
+#compass svg{width:100%;height:100%}
+#loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:var(--bg);z-index:10}
+#bar{width:300px;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+#bar i{display:block;height:100%;width:0;background:var(--accent)}
+.lbl{padding:3px 7px;border-radius:5px;background:rgba(15,20,24,.78);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;white-space:nowrap;pointer-events:none}
+.lbl.ext{background:rgba(15,20,24,.78);border-color:rgba(41,211,255,.7)}
+.lbl.ctx{background:rgba(15,20,24,.55);color:#cfd8dc;font-size:11px}
+.lbl.meas{background:#ffd54a;color:#111;border-color:#111;font-weight:600}
+#ptBar{left:50%;transform:translateX(-50%);top:12px;padding:8px 12px;display:none;align-items:center;gap:10px;font-size:12px;z-index:6;max-width:calc(100% - 660px);min-width:340px;flex-wrap:wrap}
+#ptBar .warn{display:none;margin:0;flex-basis:100%}
+#hint{left:50%;transform:translateX(-50%);bottom:12px;padding:6px 12px;font-size:12px;color:var(--muted)}
+details summary{cursor:pointer;color:var(--muted);font-size:12px}
+details p{margin:6px 0;font-size:11.5px;color:var(--muted)}
+details p b{color:var(--text);font-weight:600}
+@media (max-width:720px){#side{width:calc(100% - 24px);max-height:42%}#info{top:auto;bottom:60px;left:12px;right:12px;width:auto;max-height:calc(58% - 160px)}#ptBar{max-width:calc(100% - 24px);min-width:0}#stats{left:12px;right:12px;max-width:none}#hint{display:none}#compass{bottom:auto;top:calc(42% + 24px)}}
+</style>
+<script type="importmap">{"imports":{
+ "three":"./vendor/three.module.js",
+ "three/addons/":"./vendor/jsm/",
+ "three/examples/jsm/":"./vendor/jsm/",
+ "three-mesh-bvh":"./vendor/three-mesh-bvh/build/index.module.js",
+ "three-gpu-pathtracer":"./vendor/three-gpu-pathtracer/build/index.module.js"
+}}</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="loading"><div>VMU 样板场地模型载入中…</div><div id="bar"><i></i></div><div class="note" id="loadtxt">0%</div></div>
+
+<aside id="side" class="panel">
+  <h1>5 组 VMU 样板场地（完工状态）</h1>
+  <div class="sub">幕墙视觉样板（VMU-01 … VMU-05）· 场地布置与完工状态示意</div>
+
+  <div class="sec"><h2>视角</h2>
+    <div class="btns" id="views"></div>
+  </div>
+
+  <div class="sec"><h2>VMU-01 雨棚（既有 + 新增延伸）</h2>
+    <div class="btns one">
+      <button id="extOutline" class="hl" title="只在新增延伸部分外缘描边，不改变饰面颜色">描边显示新增延伸范围</button>
+    </div>
+    <div class="row" style="margin-top:6px"><span class="k">饰面</span>
+      <div class="btns" style="flex:1"><button id="schemeDefault" class="on" title="默认：vmu01_canopy.glb 自带材质（顶板 Mouse Grey，3 mm 件 T02）">默认饰面</button><button id="schemeRAL" title="备选：顶板与 3 mm 件均 RAL 7038（仅作对比）">RAL 7038 备选</button></div>
+    </div>
+    <div class="note" id="extNote" style="margin-top:4px"></div>
+  </div>
+
+  <div class="sec"><h2>天空与光照</h2>
+    <div class="btns">
+      <button id="hdriOvercast" class="on" title="Poly Haven mud_road_puresky (CC0)：阴天">阴天</button>
+      <button id="hdriSunny" title="Poly Haven kloofendal_48d_partly_cloudy_puresky (CC0)：晴间多云">晴间多云</button>
+    </div>
+    <div class="row"><span class="k">曝光</span><input type="range" id="exposure" min="0.3" max="2.5" step="0.01"><span class="val s" id="expval"></span></div>
+    <div class="row"><span class="k">直射阳光</span><input type="range" id="sunk" min="0" max="1.6" step="0.01"><span class="val s" id="sunkval"></span></div>
+  </div>
+
+  <div class="sec"><h2>日照（1.3°N 103.8°E，UTC+8）</h2>
+    <div class="row"><input type="date" id="date"><span class="val" id="sunval"></span></div>
+    <div class="row"><input type="range" id="time" min="390" max="1170" step="5"><span class="val" id="timeval"></span></div>
+    <label class="tg"><input type="checkbox" id="shadows" checked>阴影</label>
+    <label class="tg"><input type="checkbox" id="ao" checked>环境光遮蔽 (GTAO)</label>
+    <label class="tg"><input type="checkbox" id="smaa" checked>抗锯齿 (SMAA)</label>
+  </div>
+
+  <div class="sec"><h2>显示</h2>
+    <label class="tg"><input type="checkbox" id="showCtx" checked>厂房 / 集装箱 / 围挡 / 龙门吊</label>
+    <label class="tg" title="远景地面为示意（CC0 纹理），非实景影像；场地以外的建筑未建模"><input type="checkbox" id="showSurr" checked>远景地面</label>
+    <label class="tg"><input type="checkbox" id="showVeg" checked>棕榈树 / 树木 / 人物 / 车辆</label>
+    <label class="tg" title="标签互相重叠、被面板遮挡或超出窗口时，自动隐藏低优先级标签（VMU-01…05 优先，其次新增延伸、Trellis、场地标签）；转动视角后重新排布"><input type="checkbox" id="showLbl" checked>标签</label>
+  </div>
+
+  <div class="sec"><h2>照片级静帧（路径追踪）</h2>
+    <div class="row"><span class="k">尺寸</span>
+      <select id="ptSize"><option value="window" selected>当前窗口（像素比 1，长边 ≤ 1920）</option><option value="2400x1500">2400×1500</option><option value="1200x750">1200×750（草图）</option></select>
+    </div>
+    <div class="row"><span class="k">采样数</span>
+      <select id="ptSpp"><option value="64">64（快速）</option><option value="128" selected>128（默认，配合降噪）</option><option value="256">256（最终）</option><option value="1024">1024（精细）</option></select>
+    </div>
+    <div class="row"><span class="k">降噪</span>
+      <select id="ptDen"><option value="auto" selected>自动：Intel OIDN（serve.py），否则浏览器内</option><option value="smart">浏览器内 DenoiseMaterial</option><option value="raw">不降噪</option></select>
+    </div>
+    <div class="btns one"><button id="ptStart">生成当前视角的照片级静帧并保存 PNG</button></div>
+    <div class="note" id="ptNote" style="margin-top:5px">three-gpu-pathtracer 0.0.23，分块渲染。</div>
+    <div class="note" id="ptEst" style="margin-top:3px"></div>
+    <div class="warn" id="ptWarnSide"></div>
+  </div>
+
+  <div class="sec"><h2>工具</h2>
+    <div class="btns">
+      <button id="measure">测距（点两点）</button>
+      <button id="shot">导出截图 PNG</button>
+    </div>
+    <div class="note" style="margin-top:6px">单击构件查看图层 / 饰面 / 可信度。</div>
+  </div>
+
+  <div class="sec">
+    <details><summary>模型、材质与数据说明</summary>
+      <p><b>VMU 几何：</b>VMU-01 塔楼、VMU-03、Trellis = model/vmu_cad.glb；VMU-01 雨棚（既有 + 延伸）= vmu01_canopy.glb；VMU-02、VMU-04、VMU-05 = vmu02.glb、vmu04.glb、vmu05.glb（替换 vmu_cad.glb 中的同名组，无重复）。</p>
+      <p><b>场地：</b>厂房 / 围挡 / 龙门吊 / 高杆灯 / 集装箱 / 观景平台 = site_context.glb；<span id="groundNote">地坪、排水沟、龙门吊轨道与主路路面 = model/site_ground.glb（未找到时以平地坪代替）。</span>主路为通用示意断面，路边棕榈与乔木为程序生成的行列。场地以外的周边建筑未建模；远景地面为示意地面（CC0 沥青纹理），非实景。</p>
+      <p><b>材质：</b>按 model/materials.json 逐名升级为物理材质，下列色值均由查看器从该文件读取<span id="matBasis"></span>：Mouse Grey <span data-mhex="AL_MOUSEGREY"></span>（雨棚蜂窝顶板，RAL 7005 名义值）、T02 <span data-mhex="AL_T02"></span>（雨棚 3 mm 件、塔身框料、Trellis 格栅与百叶）、RAL 7038 <span data-mhex="AL_RAL7038"></span>（VMU-01 翅片、VMU-03）、木纹转印铝 <span data-mhex="AL_WOOD"></span>（地面格栅）、<span id="copingNote">RAL 9016 白（VMU-01 塔顶压顶）</span>、预制混凝土 <span data-mhex="PRECAST_FORMLINER"></span>（VMU-04）、热镀锌（查看器把新镀锌层的镜面环境反射提高 15 %，<code>?hdg=raw</code> 关闭）、GL01 / GL02 / GL03 玻璃等；喷涂铝板金属度 0。纹理：Poly Haven brushed_concrete / clean_asphalt / corrugated_iron_03、ambientCG Metal009（CC0）。场地地坪：干燥处渲染约 #B9B3A8 灰米色，含细骨料颗粒、柔边湿斑、少量轮胎印与油渍；雨棚下 / 集装箱旁按天空可见度变暗（加载时烘焙，<code>?yard=raw</code> / <code>?skyvis=0</code> 可关闭对比）。天空：Poly Haven HDRI（CC0）。</p>
+      <p><b>说明：</b><span id="q4Note">VMU-04 预制混凝土颜色见 model/materials.json（示意值）。</span>日照按 1.3°N 103.8°E、UTC+8 的简化 NOAA 太阳位置计算；模型坐标为以场地原点为准的局部坐标（米），不含地理配准。</p>
+    </details>
+  </div>
+</aside>
+
+<div id="info" class="panel"></div>
+<div id="ptBar" class="panel"><span id="ptStatus">路径追踪准备中…</span><button id="ptSave" disabled>保存 PNG</button><button id="ptExit">返回实时视图</button><div class="warn" id="ptWarn"></div></div>
+<div id="compass" class="panel" title="正北"><svg viewBox="-50 -50 100 100"><circle r="44" fill="none" stroke="rgba(255,255,255,.25)"/><g id="needle"><path d="M0,-38 L8,0 L0,-6 L-8,0Z" fill="#e0342c"/><path d="M0,38 L8,0 L0,6 L-8,0Z" fill="#cfd8dc"/><text y="-22" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">N</text></g></svg></div>
+<div id="stats" class="panel"></div>
+<div id="hint" class="panel">左键旋转 · 右键平移 · 滚轮缩放</div>
+
+<script type="module" src="./viewer.js"></script>
+</body>
+</html>
