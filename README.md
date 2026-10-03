@@ -4,7 +4,8 @@
 
 This is a browser-based 3D model of five facade visual mock-ups (VMU-01 to VMU-05) standing in a precast yard. It shows
 the yard as it will look once all five mock-ups are complete, including the VMU-01 canopy extension. The geometry comes
-from CAD and shop-drawing data. Every finish is driven by one colour table. You can explore the model in real time in
+from CAD and shop-drawing data. Mock-up finishes use a shared colour table; some yard materials use GLB or procedural
+defaults. You can explore the model in real time in
 the web viewer, or render path-traced stills from it.
 
 ## What is in the model
@@ -17,11 +18,12 @@ the web viewer, or render path-traced stills from it.
     platform and high masts, with a generic main road and roadside planting outside the hoarding.
 - **Size.** Seven glTF files hold 2,223,601 triangles. The same model is also provided as a Rhino file:
   `model/vmu_site_future.3dm`, in millimetres, with 236 objects, 245 layers and 44 materials.
-- **Colour table.** `model/materials.json` defines 83 named materials. Thirteen measured finishes have been taken from
-  colour cards and laboratory colour measurements, and each carries both an SCI and an SCE value. The renders use the
-  SCE value (specular component excluded), which is how the eye sees a matt panel. Where a finish is specified by RAL
+- **Colour table.** `model/materials.json` contains 83 named records, including 38 aliases. Thirteen records carry
+  SCI/SCE colour fields: seven canonical entries and six aliases, not thirteen independently measured finishes.
+  These include the indicative VMU-04 precast value. The renders use SCE (specular component excluded).
+  Where a finish is specified by RAL
   number, the number is kept: RAL 7005, RAL 7038 and RAL 9016.
-- **Canopy extension.** The extension is always shown in its specified finish: a Mouse Grey top with T02 3 mm parts.
+- **Canopy extension.** The default finish is a Mouse Grey top with T02 3 mm parts; the RAL 7038 option is an explicit comparison.
   The viewer can draw an outline around it (the outline toggle, or `?outline=1`), but it is never tinted.
 
 ## Run the viewer
@@ -55,6 +57,45 @@ What the viewer does:
     `--use-angle=vulkan`.
 
 The user interface is in Chinese.
+
+### Saving stills locally
+
+The toolbar's PNG export downloads an image through the browser. The scripted `window.__poseShot` and
+`window.__shots` helpers instead use `POST /save?name=<filename>.png` on the local server. They report failed saves
+and restore the interactive camera, render size and labels even when an export fails. An existing file returns
+HTTP 409 by default. To deliberately rerender a fixed filename, pass `{ overwrite: true }` as the helper's final
+options argument; this sends `overwrite=1` and replaces the complete file atomically. The historical
+`build/validate.py` runner uses fixed names without that option, so move its previous outputs aside before repeating
+it (the private source inputs are still required).
+
+The save endpoint accepts PNG data URLs, validates PNG framing and image data, and requires a local Host and matching
+Origin for browser requests. Requests are limited to 64 MiB and expanded PNG image data to 256 MiB. Default saves use
+a temporary file and a hard link to avoid overwriting another save; use a filesystem that supports hard links (for
+example NTFS or ext4). A filesystem failure returns HTTP 500 and does not silently overwrite the destination.
+This is a loopback development server, not a public upload service.
+
+### Check the public viewer
+
+From the repository root, with Python 3.12 and Node.js 22:
+
+```sh
+python -B checks/validate_assets.py
+python -B -m unittest discover -s tests -p "test_*.py"
+node --test tests/viewer-lifecycle.test.cjs
+```
+
+The same commands run in CI on Windows and Ubuntu without installing packages or requiring the private build inputs.
+The asset check reads all seven published GLBs, checks their buffer/accessor bounds, indices and finite values, and
+checks local module and texture dependencies. It supports the dense FLOAT VEC2/VEC3 and UINT32 triangle profile used
+here; it is not a general glTF conformance validator. It reports the four context materials that intentionally fall
+back outside the colour table: `CTX_STEEL_GREY`, `CTX_FENCE_MESH`, `CTX_LAMP`, `CTX_CONTAINER_GREY`.
+
+Python regressions exercise the real HTTP server with temporary files. JavaScript regressions execute the viewer's
+actual interaction functions with controlled I/O and GPU boundaries, including cancelled or superseded renders and
+failed exports. These checks do not run WebGL, evaluate OIDN image quality, rerun source-model accuracy checks, or
+reproduce the historical render timings. For visual verification, open the viewer in a WebGL2 browser, check both
+desktop and narrow layouts, clear and restore the date field, measure with scene labels hidden, and cancel a still
+render before returning to the live view. Optional models that fail to load should appear in the load warning.
 
 ## Renders
 
@@ -121,6 +162,9 @@ THIRD_PARTY_LICENSES.md
   be confirmed by site measurement. The VMU-04 precast colour is an indicative value.
 - **Build scripts.** The build scripts in `build/` are published as a record of the method. They need confidential
   inputs that are not included (drawings, a CAD model, a site survey and site photos), so they do not run as shipped.
+- **Still-render preparation.** Geometry/BVH preparation and parts of the first shader compilation run synchronously
+  on the browser's main thread. The exit button may respond only when that work yields. Cancellation isolates late
+  asynchronous results; it cannot interrupt those synchronous GPU/geometry operations.
 - **Surroundings.** Only the factories and structures next to the yard are modelled, from the layout plan, the site
   survey and site photos; buildings further away are not modelled. The sheds, the accessway canopy, the gantry crane,
   vehicles and people are approximate. The far ground is a neutral textured plane, not imagery.
