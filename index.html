@@ -27,6 +27,7 @@ button:disabled{opacity:.45;cursor:default}
 label.tg{display:flex;align-items:center;gap:8px;margin:4px 0;cursor:pointer}
 label.tg input{accent-color:var(--accent)}
 .row{display:flex;align-items:center;gap:8px;margin:5px 0}
+.row select{flex:1;min-width:0;max-width:100%;text-overflow:ellipsis}
 .row input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 .row input[type=date]{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);border-radius:5px;padding:3px 5px;font:inherit}
 .row .k{min-width:62px;color:var(--muted);font-size:12px}
@@ -95,13 +96,13 @@ details p b{color:var(--text);font-weight:600}
       <button id="hdriOvercast" class="on" title="Poly Haven mud_road_puresky (CC0)：阴天">阴天</button>
       <button id="hdriSunny" title="Poly Haven kloofendal_48d_partly_cloudy_puresky (CC0)：晴间多云">晴间多云</button>
     </div>
-    <div class="row"><span class="k">曝光</span><input type="range" id="exposure" min="0.3" max="2.5" step="0.01"><span class="val s" id="expval"></span></div>
-    <div class="row"><span class="k">直射阳光</span><input type="range" id="sunk" min="0" max="1.6" step="0.01"><span class="val s" id="sunkval"></span></div>
+    <div class="row"><span class="k">曝光</span><input type="range" id="exposure" aria-label="曝光" min="0.3" max="2.5" step="0.01"><span class="val s" id="expval"></span></div>
+    <div class="row"><span class="k">直射阳光</span><input type="range" id="sunk" aria-label="直射阳光强度" min="0" max="1.6" step="0.01"><span class="val s" id="sunkval"></span></div>
   </div>
 
   <div class="sec"><h2>日照（1.3°N 103.8°E，UTC+8）</h2>
-    <div class="row"><input type="date" id="date"><span class="val" id="sunval"></span></div>
-    <div class="row"><input type="range" id="time" min="390" max="1170" step="5"><span class="val" id="timeval"></span></div>
+    <div class="row"><input type="date" id="date" aria-label="日照日期"><span class="val" id="sunval"></span></div>
+    <div class="row"><input type="range" id="time" aria-label="日照时间（UTC+8）" min="390" max="1170" step="5"><span class="val" id="timeval"></span></div>
     <label class="tg"><input type="checkbox" id="shadows" checked>阴影</label>
     <label class="tg"><input type="checkbox" id="ao" checked>环境光遮蔽 (GTAO)</label>
     <label class="tg"><input type="checkbox" id="smaa" checked>抗锯齿 (SMAA)</label>
@@ -116,13 +117,13 @@ details p b{color:var(--text);font-weight:600}
 
   <div class="sec"><h2>照片级静帧（路径追踪）</h2>
     <div class="row"><span class="k">尺寸</span>
-      <select id="ptSize"><option value="window" selected>当前窗口（像素比 1，长边 ≤ 1920）</option><option value="2400x1500">2400×1500</option><option value="1200x750">1200×750（草图）</option></select>
+      <select id="ptSize" aria-label="静帧尺寸"><option value="window" selected>当前窗口（像素比 1，长边 ≤ 1920）</option><option value="2400x1500">2400×1500</option><option value="1200x750">1200×750（草图）</option></select>
     </div>
     <div class="row"><span class="k">采样数</span>
-      <select id="ptSpp"><option value="64">64（快速）</option><option value="128" selected>128（默认，配合降噪）</option><option value="256">256（最终）</option><option value="1024">1024（精细）</option></select>
+      <select id="ptSpp" aria-label="静帧采样数"><option value="64">64（快速）</option><option value="128" selected>128（默认，配合降噪）</option><option value="256">256（最终）</option><option value="1024">1024（精细）</option></select>
     </div>
     <div class="row"><span class="k">降噪</span>
-      <select id="ptDen"><option value="auto" selected>自动：Intel OIDN（serve.py），否则浏览器内</option><option value="smart">浏览器内 DenoiseMaterial</option><option value="raw">不降噪</option></select>
+      <select id="ptDen" aria-label="降噪方式"><option value="auto" selected>自动：Intel OIDN（serve.py），否则浏览器内</option><option value="smart">浏览器内 DenoiseMaterial</option><option value="raw">不降噪</option></select>
     </div>
     <div class="btns one"><button id="ptStart">生成当前视角的照片级静帧并保存 PNG</button></div>
     <div class="note" id="ptNote" style="margin-top:5px">three-gpu-pathtracer 0.0.23，分块渲染。</div>
