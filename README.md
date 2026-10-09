@@ -16,7 +16,9 @@ the web viewer, or render path-traced stills from it.
   - the yard around them: ground slab, drains, crane runways, gantry crane, sheds, containers, hoarding, viewing
     platform and high masts, with a generic main road and roadside planting outside the hoarding.
 - **Size.** Seven glTF files hold 2,223,601 triangles. The same model is also provided as a Rhino file:
-  `model/vmu_site_future.3dm`, in millimetres, with 236 objects, 245 layers and 44 materials.
+  `model/vmu_site_future.3dm`, in millimetres, with 235 mesh components + 1 information TextDot,
+  245 layers and 44 materials. The Rhino export has 2,222,589 valid triangles after removing 1,012
+  degenerate faces, with no measured loss of surface area. Source GLBs are unchanged.
 - **Colour table.** `model/materials.json` defines 83 named materials. Thirteen measured finishes have been taken from
   colour cards and laboratory colour measurements, and each carries both an SCI and an SCE value. The renders use the
   SCE value (specular component excluded), which is how the eye sees a matt panel. Where a finish is specified by RAL
@@ -56,6 +58,22 @@ What the viewer does:
 
 The user interface is in Chinese.
 
+## Use Rhino 8
+
+Open `model/vmu_site_future_native.3dm` in Rhino 8 for embedded PBR images and all
+13 named views; `model/vmu_site_future.3dm` retains the geometry/source-UV baseline.
+Meshes retain their source UVs
+(194 meshes / 621,885 UV coordinates), stable source-derived object GUIDs and component UserText.
+Use `rhino/select_components.py` in `ScriptEditor` to select by group, finish, role or ID.
+`model/vmu_site_future_inventory.csv` provides a checked inventory of the 235 mesh components.
+See [the Rhino workflow](rhino/README.md) for public-file regeneration, validation and native Rhino QA.
+The native delivery adds world mapping to 41 meshes without source UVs, embeds
+19 image assets for 8 finishes at their physical scale, and includes 13 native
+1600 × 1000 viewport captures in `renders/rhino/`. The full quality CSV reports
+129 closed / 106 open / 101 solid meshes and supplies volume only for solids.
+This remains a mesh reference model; browser GLSL effects and engineering element
+classes are not inferred. See [the native contact sheet](renders/rhino/contact_sheet.jpg).
+
 ## Renders
 
 ![Contact sheet of all renders](renders/contact_sheet.jpg)
@@ -83,8 +101,11 @@ model/                  vmu_cad.glb          VMU-01 tower, VMU-03, trellis      
                         site_context.glb     sheds, gantry, containers, hoarding       2.1 MB
                         materials.json       colour table (83 materials)
                         site_features.json   palms, trees, people, vehicles, labels
-                        vmu_site_future.3dm  the whole model for Rhino (mm)           60.6 MB
-build/                  build scripts: the method record (they do not run without the source inputs; see build/README.md)
+                        vmu_site_future.3dm  the whole model for Rhino (mm)           62.9 MB
+                        vmu_site_future_inventory.csv  checked mesh-component inventory
+                        vmu_site_future_qa.json        GLB/Rhino comparison report
+build/                  public Rhino export/checker + private-source modelling scripts (see build/README.md)
+rhino/                  Rhino 8 component selector, native QA and workflow
 textures/               CC0 textures and HDRIs (Poly Haven, ambientCG)
 vendor/                 three.js, three-mesh-bvh, three-gpu-pathtracer (MIT)
 renders/                16 stills + contact_sheet.jpg
@@ -101,8 +122,11 @@ THIRD_PARTY_LICENSES.md
     the five mock-up GLBs are byte-identical to the source files. The ground and surroundings (`site_ground.glb`,
     `site_context.glb`, `site_features.json`) were rebuilt for publication with the scripts in `build/` (see
     Limitations).
-- **Triangle totals.** The seven GLBs add up to 2,223,601 triangles. The viewer's load report gives the same number,
-  and so does the 3dm export when read back with rhino3dm.
+- **Rhino roundtrip.** The seven GLBs and the viewer still contain 2,223,601 source triangles. Rhino contains
+  2,222,589 triangles after culling 1,012 degenerate faces from 11 previously invalid meshes. The checker finds
+  no surface-area loss, verifies source triangle membership/winding, and compares all 621,885 UV coordinates
+  exactly. The native objects and inventory share stable source-derived IDs. Bounding-box round-off is at most
+  0.007568359375 mm. This public-file QA does not repeat the private plan/photo checks.
 - **Colour crops.** The published raster renders were measured with element-ID masks for five elements: canopy top,
   roof coping, VMU-01 fins, VMU-04 precast and wood-grain aluminium. All 48 of 48 crops fall inside their tolerance
   windows:
@@ -119,8 +143,9 @@ THIRD_PARTY_LICENSES.md
 
 - **Future state.** The model shows the planned completed state. Several finishes and dimensions are still waiting to
   be confirmed by site measurement. The VMU-04 precast colour is an indicative value.
-- **Build scripts.** The build scripts in `build/` are published as a record of the method. They need confidential
-  inputs that are not included (drawings, a CAD model, a site survey and site photos), so they do not run as shipped.
+- **Build scripts.** The geometry builders in `build/` record the method and read confidential inputs that are not
+  included (drawings, a CAD model, a site survey and site photos). The Rhino exporter, checker and regression tests
+  run directly from the committed public GLBs and material table; they do not rebuild the private source geometry.
 - **Surroundings.** Only the factories and structures next to the yard are modelled, from the layout plan, the site
   survey and site photos; buildings further away are not modelled. The sheds, the accessway canopy, the gantry crane,
   vehicles and people are approximate. The far ground is a neutral textured plane, not imagery.

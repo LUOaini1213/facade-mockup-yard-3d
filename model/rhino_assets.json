@@ -1,0 +1,883 @@
+{
+  "schema_version": 1,
+  "source": "public materials.json + textures only",
+  "materials": {
+    "AL_MILL": {
+      "name": "AL_MILL",
+      "hex": "#C9CED2",
+      "metallic": 1.0,
+      "roughness": 0.4,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "AL_MOUSEGREY": {
+      "name": "AL_MOUSEGREY",
+      "hex": "#707370",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "AL_RAL7038": {
+      "name": "AL_RAL7038",
+      "hex": "#A8AAA4",
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "AL_RAL9016": {
+      "name": "AL_RAL9016",
+      "hex": "#F0F0EB",
+      "metallic": 0.0,
+      "roughness": 0.45,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "AL_T01": {
+      "name": "AL_T01",
+      "hex": "#414A52",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "AL_T02": {
+      "name": "AL_T02",
+      "hex": "#4B5055",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "AL_WOOD": {
+      "name": "AL_WOOD",
+      "hex": "#D0B282",
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "glass": null,
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_ASPHALT": {
+      "name": "CTX_ASPHALT",
+      "hex": "#6E6D6A",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 2.1,
+      "slots": {
+        "base_color": {
+          "file": "rhino_assets/asset_6225a4914a52b830629e.png",
+          "linear": false
+        },
+        "normal": {
+          "file": "rhino_assets/asset_b68123f38d25cdf6b0a9.png",
+          "linear": true
+        },
+        "ao": {
+          "file": "rhino_assets/asset_750bad145f164c36e6ed.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_0c4cdf4f8b4e7c3b5c77.png",
+          "linear": true
+        }
+      },
+      "base_color_is_baked": true,
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "CTX_BAY_VOID": {
+      "name": "CTX_BAY_VOID",
+      "hex": "#232629",
+      "metallic": 0.0,
+      "roughness": 0.95,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_CLADDING_RIB": {
+      "name": "CTX_CLADDING_RIB",
+      "hex": "#8A9097",
+      "metallic": 0.3,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 2.0,
+      "slots": {
+        "base_color": {
+          "file": "rhino_assets/asset_a78c6160754c5522357e.png",
+          "linear": false
+        },
+        "normal": {
+          "file": "rhino_assets/asset_1e6e7a9ac4dc9f7114ca.png",
+          "linear": true
+        },
+        "ao": {
+          "file": "rhino_assets/asset_24953a343faab0ab9c1a.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_d241abc6337aa251a05c.png",
+          "linear": true
+        }
+      },
+      "base_color_is_baked": true,
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "CTX_CONCRETE_YARD": {
+      "name": "CTX_CONCRETE_YARD",
+      "hex": "#C4B8A3",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 2.5,
+      "slots": {
+        "base_color": {
+          "file": "rhino_assets/asset_1a7fb1819a265187900d.png",
+          "linear": false
+        },
+        "normal": {
+          "file": "rhino_assets/asset_b6adf9b52f601a194189.png",
+          "linear": true
+        },
+        "ao": {
+          "file": "rhino_assets/asset_43ef68128d65049c9f30.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_8bd17ac9edaeda353e46.png",
+          "linear": true
+        }
+      },
+      "base_color_is_baked": true,
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "CTX_CONCRETE_YARD_DAMP": {
+      "name": "CTX_CONCRETE_YARD_DAMP",
+      "hex": "#8F8A82",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 2.5,
+      "slots": {
+        "base_color": {
+          "file": "rhino_assets/asset_f20c051e956d30e6235c.png",
+          "linear": false
+        },
+        "normal": {
+          "file": "rhino_assets/asset_b6adf9b52f601a194189.png",
+          "linear": true
+        },
+        "ao": {
+          "file": "rhino_assets/asset_43ef68128d65049c9f30.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_6450e78439ae95fb5c6d.png",
+          "linear": true
+        }
+      },
+      "base_color_is_baked": true,
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "CTX_CONTAINER_GREY": {
+      "name": "CTX_CONTAINER_GREY",
+      "hex": null,
+      "metallic": 0,
+      "roughness": 0.6,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_CONTAINER_WHITE": {
+      "name": "CTX_CONTAINER_WHITE",
+      "hex": "#D6D8D4",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_FACTORY_RC": {
+      "name": "CTX_FACTORY_RC",
+      "hex": "#CFCFC6",
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_FACTORY_RC_BASE": {
+      "name": "CTX_FACTORY_RC_BASE",
+      "hex": "#9E9E98",
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_FENCE_MESH": {
+      "name": "CTX_FENCE_MESH",
+      "hex": null,
+      "metallic": 0,
+      "roughness": 0.6,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_GANTRY_GIRDER": {
+      "name": "CTX_GANTRY_GIRDER",
+      "hex": "#DFE3E4",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_GANTRY_LEG": {
+      "name": "CTX_GANTRY_LEG",
+      "hex": "#9FB8C2",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_GATE_BROWN": {
+      "name": "CTX_GATE_BROWN",
+      "hex": "#3A2E24",
+      "metallic": 0.3,
+      "roughness": 0.6,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_GRASS": {
+      "name": "CTX_GRASS",
+      "hex": "#666351",
+      "metallic": 0.0,
+      "roughness": 0.95,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_HOARDING": {
+      "name": "CTX_HOARDING",
+      "hex": "#9AA0A0",
+      "metallic": 0.5,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 2.0,
+      "slots": {
+        "base_color": {
+          "file": "rhino_assets/asset_b6b5e438a2fcd116c492.png",
+          "linear": false
+        },
+        "normal": {
+          "file": "rhino_assets/asset_1e6e7a9ac4dc9f7114ca.png",
+          "linear": true
+        },
+        "ao": {
+          "file": "rhino_assets/asset_24953a343faab0ab9c1a.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_d241abc6337aa251a05c.png",
+          "linear": true
+        }
+      },
+      "base_color_is_baked": true,
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "CTX_KERB": {
+      "name": "CTX_KERB",
+      "hex": "#B9B6AE",
+      "metallic": 0.0,
+      "roughness": 0.85,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_LAMP": {
+      "name": "CTX_LAMP",
+      "hex": null,
+      "metallic": 0,
+      "roughness": 0.6,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_RAIL": {
+      "name": "CTX_RAIL",
+      "hex": "#8B7B63",
+      "metallic": 0.2,
+      "roughness": 0.7,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_RC_BARE": {
+      "name": "CTX_RC_BARE",
+      "hex": "#979A98",
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_RED_LINE": {
+      "name": "CTX_RED_LINE",
+      "hex": "#C8504A",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_ROAD_MARKING_WHITE": {
+      "name": "CTX_ROAD_MARKING_WHITE",
+      "hex": "#D8D8D0",
+      "metallic": 0.0,
+      "roughness": 0.7,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_ROOF_METAL": {
+      "name": "CTX_ROOF_METAL",
+      "hex": "#9AA0A0",
+      "metallic": 0.5,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 2.0,
+      "slots": {
+        "base_color": {
+          "file": "rhino_assets/asset_b6b5e438a2fcd116c492.png",
+          "linear": false
+        },
+        "normal": {
+          "file": "rhino_assets/asset_1e6e7a9ac4dc9f7114ca.png",
+          "linear": true
+        },
+        "ao": {
+          "file": "rhino_assets/asset_24953a343faab0ab9c1a.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_4a05d13415d828f91df0.png",
+          "linear": true
+        }
+      },
+      "base_color_is_baked": true,
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "CTX_SAFETY_YELLOW": {
+      "name": "CTX_SAFETY_YELLOW",
+      "hex": "#D4A630",
+      "metallic": 0.0,
+      "roughness": 0.55,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_STEEL_GREY": {
+      "name": "CTX_STEEL_GREY",
+      "hex": null,
+      "metallic": 0,
+      "roughness": 0.6,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_STILLAGE_RED": {
+      "name": "CTX_STILLAGE_RED",
+      "hex": "#8A3A2C",
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "CTX_YELLOW_LINE": {
+      "name": "CTX_YELLOW_LINE",
+      "hex": "#D4A630",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "GL01_VISION": {
+      "name": "GL01_VISION",
+      "hex": "#8B9593",
+      "metallic": 0.0,
+      "roughness": 0.02,
+      "glass": {
+        "vlt": 0.3,
+        "rext": 0.18,
+        "rint": null,
+        "tint": "#8B9593",
+        "transmission": 1.0,
+        "thickness": 0.0,
+        "ior": 2.33,
+        "specularIntensity": 1.0,
+        "specularColor": [
+          0.8,
+          0.92,
+          1.0
+        ],
+        "specularColorSpace": "linear",
+        "envMapIntensity": 1.0,
+        "side": "double",
+        "transparent": false,
+        "fallback": {
+          "hex": "#2A3238",
+          "opacity": 0.7,
+          "metalness": 0.0,
+          "roughness": 0.04,
+          "envMapIntensity": 1.6
+        },
+        "tint_linear": [
+          0.2582,
+          0.3005,
+          0.2918
+        ],
+        "tint_Y": 0.2909,
+        "f0_luminance": 0.1436,
+        "ior_for_rext": 2.618,
+        "vlt_effective_threejs": 0.2491,
+        "tint_for_vlt_threejs": "#97A2A0"
+      },
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "GL03_VISION_B": {
+      "name": "GL03_VISION_B",
+      "hex": "#ADB2B0",
+      "metallic": 0.0,
+      "roughness": 0.02,
+      "glass": {
+        "vlt": 0.42,
+        "rext": 0.14,
+        "rint": 0.14,
+        "tint": "#ADB2B0",
+        "transmission": 1.0,
+        "thickness": 0.0,
+        "ior": 2.33,
+        "specularIntensity": 1.0,
+        "specularColor": [
+          0.85,
+          0.93,
+          1.0
+        ],
+        "specularColorSpace": "linear",
+        "envMapIntensity": 1.0,
+        "side": "double",
+        "transparent": false,
+        "fallback": {
+          "hex": "#2A3238",
+          "opacity": 0.58,
+          "metalness": 0.0,
+          "roughness": 0.04,
+          "envMapIntensity": 1.6
+        },
+        "tint_linear": [
+          0.4179,
+          0.4452,
+          0.4342
+        ],
+        "tint_Y": 0.4386,
+        "f0_luminance": 0.1464,
+        "ior_for_rext": 2.281,
+        "vlt_effective_threejs": 0.3744,
+        "tint_for_vlt_threejs": "#B6BBB9"
+      },
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "GL_DOOR": {
+      "name": "GL_DOOR",
+      "hex": "#B4BAB8",
+      "metallic": 0.0,
+      "roughness": 0.02,
+      "glass": {
+        "vlt": 0.48,
+        "rext": 0.14,
+        "rint": 0.11,
+        "tint": "#B4BAB8",
+        "transmission": 1.0,
+        "thickness": 0.0,
+        "ior": 2.2,
+        "specularIntensity": 1.0,
+        "specularColor": [
+          0.85,
+          0.93,
+          1.0
+        ],
+        "specularColorSpace": "linear",
+        "envMapIntensity": 1.0,
+        "side": "double",
+        "transparent": false,
+        "fallback": {
+          "hex": "#2A3238",
+          "opacity": 0.52,
+          "metalness": 0.0,
+          "roughness": 0.04,
+          "envMapIntensity": 1.6
+        },
+        "tint_linear": [
+          0.4564,
+          0.491,
+          0.4793
+        ],
+        "tint_Y": 0.4828,
+        "f0_luminance": 0.1291,
+        "ior_for_rext": 2.281,
+        "vlt_effective_threejs": 0.4205,
+        "tint_for_vlt_threejs": "#BFC5C3"
+      },
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "GMS_RIBBED": {
+      "name": "GMS_RIBBED",
+      "hex": "#A7ACAE",
+      "metallic": 0.8,
+      "roughness": 0.5,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "PLYWOOD": {
+      "name": "PLYWOOD",
+      "hex": "#A88760",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "PRECAST_FORMLINER": {
+      "name": "PRECAST_FORMLINER",
+      "hex": "#B0A89E",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1.0,
+      "slots": {
+        "ao": {
+          "file": "rhino_assets/asset_91dc807b5aec30b2ced3.png",
+          "linear": true
+        },
+        "roughness": {
+          "file": "rhino_assets/asset_231b611a8a6ba4e75f5b.png",
+          "linear": true
+        }
+      },
+      "arm_metallic_not_used_by_viewer": true
+    },
+    "RC_PLAIN": {
+      "name": "RC_PLAIN",
+      "hex": "#8A8C8A",
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "SEALANT_BLACK": {
+      "name": "SEALANT_BLACK",
+      "hex": "#141516",
+      "metallic": 0.0,
+      "roughness": 0.7,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "SS_BRUSHED": {
+      "name": "SS_BRUSHED",
+      "hex": "#C4C6C8",
+      "metallic": 1.0,
+      "roughness": 0.3,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    },
+    "STEEL_HDG": {
+      "name": "STEEL_HDG",
+      "hex": "#ADB2B4",
+      "metallic": 0.85,
+      "roughness": 1.0,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 0.5,
+      "slots": {
+        "roughness": {
+          "file": "rhino_assets/asset_3c4c23a8d0ee23056bb2.png",
+          "linear": true
+        }
+      }
+    },
+    "WHITE": {
+      "name": "WHITE",
+      "hex": "#E8E8E3",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "glass": null,
+      "clearcoat": 0,
+      "clearcoat_roughness": 0.3,
+      "size_m": 1,
+      "slots": {}
+    }
+  },
+  "files": {
+    "rhino_assets/asset_6225a4914a52b830629e.png": {
+      "sha256": "6225a4914a52b830629e843e2fe38366eadb89300428de6ebf0361b92cff26d2",
+      "bytes": 2021256,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_b68123f38d25cdf6b0a9.png": {
+      "sha256": "b68123f38d25cdf6b0a9af006ea46fa28b1dfefa61af3b8ce55b51e1b2a2cbf2",
+      "bytes": 1778351,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_750bad145f164c36e6ed.png": {
+      "sha256": "750bad145f164c36e6edcfa88a87d1529a1fbc7a5a9cfe90e6314d9972c32b13",
+      "bytes": 496987,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_0c4cdf4f8b4e7c3b5c77.png": {
+      "sha256": "0c4cdf4f8b4e7c3b5c7718935f42179b568ee40140a1169c870f99e54c79252e",
+      "bytes": 609147,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_a78c6160754c5522357e.png": {
+      "sha256": "a78c6160754c5522357ec7c17e277bece2ebe2e14d854256712692f98f56e64e",
+      "bytes": 1131093,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_1e6e7a9ac4dc9f7114ca.png": {
+      "sha256": "1e6e7a9ac4dc9f7114ca8f18e962614ec60012e5d287c257e6128326881d2985",
+      "bytes": 899052,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_24953a343faab0ab9c1a.png": {
+      "sha256": "24953a343faab0ab9c1ad153e888f8b89ec4fabf6cb85247fb77ad5a2dc65c6c",
+      "bytes": 189418,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_d241abc6337aa251a05c.png": {
+      "sha256": "d241abc6337aa251a05c2b0c8e212ca0fc639dc8f4bf725ae4f608426d9e9378",
+      "bytes": 161191,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_1a7fb1819a265187900d.png": {
+      "sha256": "1a7fb1819a265187900defa2aa58036b7cbbf2600deb8cda0fe084c20bd46ad5",
+      "bytes": 9446623,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_b6adf9b52f601a194189.png": {
+      "sha256": "b6adf9b52f601a1941896952dec180f99a36a370541f44ba3e1d458b02d221c2",
+      "bytes": 6614283,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_43ef68128d65049c9f30.png": {
+      "sha256": "43ef68128d65049c9f30f5d67fe3f0ef4787f393bff22e41dedec9f1776720f8",
+      "bytes": 2253731,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_8bd17ac9edaeda353e46.png": {
+      "sha256": "8bd17ac9edaeda353e460dd1e2d3a36a3aca7501e20bd76787e0b2a1c383c61e",
+      "bytes": 2616278,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_f20c051e956d30e6235c.png": {
+      "sha256": "f20c051e956d30e6235cd3a9b9b25d17ca25bf4f2777251245d4d5d7e92a6d66",
+      "bytes": 8836495,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_6450e78439ae95fb5c6d.png": {
+      "sha256": "6450e78439ae95fb5c6dbbd9c8f61ff55e0ddaf2c54c1026d4b6098a16c9de6e",
+      "bytes": 2261513,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_b6b5e438a2fcd116c492.png": {
+      "sha256": "b6b5e438a2fcd116c492853055ca05eeb23c2bbb9d3fadf74444005196ef0098",
+      "bytes": 1160065,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_4a05d13415d828f91df0.png": {
+      "sha256": "4a05d13415d828f91df077b8b05ce5b2a0cc16c5cf75452e3ff231e137afb3f6",
+      "bytes": 156152,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_91dc807b5aec30b2ced3.png": {
+      "sha256": "91dc807b5aec30b2ced3bb65fcdcc2cda5c0f2ec82bde518670433ebfb37afc6",
+      "bytes": 206,
+      "dimensions": [
+        225,
+        4
+      ]
+    },
+    "rhino_assets/asset_231b611a8a6ba4e75f5b.png": {
+      "sha256": "231b611a8a6ba4e75f5be097635d07c8cf107b129c0fb387306746bc9d765646",
+      "bytes": 79,
+      "dimensions": [
+        225,
+        4
+      ]
+    },
+    "rhino_assets/asset_3c4c23a8d0ee23056bb2.png": {
+      "sha256": "3c4c23a8d0ee23056bb22911ee77f59f10dfd7dfcce34021ae5a8e71945cc41f",
+      "bytes": 440636,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    }
+  },
+  "notes": [
+    "ARM channels R=AO, G=roughness, B=metallic; viewer keeps scalar metallic, so B is not applied.",
+    "AO is baked with viewer strength 0.7; roughness multipliers are baked into linear PNGs.",
+    "Original browser GLSL procedural effects are not physical geometry and are documented separately."
+  ]
+}

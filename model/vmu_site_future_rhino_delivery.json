@@ -1,0 +1,462 @@
+{
+  "passed": true,
+  "model": "vmu_site_future_native.3dm",
+  "source_model": "vmu_site_future.3dm",
+  "source_sha256": "215635736cdedfd3e2f7231b28a3f8eb2cf5762ba6ed80cd17c2b52c04935935",
+  "rhino_version": "8.33.26188.13001",
+  "errors": [],
+  "generated_uv_objects": 41,
+  "geometry_quality": {
+    "schema_version": 1,
+    "mesh_components": 235,
+    "closed": 129,
+    "open": 106,
+    "solid": 101,
+    "invalid": 0,
+    "volume_available": 101,
+    "generated_uv_objects": 41,
+    "interpretation": "Mesh primitives may aggregate physical parts. Open surfaces are not automatically errors. Volume is only supplied for solids; no fabrication quantities or inferred engineering semantics."
+  },
+  "textured_materials": 8,
+  "embedded_assets": [
+    "asset_6225a4914a52b830629e.png",
+    "asset_b68123f38d25cdf6b0a9.png",
+    "asset_750bad145f164c36e6ed.png",
+    "asset_0c4cdf4f8b4e7c3b5c77.png",
+    "asset_a78c6160754c5522357e.png",
+    "asset_1e6e7a9ac4dc9f7114ca.png",
+    "asset_24953a343faab0ab9c1a.png",
+    "asset_d241abc6337aa251a05c.png",
+    "asset_1a7fb1819a265187900d.png",
+    "asset_b6adf9b52f601a194189.png",
+    "asset_43ef68128d65049c9f30.png",
+    "asset_8bd17ac9edaeda353e46.png",
+    "asset_f20c051e956d30e6235c.png",
+    "asset_6450e78439ae95fb5c6d.png",
+    "asset_b6b5e438a2fcd116c492.png",
+    "asset_4a05d13415d828f91df0.png",
+    "asset_91dc807b5aec30b2ced3.png",
+    "asset_231b611a8a6ba4e75f5b.png",
+    "asset_3c4c23a8d0ee23056bb2.png"
+  ],
+  "named_views": [
+    {
+      "key": "overview",
+      "name": "overview | 总览（自主路斜视）",
+      "position_mm": [
+        57472.21648465026,
+        -60203.30795118615,
+        47000
+      ],
+      "target_mm": [
+        6448.624610900879,
+        -1206.756591796875,
+        5000
+      ]
+    },
+    {
+      "key": "reverse",
+      "name": "reverse | 反向（自厂房侧）",
+      "position_mm": [
+        -44850.921547881975,
+        49314.096171224715,
+        43000
+      ],
+      "target_mm": [
+        6448.624610900879,
+        -1206.756591796875,
+        5000
+      ]
+    },
+    {
+      "key": "top",
+      "name": "top | 俯视（北向上）",
+      "position_mm": [
+        6448.624610900879,
+        -1216.756591796875,
+        120000
+      ],
+      "target_mm": [
+        6448.624610900879,
+        -1206.756591796875,
+        0
+      ]
+    },
+    {
+      "key": "VMU01",
+      "name": "VMU01 | VMU-01 塔楼",
+      "position_mm": [
+        -18416.017062245017,
+        -46651.00512855306,
+        18698.43686369302
+      ],
+      "target_mm": [
+        25.705814361572266,
+        -5218.3263301849365,
+        6000
+      ]
+    },
+    {
+      "key": "EXT",
+      "name": "EXT | VMU-01 雨棚延伸",
+      "position_mm": [
+        24421.56881621642,
+        -5265.411768158954,
+        19855.413956289583
+      ],
+      "target_mm": [
+        3022.706985473633,
+        -11252.03013420105,
+        1674.9999523162842
+      ]
+    },
+    {
+      "key": "EXT_UNDER",
+      "name": "EXT_UNDER | 雨棚下人视",
+      "position_mm": [
+        7247.750091552737,
+        -13384.49201583863,
+        1600.0
+      ],
+      "target_mm": [
+        -3949.1504430770874,
+        1015.2246952056885,
+        5477.176317002566
+      ]
+    },
+    {
+      "key": "VMU02",
+      "name": "VMU02 | VMU-02",
+      "position_mm": [
+        29760.067584522054,
+        25484.49151710969,
+        8896.96834890911
+      ],
+      "target_mm": [
+        26934.081077575684,
+        2360.6523275375366,
+        2625.0
+      ]
+    },
+    {
+      "key": "VMU03",
+      "name": "VMU03 | VMU-03 弧形裙楼",
+      "position_mm": [
+        15762.104498607101,
+        12494.124203589812,
+        9354.449895846166
+      ],
+      "target_mm": [
+        -5712.77642250061,
+        14864.152908325195,
+        2999.9597072601355
+      ]
+    },
+    {
+      "key": "VMU04",
+      "name": "VMU04 | VMU-04",
+      "position_mm": [
+        9490.949054569044,
+        -4888.800141193535,
+        7999.431104820833
+      ],
+      "target_mm": [
+        17077.08787918091,
+        -22715.29483795166,
+        5059.999942779541
+      ]
+    },
+    {
+      "key": "VMU05",
+      "name": "VMU05 | VMU-05",
+      "position_mm": [
+        -10853.390277921819,
+        27877.724049328346,
+        2929.887198249401
+      ],
+      "target_mm": [
+        -19025.423049926758,
+        21330.184936523438,
+        550.000011920929
+      ]
+    },
+    {
+      "key": "TRELLIS",
+      "name": "TRELLIS | Trellis",
+      "position_mm": [
+        28835.03025125984,
+        12198.092378507192,
+        10017.159654088691
+      ],
+      "target_mm": [
+        15702.239513397217,
+        6167.145371437073,
+        1123.9999532699585
+      ]
+    },
+    {
+      "key": "platform",
+      "name": "platform | 观景平台人视",
+      "position_mm": [
+        -9236.655879267908,
+        -34756.265203383344,
+        4620.0
+      ],
+      "target_mm": [
+        25.705814361572266,
+        -5218.3263301849365,
+        4000
+      ]
+    },
+    {
+      "key": "street",
+      "name": "street | 主路路边人视",
+      "position_mm": [
+        42701.45919893224,
+        -14779.947820869098,
+        1142.4276997012003
+      ],
+      "target_mm": [
+        -4900.0,
+        1100.0,
+        5500.0
+      ]
+    }
+  ],
+  "images": [
+    "renders/rhino/01_overview.png",
+    "renders/rhino/02_reverse.png",
+    "renders/rhino/03_top.png",
+    "renders/rhino/04_VMU01.png",
+    "renders/rhino/05_EXT.png",
+    "renders/rhino/06_EXT_UNDER.png",
+    "renders/rhino/07_VMU02.png",
+    "renders/rhino/08_VMU03.png",
+    "renders/rhino/09_VMU04.png",
+    "renders/rhino/10_VMU05.png",
+    "renders/rhino/11_TRELLIS.png",
+    "renders/rhino/12_platform.png",
+    "renders/rhino/13_street.png"
+  ],
+  "display_mode_id": "cae60bae-2d51-4299-abf7-a339fca86f3b",
+  "material_slots": [
+    {
+      "material": "CTX_ASPHALT",
+      "slot": "base_color",
+      "linear": false,
+      "repeat_per_m": 0.47619047619047616,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ASPHALT",
+      "slot": "normal",
+      "linear": true,
+      "repeat_per_m": 0.47619047619047616,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ASPHALT",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 0.47619047619047616,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ASPHALT",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 0.47619047619047616,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CLADDING_RIB",
+      "slot": "base_color",
+      "linear": false,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CLADDING_RIB",
+      "slot": "normal",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CLADDING_RIB",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CLADDING_RIB",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD",
+      "slot": "base_color",
+      "linear": false,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD",
+      "slot": "normal",
+      "linear": true,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD_DAMP",
+      "slot": "base_color",
+      "linear": false,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD_DAMP",
+      "slot": "normal",
+      "linear": true,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD_DAMP",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD_DAMP",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 0.4,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_HOARDING",
+      "slot": "base_color",
+      "linear": false,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_HOARDING",
+      "slot": "normal",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_HOARDING",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_HOARDING",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ROOF_METAL",
+      "slot": "base_color",
+      "linear": false,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ROOF_METAL",
+      "slot": "normal",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ROOF_METAL",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ROOF_METAL",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 0.5,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "PRECAST_FORMLINER",
+      "slot": "ao",
+      "linear": true,
+      "repeat_per_m": 1.0,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "PRECAST_FORMLINER",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 1.0,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "STEEL_HDG",
+      "slot": "roughness",
+      "linear": true,
+      "repeat_per_m": 2.0,
+      "mapping_channel": 1,
+      "readback": "saved_RDK_XML"
+    }
+  ],
+  "output_bytes": 121130156,
+  "output_sha256": "ef59ebf8fccde007802c450dd6a99b95c2679a51749ce087266012311352952a"
+}

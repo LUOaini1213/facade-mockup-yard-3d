@@ -1,10 +1,25 @@
 # Build scripts
 
-These Python scripts document how the model in `model/` was produced: a facade visual mock-up yard (five
+Most Python scripts here document how the model in `model/` was produced: a facade visual mock-up yard (five
 mock-ups VMU-01 .. VMU-05, the VMU-01 canopy extension and the surrounding yard) in its future completed
-state. They are published as a record of the **method**. They do **not** run out of the box: every builder
+state. The modelling builders are published as a record of the **method**. They do **not** run out of the box: every builder
 reads confidential project inputs (shop drawings, the layout plan, a legacy CAD model, a site survey and
 site photos) that are not part of this repository and will not be published.
+
+**Public Rhino conversion is runnable.** `export_3dm.py`, `glb_reader.py`, `rhino_mesh.py`,
+`check_3dm.py` and `test_rhino_mesh.py` use only the committed GLBs and material table.
+Install `requirements-rhino.txt`, run `python build/export_3dm.py`, then
+`python build/check_3dm.py --report model/vmu_site_future_qa.json` from the repository root.
+See [the Rhino workflow](../rhino/README.md). Rebuilding geometry from drawings remains private-source work.
+
+**Complete native delivery is also runnable from public files.** `prepare_rhino_assets.py`
+converts the existing image assets into colour-correct PBR slots with physical scale;
+`capture_views.py` records all 13 browser presets. On Windows,
+`run_rhino_qa.py --enrich --timeout 900` runs `rhino/enrich_model.py` in native Rhino 8,
+writing a separate textured/embedded `model/vmu_site_future_native.3dm`, 13 native
+viewport images and complete geometry-quality CSV/JSON. `check_delivery.py` performs
+independent geometry, camera, metric and image readback. Install Chromium once with
+`python -m playwright install chromium`. This path does not modify web/GLB sources.
 
 All provenance comments, document references and project identifiers were removed; each script keeps a
 short module docstring, its geometry, parameters and algorithms. Where the original scripts carried values
@@ -68,7 +83,11 @@ the survey extract is absent), `site_frame.py` (after `georef.py`) and the mater
     (it uses the context footprints as keep-out areas); then `build_context2.py` once more so that the
     gantry crane stands on the runway written by `build_ground.py`.
 11. `build_features2.py` -> `model/site_features.json`, `model/vegetation_notes.json`.
-12. `export_3dm.py` -> `model/vmu_site_future.3dm`.
+12. `export_3dm.py` -> `model/vmu_site_future.3dm` and `model/vmu_site_future_inventory.csv`.
+    Public GLBs can be used directly: UVs are retained, source-derived GUIDs/UserText identify each mesh,
+    and degenerate faces are culled with per-component counts. The 3dm has 2,222,589 valid triangles,
+    versus 2,223,601 source triangles; 1,012 degenerate faces were removed with no measured area loss.
+    `check_3dm.py` validates the public conversion and CSV independently of the private photo checks.
 13. `validate.py` (optional) - photo-pose and plan checks; needs the private photos.
 
 `build_context.py` and `build_features.py` are the superseded first versions of steps 10 and 11 (kept as a
@@ -79,8 +98,9 @@ Published files: `site_context.glb`, `site_ground.glb` and `site_features.json` 
 canonical material names. Before publication the metadata of every GLB (node extras, scene extras) was
 reduced to a whitelist of generic keys (group, layer, finish, part / role, confidence level, sizes and bounding
 boxes, and the parameter block of the canopy), and `site_features.json`, `materials.json` and
-`vegetation_notes.json` to the keys the viewer reads; the geometry was not changed. The published `vmu_site_future.3dm` is a format
-conversion of the published GLBs (layers `MOCKUP_VMU::...` and `SITE::...`).
+`vegetation_notes.json` to the keys the viewer reads; the GLB geometry was not changed. The published
+`vmu_site_future.3dm` converts those GLBs (layers `MOCKUP_VMU::...` and `SITE::...`), preserving source UVs
+and culling only degenerate faces as recorded in the inventory and public QA report.
 
 ## Private inputs (not included)
 
