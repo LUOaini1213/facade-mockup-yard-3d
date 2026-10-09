@@ -11,7 +11,7 @@
         1600,
         1000
       ],
-      "pixel_std": 38.58264214262165
+      "pixel_std": 38.595916380195895
     },
     {
       "file": "renders/rhino/02_reverse.png",
@@ -19,7 +19,7 @@
         1600,
         1000
       ],
-      "pixel_std": 49.589410924882074
+      "pixel_std": 49.60855723010519
     },
     {
       "file": "renders/rhino/03_top.png",
@@ -27,7 +27,7 @@
         1600,
         1000
       ],
-      "pixel_std": 39.53787201719932
+      "pixel_std": 39.59316470282692
     },
     {
       "file": "renders/rhino/04_VMU01.png",
@@ -35,7 +35,7 @@
         1600,
         1000
       ],
-      "pixel_std": 45.20601608227861
+      "pixel_std": 45.61545297780924
     },
     {
       "file": "renders/rhino/05_EXT.png",
@@ -43,7 +43,7 @@
         1600,
         1000
       ],
-      "pixel_std": 27.45011777826898
+      "pixel_std": 27.701519384142582
     },
     {
       "file": "renders/rhino/06_EXT_UNDER.png",
@@ -51,7 +51,7 @@
         1600,
         1000
       ],
-      "pixel_std": 57.48266881935336
+      "pixel_std": 57.47294505874298
     },
     {
       "file": "renders/rhino/07_VMU02.png",
@@ -59,7 +59,7 @@
         1600,
         1000
       ],
-      "pixel_std": 54.96634691813283
+      "pixel_std": 55.00063074067685
     },
     {
       "file": "renders/rhino/08_VMU03.png",
@@ -67,7 +67,7 @@
         1600,
         1000
       ],
-      "pixel_std": 37.89754855605684
+      "pixel_std": 38.05023510715202
     },
     {
       "file": "renders/rhino/09_VMU04.png",
@@ -75,7 +75,7 @@
         1600,
         1000
       ],
-      "pixel_std": 57.27597327007758
+      "pixel_std": 57.46982964607987
     },
     {
       "file": "renders/rhino/10_VMU05.png",
@@ -83,7 +83,7 @@
         1600,
         1000
       ],
-      "pixel_std": 39.305525642299685
+      "pixel_std": 39.945795871310935
     },
     {
       "file": "renders/rhino/11_TRELLIS.png",
@@ -91,7 +91,7 @@
         1600,
         1000
       ],
-      "pixel_std": 32.85802557766667
+      "pixel_std": 32.86015662969017
     },
     {
       "file": "renders/rhino/12_platform.png",
@@ -99,7 +99,7 @@
         1600,
         1000
       ],
-      "pixel_std": 45.24049132396255
+      "pixel_std": 46.222052343595514
     },
     {
       "file": "renders/rhino/13_street.png",
@@ -107,11 +107,12 @@
         1600,
         1000
       ],
-      "pixel_std": 69.30801645975495
+      "pixel_std": 69.34694143057912
     }
   ],
   "max_camera_error_mm": 0.0,
   "pbr_slots": 27,
+  "pbr_scalar_materials": 44,
   "max_area_error_m2": 7.275957614183426e-12,
   "max_volume_error_m3": 5.161204796877428e-12,
   "source": "independent rhino3dm, NumPy and Pillow readback"

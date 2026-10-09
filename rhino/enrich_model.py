@@ -21,7 +21,9 @@ import Rhino
 import scriptcontext as sc
 import System.Drawing as SD
 sys.path.insert(0,str(Path(__file__).resolve().parent))
+sys.path.insert(0,str(ROOT/'build'))
 from qa_delivery import verify as verify_delivery,scrub_environment
+from material_integrity import native_scalars
 
 MODEL = Path(os.environ['MOCKUP_RHINO_QA_MODEL'])
 OUTPUT = MODEL.with_name('vmu_site_future_native.3dm')
@@ -64,7 +66,7 @@ def bind_material(doc, source, model_dir):
     material.Name = source['name']
     material.ToPhysicallyBased()
     pbr = material.PhysicallyBased
-    hex_color = source.get('hex') or '#AAAAAA'
+    hex_color = source['hex']
     base_color = SD.ColorTranslator.FromHtml(hex_color)
     if source.get('base_color_is_baked'):
         base_color = SD.Color.White
@@ -72,14 +74,16 @@ def bind_material(doc, source, model_dir):
     material.SetUserString('canonical_finish',source['name'])
     material.SetUserString('physical_texture_size_m',str(source['size_m']))
     pbr.BaseColor = Rhino.Display.Color4f(base_color)
-    pbr.Metallic = source['metallic']
-    pbr.Roughness = source['roughness']
-    pbr.Clearcoat = source.get('clearcoat',0)
-    pbr.ClearcoatRoughness = source.get('clearcoat_roughness',.3)
-    glass = source.get('glass')
-    if glass and not glass.get('opaque'):
-        pbr.Opacity = 1-float(glass.get('vlt',.4))*.85
-        pbr.OpacityIOR = float(glass.get('ior',1.52))
+    scalars = native_scalars(source)
+    pbr.Metallic = scalars['pbr-metallic']
+    pbr.Roughness = scalars['pbr-roughness']
+    pbr.Clearcoat = scalars['pbr-clearcoat']
+    pbr.ClearcoatRoughness = scalars['pbr-clearcoat-roughness']
+    pbr.Anisotropic = scalars['pbr-anisotropic']
+    pbr.Opacity = scalars['pbr-opacity']
+    pbr.OpacityIOR = scalars['pbr-opacity-ior']
+    pbr.Alpha = scalars['pbr-alpha']
+    pbr.Emission = Rhino.Display.Color4f(*scalars['pbr-emission'])
     for slot, asset in source['slots'].items():
         texture = D.Texture()
         texture.FileName = str(model_dir / asset['file'])

@@ -89,6 +89,23 @@ the viewer leaves ARM B unused, so the native material keeps its scalar metallic
 value. The HDG roughness-map mean correction is also baked. No external URL or
 confidential source is needed when opening the native file.
 
+The material table has 87 registered entries. Four previously unregistered
+context finishes now use the existing `site_context.glb` values for colour,
+metallic and roughness: steel, fence, lamp and container. Fence alpha (0.35)
+and the lamp's linear emission are retained in native PBR. The native fence
+is an alpha approximation; the browser's procedural chain-link texture is
+not reproduced. Vision-glass viewport opacity remains `1 - 0.85 * vlt`, with
+the registered IOR; this display mapping does not measure glass transmission.
+
+Material inputs reject unknown names/fields, alias cycles, nonfinite numbers
+and nonpositive physical texture scales. The schema-2 assets manifest binds
+the canonical material table, all seven GLBs and every used texture input,
+plus the derived PNG bytes. Text fingerprints normalize LF/CRLF; binary
+inputs use exact SHA-256. Native and independent checks inspect the saved
+RDK base colour, metallic, roughness, clearcoat, clearcoat roughness,
+anisotropy, glass opacity/IOR, alpha and emission for every used material,
+including finishes without texture slots.
+
 Texture repeat uses the public physical size: 0.5 m for HDG, 2.5 m for yard
 concrete, 2 m for corrugated metal, and 2.1 m for asphalt. The UVs used by these
 finishes are in metres; repeat is therefore `1 / size_m`, independent of the
@@ -111,11 +128,17 @@ Regenerate the native delivery on Windows with licensed Rhino 8:
 ```powershell
 python -m playwright install chromium
 python build\prepare_rhino_assets.py
+python build\prepare_rhino_assets.py --check
 python build\capture_views.py
 python build\run_rhino_qa.py --enrich --timeout 900
 python build\check_3dm.py --model model\vmu_site_future_native.3dm --inventory model\vmu_site_future_inventory.csv --report model\vmu_site_future_native_source_qa.json
 python build\check_delivery.py
 ```
+
+For a read-only verification of an existing delivery, run
+`python build\prepare_rhino_assets.py --check` and
+`python build\check_delivery.py --no-write-reports`. These commands recompute
+the checks without modifying textures, reports or the contact sheet.
 
 `capture_views.py` reads the unchanged viewer through a temporary localhost server.
 The native launcher opens the baseline and writes a separate native 3dm; it does
@@ -141,7 +164,16 @@ Closure alone does not prove that a mesh is manifold, oriented or a solid.
 Open curtain-wall skins can be intentional; their area is useful, but their
 volume is omitted. A GLB primitive can aggregate disconnected physical parts,
 so these rows are not a fabrication quantity take-off. NumPy independently
-recomputes areas and the volumes of the native-confirmed solids.
+recomputes closure, edge-manifold status, orientation and solid eligibility
+from the actual mesh polygons, rather than trusting JSON or CSV flags.
+Coincident seam vertices are welded exactly; no tolerance closes actual gaps.
+Quads use the shorter diagonal for integration, and disconnected pieces are
+retained. Archive-valid collinear triangles contribute zero area/volume.
+Areas, naked-edge lengths and eligible geometric volumes are recomputed;
+volume for an actual non-solid, missing/duplicate rows and forged summaries
+fail verification even if JSON and CSV agree. These edge predicates do not
+certify self-intersection or fabrication readiness. The 106 intended open
+surfaces remain open.
 
 Implementation references: [Rhino PBR materials and image slots](https://docs.mcneel.com/rhino/8/help/en-us/commands/materials.htm),
 [rendering assets in openNURBS](https://developer.rhino3d.com/en/guides/opennurbs/accessing-rendering-assets/),

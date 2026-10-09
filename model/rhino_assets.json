@@ -1,6 +1,35 @@
 {
-  "schema_version": 1,
-  "source": "public materials.json + textures only",
+  "schema_version": 2,
+  "source": "canonical materials + public GLBs + texture bytes",
+  "inputs": {
+    "materials": {
+      "file": "model/materials.json",
+      "sha256": "543b1a7f52ac0c2dd0329c8c33a2fe7a63793b48250baafae2be9777bf4ada77",
+      "canonical_sha256": "c78473546804d662a9fef4a7fdb435323431def8a1422a12e354747e4551e858"
+    },
+    "glbs": {
+      "model/site_context.glb": "f64abb1214970872f88b37110e358f384d9d57736287b047874ddfa2e526e890",
+      "model/site_ground.glb": "2eb82e8ee76c9d41aed5dddb6a5236c9400adbe8e8849f3073280635da86e97e",
+      "model/vmu01_canopy.glb": "d42ee10a638d585e4b2475349f8c0018045cf510a26fdd981fa2d24c5b012126",
+      "model/vmu02.glb": "6a4f96fc5c060d9f58c290fd9a5580ecd078db28dd714a379609bc014c583535",
+      "model/vmu04.glb": "eb2055686f9ed6096f03aadd4c7a674f7b077f19ebeb98df0ecfc388c00320ca",
+      "model/vmu05.glb": "6375e00838f41279cbfc0e4bf3653e3a7530c4ba4a3023b20fa1e1ae7d8ca203",
+      "model/vmu_cad.glb": "897e767721530f134a03983279efe59dcf9323ea5265bc468a61a5c3d1dde62b"
+    },
+    "textures": {
+      "textures/clean_asphalt/clean_asphalt_diff_1k.jpg": "ddf9224e9cfa3eb2998d9097e4cd34bd3630c85e0e6798e5a0a000415a684083",
+      "textures/clean_asphalt/clean_asphalt_nor_gl_1k.jpg": "99cdf6b6f0b8a319d206e1d561bf2a5d9933d8d33e1d685f8e25388101d21310",
+      "textures/clean_asphalt/clean_asphalt_arm_1k.jpg": "dedb9a28ebadd2848856af8672eeabed1286b5729c3387c0734efa66819dbed3",
+      "textures/corrugated_iron_03/corrugated_iron_03_diff_1k.jpg": "d1378cbe96c625f79180147873c586bfc653ef5a66ea7a4a58cd5b18701f2bb4",
+      "textures/corrugated_iron_03/corrugated_iron_03_nor_gl_1k.jpg": "4d53371c5d615b0c60a6eb5c1944d85fc640c433d1468490bd01c4caa6a80bae",
+      "textures/corrugated_iron_03/corrugated_iron_03_arm_1k.jpg": "a1c6282f54fc1f4469af18dd2ae3b9d1fbe038963e5c118ffce162fa6ceadfb6",
+      "textures/brushed_concrete/brushed_concrete_diff_2k.jpg": "5af96604b20e29862b449d86981b196b18ba5cbcb8659c451dd8976411a36130",
+      "textures/brushed_concrete/brushed_concrete_nor_gl_2k.jpg": "3d1f1c7a5f20a5f7a15f3bc5c5f58c0fdcaf49e71e65a5f17e086b551895c00c",
+      "textures/brushed_concrete/brushed_concrete_arm_2k.jpg": "87e7ee823a78d6d85dc98cd5d1b5a7d4e694429ef4a01f3947b7e4b8a8d284b2",
+      "embedded:73e914c2e4f5abba9207c3ef645bee118687da0ba1ec88c010c2875ca485ad93": "73e914c2e4f5abba9207c3ef645bee118687da0ba1ec88c010c2875ca485ad93",
+      "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg": "6d06dfe8c240d3b6f33030740110284245bd8aefb2e10e8eb0c563444d9c0c5b"
+    }
+  },
   "materials": {
     "AL_MILL": {
       "name": "AL_MILL",
@@ -10,6 +39,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -21,6 +57,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -32,6 +75,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -43,6 +93,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -54,6 +111,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -65,6 +129,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -76,6 +147,13 @@
       "glass": null,
       "clearcoat": 0.0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -87,6 +165,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 2.1,
       "slots": {
         "base_color": {
@@ -117,6 +202,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -128,6 +220,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 2.0,
       "slots": {
         "base_color": {
@@ -158,6 +257,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 2.5,
       "slots": {
         "base_color": {
@@ -188,6 +294,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 2.5,
       "slots": {
         "base_color": {
@@ -212,12 +325,19 @@
     },
     "CTX_CONTAINER_GREY": {
       "name": "CTX_CONTAINER_GREY",
-      "hex": null,
-      "metallic": 0,
-      "roughness": 0.6,
+      "hex": "#A3A7A5",
+      "metallic": 0.0,
+      "roughness": 0.5,
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -229,6 +349,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -240,6 +367,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -251,17 +385,31 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
     "CTX_FENCE_MESH": {
       "name": "CTX_FENCE_MESH",
-      "hex": null,
-      "metallic": 0,
-      "roughness": 0.6,
+      "hex": "#9AA39C",
+      "metallic": 0.6,
+      "roughness": 0.45,
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 0.35,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -273,6 +421,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -284,6 +439,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -295,6 +457,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -306,6 +475,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -317,6 +493,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 2.0,
       "slots": {
         "base_color": {
@@ -347,17 +530,31 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
     "CTX_LAMP": {
       "name": "CTX_LAMP",
-      "hex": null,
-      "metallic": 0,
-      "roughness": 0.6,
+      "hex": "#FFF4DC",
+      "metallic": 0.0,
+      "roughness": 0.3,
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.55,
+        0.52,
+        0.45
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -369,6 +566,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -380,6 +584,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -391,6 +602,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -402,6 +620,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -413,6 +638,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 2.0,
       "slots": {
         "base_color": {
@@ -443,17 +675,31 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
     "CTX_STEEL_GREY": {
       "name": "CTX_STEEL_GREY",
-      "hex": null,
-      "metallic": 0,
-      "roughness": 0.6,
+      "hex": "#8E9499",
+      "metallic": 0.3,
+      "roughness": 0.55,
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -465,6 +711,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -476,6 +729,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -522,6 +782,13 @@
       },
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -568,6 +835,13 @@
       },
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -614,6 +888,13 @@
       },
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -625,6 +906,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -636,6 +924,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -647,6 +942,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1.0,
       "slots": {
         "ao": {
@@ -668,6 +970,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -679,6 +988,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -690,6 +1006,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0.0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     },
@@ -701,6 +1024,13 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 0.5,
       "slots": {
         "roughness": {
@@ -717,70 +1047,21 @@
       "glass": null,
       "clearcoat": 0,
       "clearcoat_roughness": 0.3,
+      "anisotropy": 0,
+      "alpha": 1,
+      "emission_linear": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "size_m": 1,
       "slots": {}
     }
   },
   "files": {
-    "rhino_assets/asset_6225a4914a52b830629e.png": {
-      "sha256": "6225a4914a52b830629e843e2fe38366eadb89300428de6ebf0361b92cff26d2",
-      "bytes": 2021256,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
-    "rhino_assets/asset_b68123f38d25cdf6b0a9.png": {
-      "sha256": "b68123f38d25cdf6b0a9af006ea46fa28b1dfefa61af3b8ce55b51e1b2a2cbf2",
-      "bytes": 1778351,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
-    "rhino_assets/asset_750bad145f164c36e6ed.png": {
-      "sha256": "750bad145f164c36e6edcfa88a87d1529a1fbc7a5a9cfe90e6314d9972c32b13",
-      "bytes": 496987,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
     "rhino_assets/asset_0c4cdf4f8b4e7c3b5c77.png": {
       "sha256": "0c4cdf4f8b4e7c3b5c7718935f42179b568ee40140a1169c870f99e54c79252e",
       "bytes": 609147,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
-    "rhino_assets/asset_a78c6160754c5522357e.png": {
-      "sha256": "a78c6160754c5522357ec7c17e277bece2ebe2e14d854256712692f98f56e64e",
-      "bytes": 1131093,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
-    "rhino_assets/asset_1e6e7a9ac4dc9f7114ca.png": {
-      "sha256": "1e6e7a9ac4dc9f7114ca8f18e962614ec60012e5d287c257e6128326881d2985",
-      "bytes": 899052,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
-    "rhino_assets/asset_24953a343faab0ab9c1a.png": {
-      "sha256": "24953a343faab0ab9c1ad153e888f8b89ec4fabf6cb85247fb77ad5a2dc65c6c",
-      "bytes": 189418,
-      "dimensions": [
-        1024,
-        1024
-      ]
-    },
-    "rhino_assets/asset_d241abc6337aa251a05c.png": {
-      "sha256": "d241abc6337aa251a05c2b0c8e212ca0fc639dc8f4bf725ae4f608426d9e9378",
-      "bytes": 161191,
       "dimensions": [
         1024,
         1024
@@ -794,12 +1075,36 @@
         2048
       ]
     },
-    "rhino_assets/asset_b6adf9b52f601a194189.png": {
-      "sha256": "b6adf9b52f601a1941896952dec180f99a36a370541f44ba3e1d458b02d221c2",
-      "bytes": 6614283,
+    "rhino_assets/asset_1e6e7a9ac4dc9f7114ca.png": {
+      "sha256": "1e6e7a9ac4dc9f7114ca8f18e962614ec60012e5d287c257e6128326881d2985",
+      "bytes": 899052,
       "dimensions": [
-        2048,
-        2048
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_231b611a8a6ba4e75f5b.png": {
+      "sha256": "231b611a8a6ba4e75f5be097635d07c8cf107b129c0fb387306746bc9d765646",
+      "bytes": 79,
+      "dimensions": [
+        225,
+        4
+      ]
+    },
+    "rhino_assets/asset_24953a343faab0ab9c1a.png": {
+      "sha256": "24953a343faab0ab9c1ad153e888f8b89ec4fabf6cb85247fb77ad5a2dc65c6c",
+      "bytes": 189418,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_3c4c23a8d0ee23056bb2.png": {
+      "sha256": "3c4c23a8d0ee23056bb22911ee77f59f10dfd7dfcce34021ae5a8e71945cc41f",
+      "bytes": 440636,
+      "dimensions": [
+        1024,
+        1024
       ]
     },
     "rhino_assets/asset_43ef68128d65049c9f30.png": {
@@ -810,6 +1115,38 @@
         2048
       ]
     },
+    "rhino_assets/asset_4a05d13415d828f91df0.png": {
+      "sha256": "4a05d13415d828f91df077b8b05ce5b2a0cc16c5cf75452e3ff231e137afb3f6",
+      "bytes": 156152,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_6225a4914a52b830629e.png": {
+      "sha256": "6225a4914a52b830629e843e2fe38366eadb89300428de6ebf0361b92cff26d2",
+      "bytes": 2021256,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_6450e78439ae95fb5c6d.png": {
+      "sha256": "6450e78439ae95fb5c6dbbd9c8f61ff55e0ddaf2c54c1026d4b6098a16c9de6e",
+      "bytes": 2261513,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "rhino_assets/asset_750bad145f164c36e6ed.png": {
+      "sha256": "750bad145f164c36e6edcfa88a87d1529a1fbc7a5a9cfe90e6314d9972c32b13",
+      "bytes": 496987,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
     "rhino_assets/asset_8bd17ac9edaeda353e46.png": {
       "sha256": "8bd17ac9edaeda353e460dd1e2d3a36a3aca7501e20bd76787e0b2a1c383c61e",
       "bytes": 2616278,
@@ -818,17 +1155,33 @@
         2048
       ]
     },
-    "rhino_assets/asset_f20c051e956d30e6235c.png": {
-      "sha256": "f20c051e956d30e6235cd3a9b9b25d17ca25bf4f2777251245d4d5d7e92a6d66",
-      "bytes": 8836495,
+    "rhino_assets/asset_91dc807b5aec30b2ced3.png": {
+      "sha256": "91dc807b5aec30b2ced3bb65fcdcc2cda5c0f2ec82bde518670433ebfb37afc6",
+      "bytes": 206,
       "dimensions": [
-        2048,
-        2048
+        225,
+        4
       ]
     },
-    "rhino_assets/asset_6450e78439ae95fb5c6d.png": {
-      "sha256": "6450e78439ae95fb5c6dbbd9c8f61ff55e0ddaf2c54c1026d4b6098a16c9de6e",
-      "bytes": 2261513,
+    "rhino_assets/asset_a78c6160754c5522357e.png": {
+      "sha256": "a78c6160754c5522357ec7c17e277bece2ebe2e14d854256712692f98f56e64e",
+      "bytes": 1131093,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_b68123f38d25cdf6b0a9.png": {
+      "sha256": "b68123f38d25cdf6b0a9af006ea46fa28b1dfefa61af3b8ce55b51e1b2a2cbf2",
+      "bytes": 1778351,
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    "rhino_assets/asset_b6adf9b52f601a194189.png": {
+      "sha256": "b6adf9b52f601a1941896952dec180f99a36a370541f44ba3e1d458b02d221c2",
+      "bytes": 6614283,
       "dimensions": [
         2048,
         2048
@@ -842,42 +1195,27 @@
         1024
       ]
     },
-    "rhino_assets/asset_4a05d13415d828f91df0.png": {
-      "sha256": "4a05d13415d828f91df077b8b05ce5b2a0cc16c5cf75452e3ff231e137afb3f6",
-      "bytes": 156152,
+    "rhino_assets/asset_d241abc6337aa251a05c.png": {
+      "sha256": "d241abc6337aa251a05c2b0c8e212ca0fc639dc8f4bf725ae4f608426d9e9378",
+      "bytes": 161191,
       "dimensions": [
         1024,
         1024
       ]
     },
-    "rhino_assets/asset_91dc807b5aec30b2ced3.png": {
-      "sha256": "91dc807b5aec30b2ced3bb65fcdcc2cda5c0f2ec82bde518670433ebfb37afc6",
-      "bytes": 206,
+    "rhino_assets/asset_f20c051e956d30e6235c.png": {
+      "sha256": "f20c051e956d30e6235cd3a9b9b25d17ca25bf4f2777251245d4d5d7e92a6d66",
+      "bytes": 8836495,
       "dimensions": [
-        225,
-        4
-      ]
-    },
-    "rhino_assets/asset_231b611a8a6ba4e75f5b.png": {
-      "sha256": "231b611a8a6ba4e75f5be097635d07c8cf107b129c0fb387306746bc9d765646",
-      "bytes": 79,
-      "dimensions": [
-        225,
-        4
-      ]
-    },
-    "rhino_assets/asset_3c4c23a8d0ee23056bb2.png": {
-      "sha256": "3c4c23a8d0ee23056bb22911ee77f59f10dfd7dfcce34021ae5a8e71945cc41f",
-      "bytes": 440636,
-      "dimensions": [
-        1024,
-        1024
+        2048,
+        2048
       ]
     }
   },
   "notes": [
     "ARM channels R=AO, G=roughness, B=metallic; viewer keeps scalar metallic, so B is not applied.",
-    "AO is baked with viewer strength 0.7; roughness multipliers are baked into linear PNGs.",
-    "Original browser GLSL procedural effects are not physical geometry and are documented separately."
+    "AO uses viewer strength 0.7; roughness and linear colour multipliers are baked into PNGs.",
+    "Vision-glass preview opacity is 1 - 0.85*vlt; canonical IOR is retained. This is a display approximation.",
+    "Browser GLSL procedural effects remain metadata; they are not physical geometry."
   ]
 }

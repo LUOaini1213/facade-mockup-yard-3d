@@ -99,7 +99,7 @@ model/                  vmu_cad.glb          VMU-01 tower, VMU-03, trellis      
                         vmu02.glb, vmu04.glb, vmu05.glb                                 2.5 MB
                         site_ground.glb      slab, drains, runways, generic road       1.3 MB
                         site_context.glb     sheds, gantry, containers, hoarding       2.1 MB
-                        materials.json       colour table (83 materials)
+                        materials.json       colour table (87 registered materials)
                         site_features.json   palms, trees, people, vehicles, labels
                         vmu_site_future.3dm  the whole model for Rhino (mm)           62.9 MB
                         vmu_site_future_inventory.csv  checked mesh-component inventory
@@ -173,3 +173,16 @@ THIRD_PARTY_LICENSES.md
   reserved unless the owner adds a LICENSE file. Third-party components remain under their own licences.
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md)。
+
+## Complete Rhino delivery
+
+Use the interpreter from the environment where `requirements-rhino.txt` was installed:
+
+```powershell
+.\.venv\Scripts\python.exe build\delivery.py --check
+.\.venv\Scripts\python.exe build\delivery.py --rebuild
+```
+
+Offline `--check` verifies the committed delivery index, source geometry, canonical material derivation, mesh topology, native PBR scalars, cameras and captures without starting Rhino or rewriting reports. Native `--rebuild` requires licensed Rhino on Windows and refreshes the public GLB source export, textures, cameras, native model, captures and independent reports. All subprocesses use the selected interpreter.
+
+`model/delivery_index.json` records source/code/configuration fingerprints, output fingerprints, Python/dependency versions and the native Rhino version. Changed inputs or outputs invalidate the old delivery. Interrupted builds remain failed rather than retaining an old success label. Text fingerprints normalize Git line endings; model and image fingerprints use exact bytes. The CI `--manifest-only` gate runs after the independent checks.

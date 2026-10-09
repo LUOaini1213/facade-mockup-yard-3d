@@ -7,6 +7,8 @@ and a few document user strings (MOCKUP.*) summarise the build. The VMU layers a
 import colorsys, csv, json, os, sys, time
 from glb_reader import read_glb, accessor, walk
 from rhino_mesh import make_mesh, source_key, component_id
+from material_integrity import validate_materials
+from prepare_rhino_assets import load_json,validate_glb_materials
 import numpy as np
 import rhino3dm as r
 
@@ -29,19 +31,20 @@ USER_TEXT_KEYS = ('group', 'layer', 'layer_en', 'part', 'role', 'finish', 'finis
                   'source', 'confidence', 'highlight', 'param', 'options', 'columns', 'glass_type', 'modified',
                   'note', 'indicative', 'concealed', 'context', 'objects', 'triangles', 'plan_area_m2', 'c18_flag', 'flag', 'flags')
 
-MATDB = json.load(open(os.path.join(MODEL, 'materials.json'), encoding='utf-8'))
+MATDB = validate_materials(load_json(os.path.join(MODEL, 'materials.json')))
 
 def canon(name):
-    n, k = name, 0
-    while n in MATDB and MATDB[n].get('alias_of') and MATDB[n]['alias_of'] in MATDB and k < 5: n = MATDB[n]['alias_of']; k += 1
-    return n if n in MATDB else None
+    if name not in MATDB: raise ValueError('Unknown public material: '+str(name))
+    n = name
+    while MATDB[n].get('alias_of'): n = MATDB[n]['alias_of']
+    return n
 
 def lin2srgb(c):
     c = max(0.0, min(1.0, float(c)))
     return 12.92 * c if c <= 0.0031308 else 1.055 * c ** (1 / 2.4) - 0.055
 
 def mat_rgb(J, mi):
-    if mi is None: return ('(none)', (160, 160, 160), None)
+    if mi is None: raise ValueError('Public mesh has no material assignment')
     m = J['materials'][mi]; name = m.get('name', f'mat{mi}'); cn = canon(name)
     if cn:
         h = MATDB[cn]['hex'].lstrip('#'); return (cn, tuple(int(h[k:k + 2], 16) for k in (0, 2, 4)), MATDB[cn])
@@ -63,16 +66,22 @@ def safe(s):
 def render_material(cn, rgb, entry):
     if cn in rmat_idx: return rmat_idx[cn]
     m = r.Material(); m.Name = cn; m.DiffuseColor = (*rgb, 255)
-    metal = float((entry or {}).get('metalness', 0) or 0); rough = float((entry or {}).get('roughness', 0.6) or 0.6)
+    metal = float(entry['metalness']); rough = float(entry['roughness'])
     g = (entry or {}).get('glass')
     m.Reflectivity = 0.08 + 0.6 * metal; m.Shine = (1 - rough) * 255 * 0.8
     if g and not g.get('opaque'): m.Transparency = float(g.get('vlt', 0.4)); m.IndexOfRefraction = 1.52
-    try:
-        m.ToPhysicallyBased(); pb = m.PhysicallyBased
-        pb.BaseColor = r.Color4f(rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, 1.0); pb.Metallic = metal; pb.Roughness = rough
-        if g and not g.get('opaque'): pb.Opacity = 1.0 - float(g.get('vlt', 0.4)) * 0.85; pb.OpacityIOR = 1.52
-    except Exception as e:
-        pass
+    m.ToPhysicallyBased(); pb = m.PhysicallyBased
+    pb.BaseColor = (rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, 1.0); pb.Metallic = metal; pb.Roughness = rough
+    pb.Clearcoat = float(entry.get('clearcoat',0)); pb.ClearcoatRoughness = float(entry.get('clearcoatRoughness',.3))
+    pb.Anisotropic = float(entry.get('anisotropy',0))
+    # rhino3dm 8.32 exposes emission as a float tuple and no PBR Alpha;
+    # retain baseline alpha in legacy transparency/UserText. Native Rhino
+    # explicitly writes and verifies pbr-alpha in the delivery model.
+    pb.EmissionColor = (*entry.get('emission_linear',[0.,0.,0.]),1.)
+    if 'alpha' in entry:
+        m.Transparency = 1-float(entry['alpha'])
+        m.SetUserString('canonical_alpha',str(entry['alpha']))
+    if g and not g.get('opaque'): pb.Opacity = 1.0 - float(g['vlt']) * 0.85; pb.OpacityIOR = float(g['ior'])
     m.SetUserString('hex', '#%02X%02X%02X' % rgb)
     if entry:
         for k in ('confidence', 'source'):
@@ -126,8 +135,9 @@ inventory_rows = []
 for fn, top, desc in FILES:
     path = os.path.join(MODEL, fn)
     if not os.path.exists(path):
-        rep['missing'].append(fn); print(f'!! {fn} not found - skipped ({desc})'); continue
+        raise ValueError('Required public GLB is missing: '+fn)
     J, BIN = read_glb(path)
+    validate_glb_materials(J,MATDB,fn)
     ftri = fobj = 0
     for ni, W, anc in walk(J):
         n = J['nodes'][ni]

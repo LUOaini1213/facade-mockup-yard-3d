@@ -26,11 +26,15 @@ jobs:
       - name: Known-value regression tests
         run: python -m unittest discover -s build -p "test_*.py" -v
       - name: Verify baseline against the public GLBs
-        run: python build/check_3dm.py --report model/vmu_site_future_qa.json
+        run: python build/check_3dm.py
+      - name: Verify canonical material derivation without modifying assets
+        run: python build/prepare_rhino_assets.py --check
       - name: Verify native geometry and source UV preservation
-        run: python build/check_3dm.py --model model/vmu_site_future_native.3dm --inventory model/vmu_site_future_inventory.csv --report model/vmu_site_future_native_source_qa.json
+        run: python build/check_3dm.py --model model/vmu_site_future_native.3dm --inventory model/vmu_site_future_inventory.csv
       - name: Independently verify native materials, metrics, cameras and images
-        run: python build/check_delivery.py
+        run: python build/check_delivery.py --no-write-reports
+      - name: Verify the complete delivery index without rewriting artifacts
+        run: python build/delivery.py --check --manifest-only
 
 # Licensed native Rhino rebuild/capture is a local Windows step documented in
 # rhino/README.md. CI independently reads the committed model, images and reports;
