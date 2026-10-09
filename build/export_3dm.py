@@ -4,7 +4,9 @@ primitive becomes one Rhino mesh with its own normals and UVs, layers follow the
 (root layers MOCKUP_VMU and SITE), layer colours are the sRGB material colours, node extras become object user text
 and a few document user strings (MOCKUP.*) summarise the build. The VMU layers are asserted to contain no red colour.
 """
-import colorsys, json, os, struct, sys, time
+import colorsys, csv, json, os, sys, time
+from glb_reader import read_glb, accessor, walk
+from rhino_mesh import make_mesh, source_key, component_id
 import numpy as np
 import rhino3dm as r
 
@@ -12,6 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MODEL = os.path.normpath(os.path.join(HERE, '..', 'model'))
 OUT = os.environ.get('MOCKUP_3DM_OUT') or os.path.join(MODEL, 'vmu_site_future.3dm')
 REPORT = os.environ.get('MOCKUP_3DM_REPORT') or os.path.join(HERE, '_scratch', 'export_3dm_report.json')
+INVENTORY = os.environ.get('MOCKUP_3DM_INVENTORY') or os.path.splitext(OUT)[0] + '_inventory.csv'
 FILES = [
     ('vmu_cad.glb', 'MOCKUP_VMU', 'VMU01 tower (no canopy) + VMU03 + TRELLIS - legacy CAD meshes, build_cad.py'),
     ('vmu01_canopy.glb', 'MOCKUP_VMU', 'VMU01 canopy, existing + extension, parametric - build_canopy.py'),
@@ -25,54 +28,6 @@ CANOPY_LAYER = 'Canopy (existing + extension)'
 USER_TEXT_KEYS = ('group', 'layer', 'layer_en', 'part', 'role', 'finish', 'finish_code', 'finish_source', 'finish_confidence', 'finish_status',
                   'source', 'confidence', 'highlight', 'param', 'options', 'columns', 'glass_type', 'modified',
                   'note', 'indicative', 'concealed', 'context', 'objects', 'triangles', 'plan_area_m2', 'c18_flag', 'flag', 'flags')
-
-CT = {5120: np.int8, 5121: np.uint8, 5122: np.int16, 5123: np.uint16, 5125: np.uint32, 5126: np.float32}
-NC = {'SCALAR': 1, 'VEC2': 2, 'VEC3': 3, 'VEC4': 4, 'MAT4': 16}
-
-def read_glb(fn):
-    b = open(fn, 'rb').read()
-    magic, ver, total = struct.unpack_from('<III', b, 0)
-    assert magic == 0x46546C67, fn
-    off, J, BIN = 12, None, None
-    while off < total:
-        ln, typ = struct.unpack_from('<II', b, off); off += 8
-        if typ == 0x4E4F534A: J = json.loads(b[off:off + ln])
-        elif typ == 0x004E4942: BIN = b[off:off + ln]
-        off += ln
-    return J, BIN
-
-def accessor(J, BIN, i):
-    a = J['accessors'][i]; bv = J['bufferViews'][a['bufferView']]
-    dt = np.dtype(CT[a['componentType']]); n = NC[a['type']]; cnt = a['count']
-    start = bv.get('byteOffset', 0) + a.get('byteOffset', 0); stride = bv.get('byteStride', 0)
-    if stride and stride != dt.itemsize * n:
-        raw = np.frombuffer(BIN, dtype=np.uint8, count=stride * (cnt - 1) + dt.itemsize * n, offset=start)
-        idx = (np.arange(cnt)[:, None] * stride + np.arange(dt.itemsize * n)[None, :])
-        arr = raw[idx].copy().view(dt).reshape(cnt, n)
-    else:
-        arr = np.frombuffer(BIN, dtype=dt, count=cnt * n, offset=start).reshape(cnt, n)
-    return arr
-
-def node_matrix(n):
-    if 'matrix' in n: return np.array(n['matrix'], dtype=np.float64).reshape(4, 4).T
-    M = np.eye(4)
-    if 'scale' in n: M = np.diag([*n['scale'], 1.0]) @ M
-    if 'rotation' in n:
-        x, y, z, w = n['rotation']
-        R = np.array([[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)],
-                      [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
-                      [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]])
-        Rm = np.eye(4); Rm[:3, :3] = R; M = Rm @ M
-    if 'translation' in n: T = np.eye(4); T[:3, 3] = n['translation']; M = T @ M
-    return M
-
-def walk(J):
-    sc = J['scenes'][J.get('scene', 0)]
-    stack = [(i, np.eye(4), ()) for i in reversed(sc['nodes'])]
-    while stack:
-        i, P, anc = stack.pop(); n = J['nodes'][i]; W = P @ node_matrix(n)
-        yield i, W, anc
-        for c in reversed(n.get('children', [])): stack.append((c, W, anc + (n.get('name', ''),)))
 
 MATDB = json.load(open(os.path.join(MODEL, 'materials.json'), encoding='utf-8'))
 
@@ -141,28 +96,33 @@ def layer(path, rgb=None, mat=None, info=None):
         layer_idx[p] = idx; layer_rgb[p] = c
     return layer_idx[path]
 
-def add_mesh(V, F, N, lay, name, extras):
-    m = r.Mesh(); vs = m.Vertices
-    for x, y, z in V.tolist(): vs.Add(x, y, z)
-    fs = m.Faces
-    for a, b, c in F.tolist(): fs.AddFace(a, b, c)
-    if N is not None:
-        ns = m.Normals
-        for x, y, z in N.tolist(): ns.Add(x, y, z)
+def add_mesh(V, F, N, uv, lay, name, extras, key):
+    m = make_mesh(V, F, N, uv)
     att = r.ObjectAttributes(); att.LayerIndex = lay; att.Name = name[:250]
+    att.Id = component_id(key)
+    att.SetUserString('component_id', str(att.Id))
+    att.SetUserString('source_key', key)
+    att.SetUserString('has_uv', 'true' if uv is not None else 'false')
+    att.SetUserString('source_triangles', str(len(F)))
+    att.SetUserString('culled_degenerate_faces', str(len(F) - len(m.Faces)))
+    att.SetUserString('inventory_kind', 'GLB mesh primitive; may aggregate physical parts')
     for k in USER_TEXT_KEYS:
         v = extras.get(k)
         if v is None or v == '': continue
         att.SetUserString(k, (v if isinstance(v, str) else json.dumps(v, ensure_ascii=False))[:2000])
     gid = out.Objects.AddMesh(m, att)
-    return gid
+    if gid != att.Id:
+        raise RuntimeError('Rhino did not preserve component ID: ' + key)
+    return gid, len(m.Faces)
 
 def to_rhino(P):
     return np.c_[P[:, 0], -P[:, 2], P[:, 1]] * 1000.0
 
 t0 = time.time()
 rep = {'output': OUT, 'units': 'mm, X=E, Y=N, Z=Up', 'files': {}, 'groups': {}, 'layers': 0, 'objects': 0, 'triangles': 0, 'missing': [],
-       'red_layers_MOCKUP_VMU': [], 'red_layers_SITE': [], 'uv_objects': 0, 'group_files': {}, 'materials': {}}
+       'red_layers_MOCKUP_VMU': [], 'red_layers_SITE': [], 'uv_objects': 0, 'group_files': {}, 'materials': {},
+       'source_triangles': 0, 'culled_degenerate_faces': 0}
+inventory_rows = []
 for fn, top, desc in FILES:
     path = os.path.join(MODEL, fn)
     if not os.path.exists(path):
@@ -201,11 +161,29 @@ for fn, top, desc in FILES:
             info = {'material': cn, 'hex': '#%02X%02X%02X' % rgb, 'file': fn}
             li = layer(lp, rgb, mi, info)
             ex2 = dict(ex); ex2.setdefault('finish', cn)
-            if 'TEXCOORD_0' in prim['attributes']: rep['uv_objects'] += 1
-            add_mesh(to_rhino(P), F, Nn, li, name, ex2)
+            uv = None
+            if 'TEXCOORD_0' in prim['attributes']:
+                uv = accessor(J, BIN, prim['attributes']['TEXCOORD_0'])
+                rep['uv_objects'] += 1
+            key = source_key(fn, ni, pi)
+            Vr = to_rhino(P)
+            gid, valid_triangles = add_mesh(Vr, F, Nn, uv, li, name, ex2, key)
+            row = {'component_id': str(gid), 'source_key': key, 'source_file': fn,
+                   'name': name, 'layer_path': '::'.join(safe(p) for p in lp),
+                   'group': ex2.get('group', grp), 'part': ex2.get('part', ''),
+                   'role': ex2.get('role', ''), 'finish': cn, 'confidence': ex2.get('confidence', ''),
+                   'vertices': len(P), 'source_triangles': len(F), 'triangles': valid_triangles,
+                   'culled_degenerate_faces': len(F) - valid_triangles,
+                   'uv_count': len(uv) if uv is not None else 0}
+            for axis, low, high in zip('xyz', Vr.min(0), Vr.max(0)):
+                row['min_' + axis + '_mm'] = float(low)
+                row['max_' + axis + '_mm'] = float(high)
+            inventory_rows.append(row)
             rep['group_files'].setdefault(lp[1] if top == 'MOCKUP_VMU' else f'SITE::{lp[1]}', set()).add(fn)
-            rep['materials'][cn] = rep['materials'].get(cn, 0) + len(F)
-            nt = len(F); ftri += nt; fobj += 1
+            rep['materials'][cn] = rep['materials'].get(cn, 0) + valid_triangles
+            rep['source_triangles'] += len(F)
+            rep['culled_degenerate_faces'] += len(F) - valid_triangles
+            nt = valid_triangles; ftri += nt; fobj += 1
             Vr = to_rhino(P); g = rep['groups'].setdefault(lp[1] if top == 'MOCKUP_VMU' else f'SITE::{lp[1]}', {'triangles': 0, 'objects': 0, 'min_mm': [1e18] * 3, 'max_mm': [-1e18] * 3})
             g['triangles'] += nt; g['objects'] += 1
             g['min_mm'] = np.minimum(g['min_mm'], Vr.min(0)).tolist(); g['max_mm'] = np.maximum(g['max_mm'], Vr.max(0)).tolist()
@@ -264,9 +242,14 @@ try: geo = json.load(open(os.path.join(HERE, 'georef.json'), encoding='utf-8'))
 except Exception: pass
 info_l = layer(('MOCKUP_VMU', '_Info'), (90, 90, 90))
 att = r.ObjectAttributes(); att.LayerIndex = info_l; att.Name = 'mock-up VMU site origin'
+att.Id = component_id('document/site-origin')
 out.Objects.AddTextDot('mock-up VMU yard (future completed state). Origin = layout plan ' + json.dumps(geo.get('origin_R3m', '')) +
                        ' m; X=East Y=North Z=Up mm; Z=0 = yard slab top', r.Point3d(0, 0, 20000), att)
 S = out.Strings
+S['MOCKUP.component_ids'] = 'UUID5 from GLB filename/node/primitive indices; stable on unchanged source topology'
+S['MOCKUP.inventory'] = os.path.basename(INVENTORY) + '; one mesh primitive per row, not a fabrication quantity take-off'
+S['MOCKUP.uv_objects'] = str(rep['uv_objects'])
+S['MOCKUP.culled_degenerate_faces'] = str(rep['culled_degenerate_faces'])
 S['MOCKUP.units'] = 'millimetres; X = East, Y = North, Z = Up; Z = 0 = yard slab top'
 S['MOCKUP.origin'] = 'site origin = layout plan ' + json.dumps(geo.get('origin_R3m', '')) + ' m (build/georef.json)'
 S['MOCKUP.files'] = json.dumps({k: {kk: v[kk] for kk in ('triangles', 'objects', 'mtime')} for k, v in rep['files'].items()}, ensure_ascii=False)
@@ -295,7 +278,16 @@ if _ctx.get('attribution'):
     S['MOCKUP.context_attribution'] = str(_ctx['attribution'])[:4000]
 S['MOCKUP.ground'] = ('SITE::Ground = site_ground.glb: yard slab, damp patches (the viewer blurs them into soft stains), drains, IC chambers, '
                      'hydrants, crane rails + red safety lines, yellow line, main road carriageway ~0.8-0.95 m below the yard, kerbs, verges')
-out.Write(OUT, 8)
+os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
+if not out.Write(OUT, 8):
+    raise RuntimeError('Could not write Rhino file: ' + OUT)
+os.makedirs(os.path.dirname(os.path.abspath(INVENTORY)), exist_ok=True)
+with open(INVENTORY, 'w', encoding='utf-8-sig', newline='') as stream:
+    writer = csv.DictWriter(stream, fieldnames=list(inventory_rows[0]))
+    writer.writeheader()
+    writer.writerows(inventory_rows)
+rep['inventory'] = INVENTORY
+rep['inventory_rows'] = len(inventory_rows)
 rep['layers'] = len(layer_idx); rep['seconds'] = round(time.time() - t0, 1); rep['bytes'] = os.path.getsize(OUT)
 os.makedirs(os.path.dirname(REPORT), exist_ok=True)
 json.dump(rep, open(REPORT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

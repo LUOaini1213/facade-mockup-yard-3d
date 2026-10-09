@@ -1,0 +1,37 @@
+name: Rhino public delivery
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readback:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: true
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-rhino.txt
+      - name: Install public conversion dependencies
+        run: python -m pip install -r requirements-rhino.txt
+      - name: Known-value regression tests
+        run: python -m unittest discover -s build -p "test_*.py" -v
+      - name: Verify baseline against the public GLBs
+        run: python build/check_3dm.py --report model/vmu_site_future_qa.json
+      - name: Verify native geometry and source UV preservation
+        run: python build/check_3dm.py --model model/vmu_site_future_native.3dm --inventory model/vmu_site_future_inventory.csv --report model/vmu_site_future_native_source_qa.json
+      - name: Independently verify native materials, metrics, cameras and images
+        run: python build/check_delivery.py
+
+# Licensed native Rhino rebuild/capture is a local Windows step documented in
+# rhino/README.md. CI independently reads the committed model, images and reports;
+# it does not pretend to run the commercial application on GitHub-hosted runners.

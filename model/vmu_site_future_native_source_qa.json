@@ -1,0 +1,32 @@
+{
+  "model": "vmu_site_future_native.3dm",
+  "inventory": "vmu_site_future_inventory.csv",
+  "passed": true,
+  "mesh_objects": 235,
+  "inventory_rows": 235,
+  "triangles": 2222589,
+  "source_triangles": 2223601,
+  "culled_degenerate_faces": 1012,
+  "source_area_m2": 155622.17062860655,
+  "retained_area_m2": 155622.17062860655,
+  "removed_surface_area_m2": 0.0,
+  "source_files": [
+    "site_context.glb",
+    "site_ground.glb",
+    "vmu01_canopy.glb",
+    "vmu02.glb",
+    "vmu04.glb",
+    "vmu05.glb",
+    "vmu_cad.glb"
+  ],
+  "uv_objects": 194,
+  "uv_vertices": 621885,
+  "generated_uv_objects": 41,
+  "generated_uv_vertices": 1396238,
+  "max_generated_uv_error": 0.0,
+  "max_uv_error": 0.0,
+  "max_bbox_error_mm": 0.007568359375,
+  "max_vertex_error_mm": 0.0078125,
+  "max_normal_error": 3.746926552361529e-08,
+  "errors": []
+}

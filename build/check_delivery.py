@@ -1,0 +1,157 @@
+"""Independently verify public texture assets, native geometry metrics, views and PNGs."""
+import csv
+import hashlib
+import json
+import math
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+import numpy as np
+from PIL import Image, ImageDraw
+import rhino3dm as r
+
+ROOT=Path(__file__).resolve().parent.parent
+
+
+def check():
+    errors=[]
+    assets=json.loads((ROOT/'model'/'rhino_assets.json').read_text(encoding='utf-8'))
+    for relative,spec in assets['files'].items():
+        data=(ROOT/'model'/relative).read_bytes()
+        if hashlib.sha256(data).hexdigest()!=spec['sha256']:
+            errors.append('Asset hash mismatch: '+relative)
+        image=Image.open(ROOT/'model'/relative)
+        if list(image.size)!=spec['dimensions']:
+            errors.append('Asset dimensions mismatch: '+relative)
+    native=json.loads((ROOT/'model'/'vmu_site_future_rhino_delivery.json').read_text(encoding='utf-8'))
+    if not native.get('passed'): errors.append('Native delivery did not pass')
+    native_path=ROOT/'model'/'vmu_site_future_native.3dm'
+    if native.get('output_sha256')!=hashlib.sha256(native_path.read_bytes()).hexdigest():
+        errors.append('Native delivery report does not describe the current 3dm')
+    if native.get('source_sha256')!=hashlib.sha256((ROOT/'model'/'vmu_site_future.3dm').read_bytes()).hexdigest():
+        errors.append('Source geometry baseline differs from the native build input')
+    expected_slots={(name,slot) for name,spec in assets['materials'].items() for slot in spec['slots']}
+    actual_slots={(item['material'],item['slot']) for item in native.get('material_slots',[])}
+    if expected_slots!=actual_slots: errors.append('Native PBR slot readback is incomplete')
+    if {Path(p).name for p in assets['files']}!=set(native.get('embedded_assets',[])):
+        errors.append('Native embedded-asset readback is incomplete')
+    quality=json.loads((ROOT/'model'/'vmu_site_future_geometry.json').read_text(encoding='utf-8'))
+    rows={item['component_id']:item for item in quality['components']}
+    doc=r.File3dm.Read(str(native_path))
+    slot_names={'base_color':'pbr-base-color','normal':'pbr-bump','roughness':'pbr-roughness',
+                'metallic':'pbr-metallic','ao':'pbr-ambient-occlusion'}
+    contents={item.Name:item for item in doc.RenderContent if item.Kind=='material'}
+    content_ids={str(item.Id):item.Name for item in contents.values()}
+    checked_slots=0
+    for name,spec in assets['materials'].items():
+        content=contents.get(name+' | Native PBR')
+        if content is None:
+            errors.append('Missing native object material: '+name);continue
+        xml=ET.fromstring(content.XML(True))
+        parent={p.get('name'):p.text for p in xml.findall('parameters-v8/parameter')}
+        children={t.get('child-slot-name'):t for t in xml.findall('texture')}
+        for slot,asset in spec['slots'].items():
+            child=children.get(slot_names[slot])
+            if child is None:
+                errors.append('Missing saved RDK texture: '+name+'/'+slot);continue
+            values={p.get('name'):p.text for p in child.findall('parameters-v8/parameter')}
+            expected_repeat=[1/spec['size_m'],1/spec['size_m'],1]
+            observed=[float(v) for v in values.get('rdk-texture-repeat','').split(',')]
+            if len(observed)!=3 or not np.allclose(observed,expected_repeat,rtol=0,atol=1e-9):
+                errors.append('Saved PBR physical scale mismatch: '+name+'/'+slot)
+            if (values.get('treat-as-linear')=='true')!=asset['linear']:
+                errors.append('Saved PBR colour space mismatch: '+name+'/'+slot)
+            if Path(values.get('filename','')).name!=Path(asset['file']).name or parent.get(slot_names[slot]+'-on')!='true':
+                errors.append('Saved PBR file/enable mismatch: '+name+'/'+slot)
+            checked_slots+=1
+    meshes=[o for o in doc.Objects if isinstance(o.Geometry,r.Mesh)]
+    if set(rows)!={str(o.Attributes.Id) for o in meshes}: errors.append('Geometry inventory differs from native meshes')
+    area_error,volume_error=0.,0.
+    for obj in meshes:
+        mesh=obj.Geometry;row=rows[str(obj.Attributes.Id)]
+        material=doc.Materials.FindIndex(obj.Attributes.MaterialIndex)
+        actual_name=content_ids.get(str(material.RenderMaterialInstanceId)) if material else None
+        if actual_name!=row['finish']+' | Native PBR':
+            errors.append('Object PBR assignment mismatch: '+row['source_key'])
+        positions=np.array([(p.X,p.Y,p.Z) for p in mesh.Vertices],dtype=float)
+        faces=np.array(list(mesh.Faces),dtype=np.int64)[:,:3]
+        a,b,c=positions[faces[:,0]],positions[faces[:,1]],positions[faces[:,2]]
+        area=float(np.linalg.norm(np.cross(b-a,c-a),axis=1).sum()*.5e-6)
+        difference=abs(area-row['area_m2']);area_error=max(area_error,difference)
+        if difference>max(1e-6,area*2e-6): errors.append('Area mismatch: '+row['source_key'])
+        if mesh.IsClosed!=row['is_closed'] or mesh.IsValid!=row['is_valid']:
+            errors.append('Closed/valid status mismatch: '+row['source_key'])
+        if row['volume_m3'] is not None:
+            if not row['is_solid'] or not row['is_closed'] or not row['is_manifold'] or not row['is_oriented']:
+                errors.append('Volume supplied for a non-solid component: '+row['source_key'])
+            # Shift to a local origin to avoid cancellation at large site coordinates.
+            origin=positions.mean(0)
+            volume=abs(float(np.einsum('ij,ij->i',a-origin,np.cross(b-origin,c-origin)).sum()/6e9))
+            difference=abs(volume-row['volume_m3']);volume_error=max(volume_error,difference)
+            if difference>max(1e-8,volume*2e-5): errors.append('Volume mismatch: '+row['source_key'])
+        elif not row['volume_reason']:
+            errors.append('Omitted volume without explanation: '+row['source_key'])
+    with (ROOT/'model'/'vmu_site_future_geometry.csv').open(encoding='utf-8-sig',newline='') as stream:
+        csv_rows=list(csv.DictReader(stream))
+    for row in csv_rows:
+        expected=rows[row['component_id']]
+        for key,value in expected.items():
+            if row.get(key)!=('' if value is None else str(value)):
+                errors.append('CSV/JSON disagreement: '+row['component_id']+'/'+key)
+    manifest=json.loads((ROOT/'model'/'rhino_views.json').read_text(encoding='utf-8'))
+    views={view.Name.split(' | ')[0]:view for view in doc.NamedViews}
+    if len(views)!=13: errors.append('Expected thirteen named views')
+    camera_error=0.
+    for camera in manifest['views']:
+        if camera['key'] not in views:
+            errors.append('Missing camera: '+camera['key']);continue
+        viewport=views[camera['key']].Viewport
+        p=camera['position'];expected=np.array([p[0],-p[2],p[1]])*1000
+        loc=viewport.CameraLocation;actual=np.array([loc.X,loc.Y,loc.Z])
+        error=float(abs(actual-expected).max());camera_error=max(camera_error,error)
+        if error>1e-6:errors.append('Camera position changed: '+camera['key'])
+        p=camera['target'];expected=np.array([p[0],-p[2],p[1]])*1000
+        direction=expected-actual;direction/=np.linalg.norm(direction)
+        observed=viewport.CameraDirection
+        observed=np.array([observed.X,observed.Y,observed.Z],dtype=float)
+        observed/=np.linalg.norm(observed)
+        if not np.allclose(observed,direction,rtol=0,atol=1e-7):
+            errors.append('Camera direction changed: '+camera['key'])
+        frustum=viewport.GetFrustum()
+        half_y=manifest['near_m']*1000*math.tan(math.radians(manifest['fov_y_degrees']/2))
+        half_x=half_y*manifest['width']/manifest['height']
+        expected_frustum={'left':-half_x,'right':half_x,'bottom':-half_y,'top':half_y,
+                          'near':manifest['near_m']*1000,'far':manifest['far_m']*1000}
+        if not all(abs(frustum[k]-v)<1e-6 for k,v in expected_frustum.items()):
+            errors.append('Camera field of view/clipping changed: '+camera['key'])
+    opening=doc.Views[0].Viewport.CameraLocation
+    overview=manifest['views'][0]['position']
+    if not np.allclose([opening.X,opening.Y,opening.Z],
+                       np.array([overview[0],-overview[2],overview[1]])*1000,rtol=0,atol=1e-6):
+        errors.append('Native model does not open at the overview camera')
+    image_checks=[]
+    contact=Image.new('RGB',(1200,4*220),(242,243,245));draw=ImageDraw.Draw(contact)
+    for index,relative in enumerate(native.get('images',[])):
+        image=Image.open(ROOT/relative).convert('RGB')
+        pixels=np.asarray(image)
+        deviation=float(pixels.std())
+        if image.size!=(manifest['width'],manifest['height']) or deviation<5:
+            errors.append('Blank or incorrectly sized native image: '+relative)
+        image_checks.append({'file':relative,'dimensions':list(image.size),'pixel_std':deviation})
+        thumb=image.copy();thumb.thumbnail((290,185))
+        x=(index%4)*300;y=(index//4)*220
+        contact.paste(thumb,(x,y+23));draw.text((x+4,y+3),Path(relative).stem,fill=(20,20,20))
+    if len(image_checks)!=13:errors.append('Expected thirteen native PNGs')
+    contact.save(ROOT/'renders'/'rhino'/'contact_sheet.jpg',quality=90)
+    report={'passed':not errors,'errors':errors,'components':len(meshes),'asset_files':len(assets['files']),
+            'named_views':len(views),'images':image_checks,'max_camera_error_mm':camera_error,
+            'pbr_slots':checked_slots,
+            'max_area_error_m2':area_error,'max_volume_error_m3':volume_error,
+            'source':'independent rhino3dm, NumPy and Pillow readback'}
+    (ROOT/'model'/'vmu_site_future_delivery_qa.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(report,indent=2))
+    return report
+
+
+if __name__=='__main__':
+    raise SystemExit(0 if check()['passed'] else 1)
