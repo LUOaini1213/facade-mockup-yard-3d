@@ -2067,5 +2067,59 @@
     "channels": "R=AO, G=roughness, B=metalness"
    }
   }
+ },
+ "CTX_STEEL_GREY": {
+  "hex": "#8E9499",
+  "linear": [
+   0.2704977910130658,
+   0.2961382707983211,
+   0.31854677812509186
+  ],
+  "metalness": 0.3,
+  "roughness": 0.55,
+  "confidence": "public GLB source values; context display material",
+  "colour_basis": "site_context.glb material CTX_STEEL_GREY; linear baseColorFactor converted to sRGB"
+ },
+ "CTX_FENCE_MESH": {
+  "hex": "#9AA39C",
+  "linear": [
+   0.32314320911295075,
+   0.3662525955988395,
+   0.33245153634617935
+  ],
+  "metalness": 0.6,
+  "roughness": 0.45,
+  "confidence": "public GLB source values; context display material",
+  "colour_basis": "site_context.glb material CTX_FENCE_MESH; linear baseColorFactor converted to sRGB",
+  "alpha": 0.35
+ },
+ "CTX_LAMP": {
+  "hex": "#FFF4DC",
+  "linear": [
+   1.0,
+   0.9046611743911496,
+   0.7156935005064807
+  ],
+  "metalness": 0.0,
+  "roughness": 0.3,
+  "confidence": "public GLB source values; context display material",
+  "colour_basis": "site_context.glb material CTX_LAMP; linear baseColorFactor converted to sRGB",
+  "emission_linear": [
+   0.55,
+   0.52,
+   0.45
+  ]
+ },
+ "CTX_CONTAINER_GREY": {
+  "hex": "#A3A7A5",
+  "linear": [
+   0.3662525955988395,
+   0.386429433787049,
+   0.3762621229909065
+  ],
+  "metalness": 0.0,
+  "roughness": 0.5,
+  "confidence": "public GLB source values; context display material",
+  "colour_basis": "site_context.glb material CTX_CONTAINER_GREY; linear baseColorFactor converted to sRGB"
  }
 }

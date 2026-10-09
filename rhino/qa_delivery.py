@@ -1,6 +1,6 @@
 #! python3
 """Native saved-RDK, embedded-image and camera verification; no legacy simulation."""
-import hashlib,json,os,traceback
+import hashlib,json,os,sys,traceback
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import Rhino
@@ -17,6 +17,8 @@ def scrub_environment(doc):
 
 
 def verify(root,source,output):
+    sys.path.insert(0,str(root/'build'))
+    from material_integrity import verify_native_scalars
     assets=json.loads((root/'model'/'rhino_assets.json').read_text(encoding='utf-8'))
     cameras=json.loads((root/'model'/'rhino_views.json').read_text(encoding='utf-8'))
     quality=json.loads((root/'model'/'vmu_site_future_geometry.json').read_text(encoding='utf-8'))
@@ -34,12 +36,14 @@ def verify(root,source,output):
             raise RuntimeError('Embedded texture hash mismatch: '+name)
         embedded_verified.append(name)
     contents={item.Name:item for item in model.RenderMaterials}
-    checks=[]
+    checks=[];scalar_checks=[]
     for name,spec in assets['materials'].items():
-        if not spec['slots']:continue
         material=contents.get(name+' | Native PBR')
         if material is None:raise RuntimeError('Missing saved PBR material: '+name)
         xml=ET.fromstring(material.XML(True))
+        scalar_errors=verify_native_scalars(xml,spec)
+        if scalar_errors:raise RuntimeError(name+': '+'; '.join(scalar_errors))
+        scalar_checks.append({'material':name,'readback':'saved_RDK_XML'})
         children={t.get('child-slot-name'):t for t in xml.findall('texture')}
         for slot,asset in spec['slots'].items():
             child=children.get(SLOTS[slot])
@@ -83,7 +87,7 @@ def verify(root,source,output):
         'textured_materials':sum(bool(m['slots']) for m in assets['materials'].values()),
         'embedded_assets':embedded_verified,'named_views':saved,'images':images,
         'display_mode_id':str(Rhino.Display.DisplayModeDescription.RenderedId),
-        'material_slots':checks,'output_bytes':output.stat().st_size,
+        'material_slots':checks,'material_scalars':scalar_checks,'output_bytes':output.stat().st_size,
         'output_sha256':hashlib.sha256(output.read_bytes()).hexdigest()}
 
 

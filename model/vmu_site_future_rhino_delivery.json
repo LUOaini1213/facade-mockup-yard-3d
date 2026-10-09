@@ -2,7 +2,7 @@
   "passed": true,
   "model": "vmu_site_future_native.3dm",
   "source_model": "vmu_site_future.3dm",
-  "source_sha256": "215635736cdedfd3e2f7231b28a3f8eb2cf5762ba6ed80cd17c2b52c04935935",
+  "source_sha256": "f3aa4ee4020d7f3cb770d9479eb29ddd1ea54a7de9c75828fae895d0c2c3b9bc",
   "rhino_version": "8.33.26188.13001",
   "errors": [],
   "generated_uv_objects": 41,
@@ -19,25 +19,25 @@
   },
   "textured_materials": 8,
   "embedded_assets": [
-    "asset_6225a4914a52b830629e.png",
-    "asset_b68123f38d25cdf6b0a9.png",
-    "asset_750bad145f164c36e6ed.png",
     "asset_0c4cdf4f8b4e7c3b5c77.png",
-    "asset_a78c6160754c5522357e.png",
-    "asset_1e6e7a9ac4dc9f7114ca.png",
-    "asset_24953a343faab0ab9c1a.png",
-    "asset_d241abc6337aa251a05c.png",
     "asset_1a7fb1819a265187900d.png",
-    "asset_b6adf9b52f601a194189.png",
-    "asset_43ef68128d65049c9f30.png",
-    "asset_8bd17ac9edaeda353e46.png",
-    "asset_f20c051e956d30e6235c.png",
-    "asset_6450e78439ae95fb5c6d.png",
-    "asset_b6b5e438a2fcd116c492.png",
-    "asset_4a05d13415d828f91df0.png",
-    "asset_91dc807b5aec30b2ced3.png",
+    "asset_1e6e7a9ac4dc9f7114ca.png",
     "asset_231b611a8a6ba4e75f5b.png",
-    "asset_3c4c23a8d0ee23056bb2.png"
+    "asset_24953a343faab0ab9c1a.png",
+    "asset_3c4c23a8d0ee23056bb2.png",
+    "asset_43ef68128d65049c9f30.png",
+    "asset_4a05d13415d828f91df0.png",
+    "asset_6225a4914a52b830629e.png",
+    "asset_6450e78439ae95fb5c6d.png",
+    "asset_750bad145f164c36e6ed.png",
+    "asset_8bd17ac9edaeda353e46.png",
+    "asset_91dc807b5aec30b2ced3.png",
+    "asset_a78c6160754c5522357e.png",
+    "asset_b68123f38d25cdf6b0a9.png",
+    "asset_b6adf9b52f601a194189.png",
+    "asset_b6b5e438a2fcd116c492.png",
+    "asset_d241abc6337aa251a05c.png",
+    "asset_f20c051e956d30e6235c.png"
   ],
   "named_views": [
     {
@@ -457,6 +457,184 @@
       "readback": "saved_RDK_XML"
     }
   ],
-  "output_bytes": 121130156,
-  "output_sha256": "ef59ebf8fccde007802c450dd6a99b95c2679a51749ce087266012311352952a"
+  "material_scalars": [
+    {
+      "material": "AL_MILL",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "AL_MOUSEGREY",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "AL_RAL7038",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "AL_RAL9016",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "AL_T01",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "AL_T02",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "AL_WOOD",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ASPHALT",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_BAY_VOID",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CLADDING_RIB",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONCRETE_YARD_DAMP",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONTAINER_GREY",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_CONTAINER_WHITE",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_FACTORY_RC",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_FACTORY_RC_BASE",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_FENCE_MESH",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_GANTRY_GIRDER",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_GANTRY_LEG",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_GATE_BROWN",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_GRASS",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_HOARDING",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_KERB",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_LAMP",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_RAIL",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_RC_BARE",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_RED_LINE",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ROAD_MARKING_WHITE",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_ROOF_METAL",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_SAFETY_YELLOW",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_STEEL_GREY",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_STILLAGE_RED",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "CTX_YELLOW_LINE",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "GL01_VISION",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "GL03_VISION_B",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "GL_DOOR",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "GMS_RIBBED",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "PLYWOOD",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "PRECAST_FORMLINER",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "RC_PLAIN",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "SEALANT_BLACK",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "SS_BRUSHED",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "STEEL_HDG",
+      "readback": "saved_RDK_XML"
+    },
+    {
+      "material": "WHITE",
+      "readback": "saved_RDK_XML"
+    }
+  ],
+  "output_bytes": 121115239,
+  "output_sha256": "b05c298e180812522847ae9381ef29a6b7840b2469101b0e9c591ae412ad51cd"
 }
