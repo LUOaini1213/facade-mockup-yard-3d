@@ -4,7 +4,8 @@
 
 This is a browser-based 3D model of five facade visual mock-ups (VMU-01 to VMU-05) standing in a precast yard. It shows
 the yard as it will look once all five mock-ups are complete, including the VMU-01 canopy extension. The geometry comes
-from CAD and shop-drawing data. Every finish is driven by one colour table. You can explore the model in real time in
+from CAD and shop-drawing data. Mock-up finishes use a shared colour table; some yard materials use GLB or procedural
+defaults. You can explore the model in real time in
 the web viewer, or render path-traced stills from it.
 
 ## What is in the model
@@ -19,11 +20,14 @@ the web viewer, or render path-traced stills from it.
   `model/vmu_site_future.3dm`, in millimetres, with 235 mesh components + 1 information TextDot,
   245 layers and 44 materials. The Rhino export has 2,222,589 valid triangles after removing 1,012
   degenerate faces, with no measured loss of surface area. Source GLBs are unchanged.
-- **Colour table.** `model/materials.json` defines 83 named materials. Thirteen measured finishes have been taken from
-  colour cards and laboratory colour measurements, and each carries both an SCI and an SCE value. The renders use the
-  SCE value (specular component excluded), which is how the eye sees a matt panel. Where a finish is specified by RAL
+- **Colour table.** `model/materials.json` contains 87 named records, including 38 aliases. Thirteen records carry
+  SCI/SCE colour fields: seven canonical entries and six aliases, not thirteen independently measured finishes.
+  These include the indicative VMU-04 precast value. The four `CTX_*` display finishes are registered from the public GLB values.
+  The renders use SCE (specular component excluded).
+  Where a finish is specified by RAL
+
   number, the number is kept: RAL 7005, RAL 7038 and RAL 9016.
-- **Canopy extension.** The extension is always shown in its specified finish: a Mouse Grey top with T02 3 mm parts.
+- **Canopy extension.** The default finish is a Mouse Grey top with T02 3 mm parts; the RAL 7038 option is an explicit comparison.
   The viewer can draw an outline around it (the outline toggle, or `?outline=1`), but it is never tinted.
 
 ## Run the viewer
@@ -58,6 +62,45 @@ What the viewer does:
 
 The user interface is in Chinese.
 
+### Saving stills locally
+
+The toolbar's PNG export downloads an image through the browser. The scripted `window.__poseShot` and
+`window.__shots` helpers instead use `POST /save?name=<filename>.png` on the local server. They report failed saves
+and restore the interactive camera, render size and labels even when an export fails. An existing file returns
+HTTP 409 by default. To deliberately rerender a fixed filename, pass `{ overwrite: true }` as the helper's final
+options argument; this sends `overwrite=1` and replaces the complete file atomically. The historical
+`build/validate.py` runner uses fixed names without that option, so move its previous outputs aside before repeating
+it (the private source inputs are still required).
+
+The save endpoint accepts PNG data URLs, validates PNG framing and image data, and requires a local Host and matching
+Origin for browser requests. Requests are limited to 64 MiB and expanded PNG image data to 256 MiB. Default saves use
+a temporary file and a hard link to avoid overwriting another save; use a filesystem that supports hard links (for
+example NTFS or ext4). A filesystem failure returns HTTP 500 and does not silently overwrite the destination.
+This is a loopback development server, not a public upload service.
+
+### Check the public viewer
+
+From the repository root, with Python 3.12 and Node.js 22:
+
+```sh
+python -B checks/validate_assets.py
+python -B -m unittest discover -s tests -p "test_*.py"
+node --test tests/viewer-lifecycle.test.cjs
+```
+
+The same commands run in CI on Windows and Ubuntu without installing packages or requiring the private build inputs.
+The asset check reads all seven published GLBs, checks their buffer/accessor bounds, indices and finite values, and
+checks local module and texture dependencies. It supports the dense FLOAT VEC2/VEC3 and UINT32 triangle profile used
+here; it is not a general glTF conformance validator. Every public GLB material name must be registered in the
+current colour table, including the four `CTX_*` finishes that previously used viewer fallbacks.
+
+Python regressions exercise the real HTTP server with temporary files. JavaScript regressions execute the viewer's
+actual interaction functions with controlled I/O and GPU boundaries, including cancelled or superseded renders and
+failed exports. These checks do not run WebGL, evaluate OIDN image quality, rerun source-model accuracy checks, or
+reproduce the historical render timings. For visual verification, open the viewer in a WebGL2 browser, check both
+desktop and narrow layouts, clear and restore the date field, measure with scene labels hidden, and cancel a still
+render before returning to the live view. Optional models that fail to load should appear in the load warning.
+
 ## Use Rhino 8
 
 Open `model/vmu_site_future_native.3dm` in Rhino 8 for embedded PBR images and all
@@ -73,6 +116,7 @@ The native delivery adds world mapping to 41 meshes without source UVs, embeds
 129 closed / 106 open / 101 solid meshes and supplies volume only for solids.
 This remains a mesh reference model; browser GLSL effects and engineering element
 classes are not inferred. See [the native contact sheet](renders/rhino/contact_sheet.jpg).
+
 
 ## Renders
 
@@ -146,6 +190,10 @@ THIRD_PARTY_LICENSES.md
 - **Build scripts.** The geometry builders in `build/` record the method and read confidential inputs that are not
   included (drawings, a CAD model, a site survey and site photos). The Rhino exporter, checker and regression tests
   run directly from the committed public GLBs and material table; they do not rebuild the private source geometry.
+- **Still-render preparation.** Geometry/BVH preparation and parts of the first shader compilation run synchronously
+  on the browser's main thread. The exit button may respond only when that work yields. Cancellation isolates late
+  asynchronous results; it cannot interrupt those synchronous GPU/geometry operations.
+
 - **Surroundings.** Only the factories and structures next to the yard are modelled, from the layout plan, the site
   survey and site photos; buildings further away are not modelled. The sheds, the accessway canopy, the gantry crane,
   vehicles and people are approximate. The far ground is a neutral textured plane, not imagery.
@@ -186,3 +234,9 @@ Use the interpreter from the environment where `requirements-rhino.txt` was inst
 Offline `--check` verifies the committed delivery index, source geometry, canonical material derivation, mesh topology, native PBR scalars, cameras and captures without starting Rhino or rewriting reports. Native `--rebuild` requires licensed Rhino on Windows and refreshes the public GLB source export, textures, cameras, native model, captures and independent reports. All subprocesses use the selected interpreter.
 
 `model/delivery_index.json` records source/code/configuration fingerprints, output fingerprints, Python/dependency versions and the native Rhino version. Changed inputs or outputs invalidate the old delivery. Interrupted builds remain failed rather than retaining an old success label. Text fingerprints normalize Git line endings; model and image fingerprints use exact bytes. The CI `--manifest-only` gate runs after the independent checks.
+
+The viewer reliability integration preserves the existing GLBs, Rhino models, textures, captures and native reports.
+The index retains their original build environment and timestamps; `read_only_verification` separately records the
+current code verification and saved-model readback. This verification generates no new render or private-source
+accuracy measurement. Viewer code, the local save/denoise service, JSON scene inputs, local JavaScript dependencies
+and both READMEs are included in the current fingerprints.

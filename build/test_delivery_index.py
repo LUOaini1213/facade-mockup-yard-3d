@@ -40,6 +40,31 @@ class DeliveryIndexTests(unittest.TestCase):
         (self.root / "facade/config.py").write_bytes(b"JOINT=20\r\n")
         self.assertEqual(delivery.verify_index(self.root, "facade")["state"], "passed")
 
+    def test_yard_viewer_dependencies_cannot_reuse_stale_native_delivery(self):
+        files = ("build/rhino_mesh.py", "viewer.js", "index.html", "serve.py", "ptdenoise.py",
+                 "checks/validate_assets.py", "model/site_features.json", "model/overrides.json",
+                 "model/vegetation_notes.json", "vendor/jsm/loaders/GLTFLoader.js", "README.zh-CN.md",
+                 "tests/viewer-lifecycle.test.cjs")
+        for relative in files:
+            path = self.root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("baseline\n", encoding="utf-8")
+        record = dict(self.record, project="yard", inputs=delivery.inputs(self.root, "yard"),
+                      artifacts=delivery.artifacts(self.root, "yard"))
+        delivery.write_index(self.root, record)
+        # The index is an output, never its own source fingerprint.
+        self.assertNotIn(delivery.INDEX, record["inputs"])
+        self.assertEqual(delivery.verify_index(self.root, "yard")["state"], "passed")
+        for relative in files:
+            with self.subTest(file=relative):
+                path = self.root / relative
+                path.write_text("changed\n", encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "inputs/code"):
+                    delivery.verify_index(self.root, "yard")
+                path.write_text("baseline\n", encoding="utf-8")
+        (self.root / "tests/viewer-lifecycle.test.cjs").write_bytes(b"baseline\r\n")
+        self.assertEqual(delivery.verify_index(self.root, "yard")["state"], "passed")
+
     def test_modified_source_rejects_unchanged_report(self):
         (self.root / "model/facade_bim.3dm").write_text("modified source", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "artifacts"):

@@ -18,7 +18,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = "model/delivery_index.json"
 HASH_POLICY = "SHA256; text CRLF normalized to LF"
-TEXT_SUFFIXES = {".py", ".md", ".json", ".csv", ".ifc", ".txt", ".yml", ".yaml", ".html", ".js", ".css", ".xml", ".ids", ".bat"}
+TEXT_SUFFIXES = {".py", ".md", ".json", ".csv", ".ifc", ".txt", ".yml", ".yaml", ".html", ".js", ".cjs", ".css", ".xml", ".ids", ".bat"}
 
 
 def profile(root):
@@ -59,7 +59,10 @@ def inputs(root, project, config=None):
         patterns += [project + "/*.py", "scripts/*.py", "tests/*.py"]
     else:
         patterns += ["build/*.py", "web/*.js", "web/*.html", "viewer.js", "index.html",
-                     "model/*.glb", "model/materials.json", "textures/**/*", "model/textures/**/*"]
+                     "serve.py", "ptdenoise.py", "start_viewer.bat", "README.zh-CN.md", "checks/*.py", "tests/*.cjs",
+                     "model/*.glb", "model/materials.json", "model/site_features.json",
+                     "model/overrides.json", "model/vegetation_notes.json", "vendor/**/*.js",
+                     "textures/**/*", "model/textures/**/*"]
     if project == "bridge":
         patterns.append(config or "construction/input.json")
     return collect(root, patterns)

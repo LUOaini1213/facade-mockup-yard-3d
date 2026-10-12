@@ -7,6 +7,7 @@
   "started_at": "2026-10-09T09:10:24.462763+00:00",
   "inputs": {
     ".gitattributes": "9beb10e26330f561a0fb875d6901c5c70856cf4ced6e676b986fbb921b47904f",
+    ".github/workflows/check.yml": "1cddf6453d6fa34905031bb758a152a4eb33f8d87a40f9d97b2e01ebc0746b9b",
     ".github/workflows/rhino-delivery.yml": "6da8ef4b01ed3138d55221d6e2c390ebb20705a8573bc66e72bd3c911c0ca270",
     "build/build_cad.py": "143bae8d1682f309d1ca3ab1e56001ec2690e68d11a34bccfb39a562e2134b43",
     "build/build_canopy.py": "bd0f52b0d4d91913e497e189baefdbfe93e63faf3a45dbc8321030a1a2360d67",
@@ -27,7 +28,7 @@
     "build/capture_views.py": "de132e747376d7673219e4c9aa2d9dd9851f5500d9291707834aa1be5bd9793f",
     "build/check_3dm.py": "5287432f229d95d933506f66f61b3d55634eccc2b5f20d166f32571c117e83b6",
     "build/check_delivery.py": "aeaa976bdb6ab4f2b2d6ee0b7fd45e05b8a78f74f44232bea918a947dcdecc53",
-    "build/delivery.py": "9f7ad4841a82fcb3396618164b3e194a94a6b604ce850588641b995c587ef557",
+    "build/delivery.py": "010920c0961e1825614bbe3a236bcfde7e4e5e9bfd3b976816157e74b687201d",
     "build/export_3dm.py": "d99914ff5cf5e716efcca6a07cd1a1290bac0da7c3eeaddfc5df7feeaee5536e",
     "build/georef.py": "0e9a6ff2d8d1e820d38f971237ac49278797a7cb9e5a682c90b91b1093527fb1",
     "build/glb_reader.py": "19255fc4110e2db6aa7e3d16de062e8ea37dd33c2f308a0e4915f6b423915e19",
@@ -44,23 +45,29 @@
     "build/rhino_mesh.py": "6f82f470d84a9556a3cba2567d717b17d267b7f3b5b44e09ee9603dadff9e3cc",
     "build/run_rhino_qa.py": "c4cd5a8452a8ce93490a7f9b1e95cc99dd346601b0c1601223e4b7910973855b",
     "build/site_frame.py": "7f7db33a14d276e6dc6aa3efeda5e42c7b2245f7450d590f0b0dede24b51b377",
-    "build/test_delivery_index.py": "eb08d6994dc4cb9850c5874cc467f0e943896f6f22fed8718e6a5f3ea8e1a01e",
+    "build/test_delivery_index.py": "91f591c9fe69576762d6673c346720578f007a700371ded9b179894c687fd377",
     "build/test_material_integrity.py": "30a8460664190b4a2e7b21baeade36d0e76a7cb3f4b93d879fb0936248b323cd",
     "build/test_mesh_integrity.py": "d84325678714b43efa77030812e203c49db737ca4548cae473c6f6dad5f83b09",
     "build/test_rhino_assets.py": "9b18ed50915c7ef5ab6f5c6c85b6a78e5fcb6c1c18ad312dbf22cbe7f058b22d",
     "build/test_rhino_mesh.py": "a49761996f5127bc4becdb82547544bcf4c50fd9f869a9603a58ed81bcf0705c",
     "build/topview.py": "d1d40742d06facb34f85ee2f34749ad55a76a1d1662e67b7a23417fc7a0ae95c",
     "build/validate.py": "18b5efe27683d0b4f14a987bb4ad61a344a9488fa95ded1dd7ddbb3b45613d56",
-    "index.html": "72810109c207b07f4a08681ec89d1a83c6a5bc23668f2c755af2c82f175937f5",
+    "checks/validate_assets.py": "f55a7fbdc9bd61548da67587aeba293e90e032c8056a195e366013e99f567700",
+    "index.html": "20bf9ba377a0979e9454f191c877099912e7a546f1da98e7e8212a0fb12b7f53",
     "model/materials.json": "543b1a7f52ac0c2dd0329c8c33a2fe7a63793b48250baafae2be9777bf4ada77",
+    "model/overrides.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
     "model/site_context.glb": "f64abb1214970872f88b37110e358f384d9d57736287b047874ddfa2e526e890",
+    "model/site_features.json": "cd31fe2b2ec6f7d2c99b83d13b95d9a9072c98e0550ad0342232e41caa5fe148",
     "model/site_ground.glb": "2eb82e8ee76c9d41aed5dddb6a5236c9400adbe8e8849f3073280635da86e97e",
+    "model/vegetation_notes.json": "9dc60c563009e17125e0138672ea884b04fe5b35f38a1e691d079e21c2fdb8b6",
     "model/vmu01_canopy.glb": "d42ee10a638d585e4b2475349f8c0018045cf510a26fdd981fa2d24c5b012126",
     "model/vmu02.glb": "6a4f96fc5c060d9f58c290fd9a5580ecd078db28dd714a379609bc014c583535",
     "model/vmu04.glb": "eb2055686f9ed6096f03aadd4c7a674f7b077f19ebeb98df0ecfc388c00320ca",
     "model/vmu05.glb": "6375e00838f41279cbfc0e4bf3653e3a7530c4ba4a3023b20fa1e1ae7d8ca203",
     "model/vmu_cad.glb": "897e767721530f134a03983279efe59dcf9323ea5265bc468a61a5c3d1dde62b",
-    "README.md": "ab08aff3ee0a5d9797c73d0f229c4e4410de748708fc46e38251ac8a6f65ea77",
+    "ptdenoise.py": "b2240835c52947b9ca3fce9150facdc87de039b6501b5927da0bdff09f56e667",
+    "README.md": "c5627f87439e01a51c36ea1136372162ba0fc6390d68d5f13abcf86fdd044f79",
+    "README.zh-CN.md": "a95931060aa977efd486708a9535c59b44bb66284dfe300d8fa60cb0989e43c9",
     "requirements-rhino.txt": "44aaeb8313ac36d353740c51e8dad6b065aa7643c914cd3a4e5f09051c1e6867",
     "rhino/enrich_model.py": "5fcbb88e5d379ab3f8438648ea3527ac69fa1c75cedcc8abd693cfb48df715da",
     "rhino/probe_render.py": "6289f884315558e73b58e389d4d7042821850055eb720736c417e31c211483bb",
@@ -68,6 +75,11 @@
     "rhino/qa_delivery.py": "a7ad08a60e3651fc00875a9db4c33f4a367bf73530b359b75375d3432f289eb5",
     "rhino/qa_model.py": "13f2ff28f45a4a7715d127db242188c08ae40c3689dbc857b7bab3edc6a69f83",
     "rhino/select_components.py": "2e6f9b10262bb7961745a3c7ad129df9abe760316abf7e3ca0acfa058f055ffd",
+    "serve.py": "ba20ccc3a3368124e3990e7ac425227c821e4c289e5e9d9b8db188012dbe25fa",
+    "start_viewer.bat": "657fe78222dc43d806294a347b548ae1aeea24a793f907fddd02978404bb59de",
+    "tests/test_assets.py": "3b6749f6f896326d618f2a53d035374122e7bb1ab1d787b21c34de0450792494",
+    "tests/test_server.py": "ca9faded6f72c8ed05e741f2410032af92b3e8de760e931b0beefa4f05179b47",
+    "tests/viewer-lifecycle.test.cjs": "34cc8cb882904c280c15062ca1f762df1cab1c1ccc8176e2212313612dacd5a9",
     "textures/acg/Metal009/Metal009_1K-JPG_NormalGL.jpg": "45c7c88685e6b44da7e8d25e2cf6d8645d42209793ccc4354e68c16cdae15d62",
     "textures/acg/Metal009/Metal009_1K-JPG_Roughness.jpg": "6d06dfe8c240d3b6f33030740110284245bd8aefb2e10e8eb0c563444d9c0c5b",
     "textures/brushed_concrete/brushed_concrete_arm_2k.jpg": "87e7ee823a78d6d85dc98cd5d1b5a7d4e694429ef4a01f3947b7e4b8a8d284b2",
@@ -82,7 +94,32 @@
     "textures/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr": "5244534e9cf5b606f2ff513aa00ddb161b0a4826ffd88a0d3bd03ac29247d198",
     "textures/hdri/mud_road_puresky_2k.hdr": "d1e642ea61c8466533db6ec143994c31369cb78c9dd1a23cb2bb3098319aeb7a",
     "textures/LICENSES.txt": "eb5e7cc63f64d990c5912fc43b5ae915aa1a1eb2365c0dba2eb201c5ca6a3ceb",
-    "viewer.js": "6bf4b005bde3621de92ba3ed996237c89032a21e7bbd7f9e3f433ec37c4b3a5f"
+    "vendor/jsm/controls/OrbitControls.js": "5a44a9e86a2a0fb11933eed69bc2cd33c76a496854c1aed6ed776efa87d7b064",
+    "vendor/jsm/loaders/GLTFLoader.js": "d073b438e6a07e1359741dd5d6c76c953420cc0d4fd84eb1bdde94315540e6a3",
+    "vendor/jsm/loaders/RGBELoader.js": "f0e87d0008d9484d31358b32befd1bf80e4301f77573cc9a7cf7d871cc3f64b4",
+    "vendor/jsm/math/SimplexNoise.js": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7",
+    "vendor/jsm/objects/Sky.js": "eacd17d5debec3b909d1208304d70024a59c38c58b6533fcd4711f8a6a0b63bc",
+    "vendor/jsm/postprocessing/EffectComposer.js": "d234e578618fa816955ebdc059c049c577e203e650e33cf22bde3f232c29e669",
+    "vendor/jsm/postprocessing/GTAOPass.js": "5140b7cc63800381ced45bef3a7a55c471f4be3cd9eb70b947e7ebfbe92658c2",
+    "vendor/jsm/postprocessing/MaskPass.js": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+    "vendor/jsm/postprocessing/OutlinePass.js": "1de2b42f6f491dcea6bfe8ad1d8df6c8f46ebcfe5b2ee4c22a9c1fce7f03318f",
+    "vendor/jsm/postprocessing/OutputPass.js": "13817fc7a87f662d29d2c5e00f44d3a4588c9afac4a372de0cacb0e44e368ffd",
+    "vendor/jsm/postprocessing/Pass.js": "b3c6128340eaa37e40a6a2f1b738e894c855239417d50959759b34a2b5e89f92",
+    "vendor/jsm/postprocessing/RenderPass.js": "1c90c085312871c4bcdccfcf519499c6276dd503363fcf7cb7f703add45cf4a2",
+    "vendor/jsm/postprocessing/ShaderPass.js": "3b28a1ee27e0eb96c0eab137a1f442ccf127a926904eced2d51e125ec44af781",
+    "vendor/jsm/postprocessing/SMAAPass.js": "f3508e3e17f40c1358921b5c7eb3ab60460d97b06fdadf6b0d40b52d3842c44a",
+    "vendor/jsm/renderers/CSS2DRenderer.js": "a4f0f79184c043f6b9d2654d8ba051e49a7d631d34e8f437c1804798a68c379f",
+    "vendor/jsm/shaders/CopyShader.js": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+    "vendor/jsm/shaders/GTAOShader.js": "94edb1040c7b5e859b17c2817782c8e895118a2d824ed162cab187aa32cc5a15",
+    "vendor/jsm/shaders/OutputShader.js": "53a52e430c27bc36ceaab8ae90a2b4af7b02672d7ee4b29d6ba3c28e09c92c2a",
+    "vendor/jsm/shaders/PoissonDenoiseShader.js": "3dab419b23529f8fd59e2713458502f9f51d2dd3af3e1285dc671fcc451d49fb",
+    "vendor/jsm/shaders/SMAAShader.js": "3c7e942a25cb09dd431e395e6e91904715a834b2a6e62ec0b9b77c2f8655c369",
+    "vendor/jsm/utils/BufferGeometryUtils.js": "9be041e96308775d00e2695cc607645b9a9b64fd7c0e759dd8f7c00a8d92becb",
+    "vendor/LICENSE-three.js": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
+    "vendor/three-gpu-pathtracer/build/index.module.js": "ab9d976a596107b04ae4010be0e7e4fb3147b84dfee8536c7db9b7e69189548c",
+    "vendor/three-mesh-bvh/build/index.module.js": "336aec44ffe691475e49887e4887e4352450f53eeccd254fd548a36fa2489b70",
+    "vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+    "viewer.js": "e695855853fcb2e6e032411e403e01691cec58c47c03e2186f084a51147bb64f"
   },
   "artifacts": {
     "model/rhino_assets/asset_0c4cdf4f8b4e7c3b5c77.png": "0c4cdf4f8b4e7c3b5c7718935f42179b568ee40140a1169c870f99e54c79252e",
@@ -141,5 +178,73 @@
     },
     "rhino_version": "8.33.26188.13001"
   },
-  "finished_at": "2026-10-09T09:16:49.667036+00:00"
+  "finished_at": "2026-10-09T09:16:49.667036+00:00",
+  "read_only_verification": {
+    "schema": 1,
+    "mode": "existing_artifacts_readback",
+    "verified_at": "2026-10-12T03:59:12.119863+00:00",
+    "baseline_delivery_commit": "8cdbe1f3576659dc0302b92ce5b1f3ef5204468d",
+    "baseline_index_sha256_lf": "024a5950e16532d138db7ec179f15153bb9839f3b780af96ea0df2537f923483",
+    "viewer_reliability_commit": "1f9aeaa170c7f314c5f344fc00fd8417ca756374",
+    "environment": {
+      "python": "3.13.14",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "rhino3dm": "8.32.0",
+        "Pillow": "11.3.0",
+        "playwright": "1.61.0"
+      },
+      "node": "v24.18.0"
+    },
+    "gates": {
+      "native_regression_tests": 37,
+      "public_python_tests": 44,
+      "javascript_tests": 29,
+      "final_fingerprint_tests": 10,
+      "skips": 0,
+      "public_assets": {
+        "glbs": 7,
+        "triangles": 2223601,
+        "material_records": 87,
+        "unregistered_materials": 0
+      },
+      "offline_readback_commands": [
+        [
+          "build/prepare_rhino_assets.py",
+          "--check"
+        ],
+        [
+          "build/check_3dm.py"
+        ],
+        [
+          "build/check_3dm.py",
+          "--model",
+          "model/vmu_site_future_native.3dm",
+          "--inventory",
+          "model/vmu_site_future_inventory.csv"
+        ],
+        [
+          "build/check_delivery.py",
+          "--no-write-reports"
+        ]
+      ],
+      "native_saved_model_readback": {
+        "passed": true,
+        "rhino_version": "8.33.26188.13001",
+        "source_sha256": "f3aa4ee4020d7f3cb770d9479eb29ddd1ea54a7de9c75828fae895d0c2c3b9bc",
+        "output_sha256": "b05c298e180812522847ae9381ef29a6b7840b2469101b0e9c591ae412ad51cd",
+        "named_views": 13,
+        "embedded_assets": 19,
+        "material_slots": 27,
+        "scalar_materials": 44,
+        "historical_report_values_equal": true
+      }
+    },
+    "preserved_artifact_count": 44,
+    "native_model_rebuilt": false,
+    "captures_regenerated": false,
+    "private_source_accuracy_rerun": false,
+    "scope": "Current source fingerprints after existing-artifact checks. Original native build environment, times, source models, images, material table and reports are preserved; no new rendering or metric run."
+  }
 }

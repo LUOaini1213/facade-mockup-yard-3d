@@ -142,9 +142,18 @@ function sunPosition(dateUTC, lat, lon) {
   const az = Math.atan2(-Math.sin(H), Math.tan(dec) * Math.cos(lat * rad) - Math.sin(lat * rad) * Math.cos(H));
   return { alt, az };
 }
-$('date').value = Q.get('date') || '2027-03-21';   // neutral default (equinox) [?date=YYYY-MM-DD&t=minutes]
+function parseSunDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value) || +value.slice(0, 4) < 1) return null;
+  const date = new Date(value + 'T00:00:00Z');
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value ? date : null;
+}
+const DEFAULT_SUN_DATE = '2027-03-21'; // neutral default (equinox)
+const requestedDate = Q.get('date');
+$('date').value = parseSunDate(requestedDate) ? requestedDate : DEFAULT_SUN_DATE;
+if (requestedDate !== null && !parseSunDate(requestedDate)) $('date').title = '网址日期无效，已使用默认日期 ' + DEFAULT_SUN_DATE;
 $('time').value = +(Q.get('t') || 600);
 const light = { hdri: PARAMS.HDRI, exposure: null, sunK: null };
+let lastSunInput = null;
 function kelvinRGB(T) {
   const t = T / 100; let r, g, b;
   if (t <= 66) { r = 255; g = 99.4708025861 * Math.log(t) - 161.1195681661; b = t <= 19 ? 0 : 138.5177312231 * Math.log(t - 10) - 305.0447927307; }
@@ -152,9 +161,14 @@ function kelvinRGB(T) {
   return [r, g, b].map((v) => Math.min(255, Math.max(0, v)) / 255);
 }
 function updateSun() {
-  const [y, m, d] = $('date').value.split('-').map(Number);
+  const date = parseSunDate($('date').value);
   const mins = +$('time').value;
-  const utc = new Date(Date.UTC(y, m - 1, d, 0, 0) + (mins - SITE.tz * 60) * 60000);
+  if (!date || !Number.isFinite(mins) || mins < 0 || mins >= 1440) {
+    $('sunval').textContent = '日期或时间未完整，保留上次日照';
+    return;
+  }
+  lastSunInput = { date: $('date').value, t: mins };
+  const utc = new Date(date.getTime() + (mins - SITE.tz * 60) * 60000);
   const { alt, az } = sunPosition(utc, SITE.lat, SITE.lon);
   sunAlt = alt; sunAz = az;
   sunDir.set(Math.cos(alt) * Math.sin(az), Math.sin(alt), -Math.cos(alt) * Math.cos(az));
@@ -1026,7 +1040,7 @@ const labelGroup = new THREE.Group(); scene.add(labelGroup);
 const DECLUTTER = { on: Q.get('declutter') !== '0', gap: 2, hyst: 4, last: null };
 function addLabel(text, pos, cls = '', prio = 50) {
   const d = document.createElement('div'); d.className = 'lbl ' + cls; d.textContent = text;
-  const o = new CSS2DObject(d); o.position.copy(pos); o.userData.prio = prio; labelGroup.add(o); return o;
+  const o = new CSS2DObject(d); o.position.copy(pos); o.userData.prio = prio; o.visible = labelGroup.visible; labelGroup.add(o); return o;
 }
 function declutterLabels() {
   const root = labelRenderer.domElement, objs = labelGroup.children.filter((o) => o.isCSS2DObject);
@@ -1098,7 +1112,29 @@ const cadRoot = new THREE.Group(), ctxRoot = new THREE.Group(), groundRoot = new
 cadRoot.name = 'CAD'; ctxRoot.name = 'CONTEXT'; groundRoot.name = 'GROUND';
 scene.add(cadRoot, ctxRoot, groundRoot);
 const groupBoxes = {}; let features = null, cadMeta = null, canopyMeta = null, triCount = 0;
-const loaded = { files: [], skipped: [], replaced: [] };
+const loaded = { files: [], skipped: [], failed: [], replaced: [] };
+async function loadOptionalGLB(url, key) {
+  try { return await loadGLB(url, key); }
+  catch (error) {
+    const file = key + '.glb';
+    if (!loaded.skipped.includes(file)) loaded.skipped.push(file);
+    loaded.failed.push({ file, url, error: String(error?.message || error) });
+    console.warn('optional model failed', url, error);
+    return null;
+  }
+}
+function showModelWarnings() {
+  const files = [...new Set(loaded.skipped)].sort();
+  if (!files.length) return;
+  let warning = $('modelLoadWarning');
+  if (!warning) {
+    warning = document.createElement('div'); warning.id = 'modelLoadWarning'; warning.className = 'warn';
+    warning.setAttribute('role', 'status'); warning.setAttribute('aria-live', 'polite');
+    $('side').insertBefore(warning, $('side').querySelector('.sec'));
+  }
+  warning.textContent = '模型加载不完整：' + files.join('、') + ' 未载入。当前视图可能缺少构件或使用基础替代模型。';
+  warning.style.display = 'block';
+}
 const extMeshes = [], canopyTopMeshes = [], canopyCladMeshes = [];
 const GROUPS = ['VMU01', 'VMU02', 'VMU03', 'VMU04', 'VMU05', 'TRELLIS'];
 function groupRootOf(gltfScene, name) {
@@ -1124,7 +1160,7 @@ async function main() {
   for (const f of ['vmu01_canopy', 'vmu02', 'vmu04', 'vmu05', 'site_ground', 'site_context']) opt[f] = await fileExists(MD + f + '.glb') ? MD + f + '.glb' : (MD !== 'model/' && await fileExists('model/' + f + '.glb') ? 'model/' + f + '.glb' : null);
   for (const [k, v] of Object.entries(opt)) if (!v) loaded.skipped.push(k + '.glb');
   const jobs = { cad: loadGLB('model/vmu_cad.glb', 'cad') };
-  for (const [k, v] of Object.entries(opt)) if (v) jobs[k] = loadGLB(v, k).catch((e) => { console.warn('optional model failed', v, e); return null; });
+  for (const [k, v] of Object.entries(opt)) if (v) jobs[k] = loadOptionalGLB(v, k);
   const res = {}; for (const [k, p] of Object.entries(jobs)) res[k] = await p;
   const cad = res.cad; cadMeta = cad.scene.userData || {}; loaded.files.push('vmu_cad.glb');
   for (const [key, grp] of [['vmu02', 'VMU02'], ['vmu04', 'VMU04'], ['vmu05', 'VMU05']]) {
@@ -1219,6 +1255,7 @@ async function main() {
   await hdrP;
   await Promise.all(texPending);
   if (PARAMS.EXT_OUTLINE) setOutline(true);
+  showModelWarnings();
   $('loading').style.display = 'none';
   const hash = location.hash.slice(1); goView(VIEWS[hash] ? hash : 'overview', 0);
   shadowDirty = true; markDirty(2500);
@@ -1726,15 +1763,26 @@ for (const [k, S] of Object.entries(CANOPY_SCHEMES)) if ($(S.btn)) $(S.btn).oncl
 $('hdriOvercast').onclick = () => setHDRI('overcast'); $('hdriSunny').onclick = () => setHDRI('sunny');
 $('exposure').oninput = (e) => { light.exposure = +e.target.value; syncLightUI(); };
 $('sunk').oninput = (e) => { light.sunK = +e.target.value; syncLightUI(); updateSun(); };
-$('date').oninput = updateSun; $('time').oninput = updateSun;
+$('date').oninput = () => { $('date').title = ''; updateSun(); }; $('time').oninput = updateSun;
 $('shadows').onchange = (e) => { sun.castShadow = e.target.checked; };
 $('ao').onchange = (e) => { if (gtao) gtao.enabled = e.target.checked; };
 $('smaa').onchange = (e) => { if (smaa) smaa.enabled = e.target.checked; };
 $('showCtx').onchange = (e) => { ctxRoot.visible = e.target.checked; };
 $('showSurr').onchange = (e) => { surrGroup.visible = e.target.checked; };
 $('showVeg').onchange = (e) => { vegGroup.visible = e.target.checked; };
-$('showLbl').onchange = (e) => { labelGroup.visible = e.target.checked; labelRenderer.domElement.style.display = e.target.checked ? '' : 'none'; };
+function setSceneLabels(on) {
+  labelGroup.visible = on;
+  // The vendored CSS2DRenderer checks each object's own visible flag, not its parent.
+  for (const o of labelGroup.children) if (o.isCSS2DObject) {
+    o.visible = on;
+    if (!on) o.element.style.display = 'none';
+  }
+  // Measurements live outside labelGroup and must remain readable independently.
+  labelRenderer.domElement.style.display = ptActive() || shotLock ? 'none' : '';
+}
+$('showLbl').onchange = (e) => setSceneLabels(e.target.checked);
 $('shot').onclick = () => {
+  if (ptActive() || shotLock) return;
   if (gtao) gtao.enabled = $('ao').checked; if (sun.castShadow) renderer.shadowMap.needsUpdate = true;
   render(); const a = document.createElement('a'); a.download = `vmu_site_${Date.now()}.png`; a.href = renderer.domElement.toDataURL('image/png'); a.click();
 };
@@ -1745,22 +1793,48 @@ function layout() {
   camera.aspect = W / H; camera.updateProjectionMatrix();
   if (composer) { composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(W, H); }
 }
-addEventListener('resize', () => { if (!ptActive()) layout(); });
+addEventListener('resize', () => { if (!ptActive() && !shotLock) layout(); });
 function setRenderSize(W, H) {
   renderer.setPixelRatio(1); renderer.setSize(W, H, false);
   composer.setPixelRatio(1); composer.setSize(W, H);
   camera.aspect = W / H; camera.updateProjectionMatrix();
 }
 function restoreRenderSize(pr) { renderer.setPixelRatio(pr); composer.setPixelRatio(pr); layout(); }
+function captureExportState() {
+  return { pos: camera.position.clone(), target: controls.target.clone(), up: camera.up.clone(), fov: camera.fov,
+    pr: renderer.getPixelRatio(), date: $('date').value, t: $('time').value, sunInput: lastSunInput, controlsEnabled: controls.enabled,
+    labelVisible: labelGroup.visible, labelDisplay: labelRenderer.domElement.style.display,
+    visibility: [ctxRoot, surrGroup, vegGroup].map((o) => o.visible), tween, started: performance.now() };
+}
+function restoreExportState(saved) {
+  camera.position.copy(saved.pos); controls.target.copy(saved.target); camera.up.copy(saved.up); camera.fov = saved.fov;
+  // An unfinished date edit can coexist with valid retained lighting. Restore that
+  // lighting before putting back the incomplete editor value and its message.
+  if (saved.sunInput) { $('date').value = saved.sunInput.date; $('time').value = saved.sunInput.t; updateSun(); }
+  $('date').value = saved.date; $('time').value = saved.t;
+  [ctxRoot, surrGroup, vegGroup].forEach((o, i) => { o.visible = saved.visibility[i]; });
+  labelGroup.visible = saved.labelVisible; labelRenderer.domElement.style.display = saved.labelDisplay;
+  restoreRenderSize(saved.pr); controls.update(); controls.enabled = saved.controlsEnabled; updateSun();
+  tween = saved.tween;
+  if (tween) tween.t0 += performance.now() - saved.started;
+  shadowDirty = true; markDirty(1000);
+}
+async function saveScreenshot(url, name, opts = {}) {
+  const overwrite = opts?.overwrite === true ? '&overwrite=1' : '';
+  const response = await fetch('save?name=' + encodeURIComponent(name) + overwrite, { method: 'POST', body: url });
+  if (!response.ok) throw new Error(`Screenshot save failed: HTTP ${response.status}`);
+  return name;
+}
 // headless: window.__poseShot({ pos, target, fov?, roll? }, 'name.png', W, H, opts) renders an exact camera pose (no controls) and
 // POSTs the PNG to serve.py /save. opts.date 'YYYY-MM-DD' + opts.t (minutes) set the sun; opts.ctx === false hides the context,
 // surroundings and vegetation. Camera, visibility and date / time are restored afterwards.
 window.__poseShot = async (pose, name, W = 1600, H = 1000, opts = null) => {
+  if (shotLock || ptActive()) throw new Error('Viewer busy: finish the current export or path trace first');
+  const saved = captureExportState();
   shotLock = true;
-  const saved = { pos: camera.position.clone(), up: camera.up.clone(), fov: camera.fov, pr: renderer.getPixelRatio(), date: $('date').value, t: $('time').value };
-  const vis = [];
+  controls.enabled = false; tween = null;
   try {
-    if (opts && opts.ctx === false) { for (const o of [ctxRoot, surrGroup, vegGroup]) { vis.push(o.visible); o.visible = false; } }
+    if (opts && opts.ctx === false) { for (const o of [ctxRoot, surrGroup, vegGroup]) o.visible = false; }
     if (opts?.date) { $('date').value = opts.date; if (opts.t !== null && opts.t !== undefined) $('time').value = opts.t; }
     camera.fov = pose.fov || 45; camera.up.set(Math.sin(pose.roll || 0), Math.cos(pose.roll || 0), 0);
     camera.position.set(...pose.pos); camera.lookAt(...pose.target); camera.updateMatrixWorld();
@@ -1768,14 +1842,10 @@ window.__poseShot = async (pose, name, W = 1600, H = 1000, opts = null) => {
     updateSun(); syncSunToTarget(true, new THREE.Vector3(...pose.target)); renderer.shadowMap.needsUpdate = true; camera.updateProjectionMatrix();
     if (gtao) gtao.enabled = $('ao').checked;
     composer.render();
-    const url = renderer.domElement.toDataURL('image/png'); await fetch('save?name=' + encodeURIComponent(name), { method: 'POST', body: url });
-    return name;
+    const url = renderer.domElement.toDataURL('image/png');
+    return await saveScreenshot(url, name, opts);
   } finally {
-    if (vis.length) [ctxRoot, surrGroup, vegGroup].forEach((o, i) => { o.visible = vis[i]; });
-    camera.fov = saved.fov; camera.up.copy(saved.up); camera.position.copy(saved.pos); labelGroup.visible = $('showLbl').checked;
-    $('date').value = saved.date; $('time').value = saved.t;
-    restoreRenderSize(saved.pr); controls.update(); updateSun();
-    shotLock = false; shadowDirty = true; markDirty(1000);
+    try { restoreExportState(saved); } finally { shotLock = false; }
   }
 };
 
@@ -2084,7 +2154,7 @@ function ptPrepareScene(fx) {
     });
     S.fixInfo.hdg = { materials: copies.size, gain: HDG_CAL.env }; S.undo.push(() => copies.forEach((c) => c.dispose()));
   }
-  const merged = []; let nFol = 0, nCore = 0;
+  const merged = S.merged = []; let nFol = 0, nCore = 0;
   for (const im of vegInstanced) {
     if (!im.visible || !vegGroup.visible) continue;
     const mn = im.material?.name || '';
@@ -2116,8 +2186,7 @@ function ptPrepareScene(fx) {
   run('wood', () => ptWoodMeshes(add, hide));
   run('yard', () => ptYardDecal(add));
 }
-function ptRestoreScene() {
-  const S = ptState;
+function ptRestoreScene(S = ptState) {
   for (let i = ptSwaps.length - 1; i >= 0; i--) ptSwaps[i][0].material = ptSwaps[i][1]; ptSwaps.length = 0;
   for (const m of S.merged || []) { m.removeFromParent(); m.geometry.dispose(); }
   for (const m of S.temp || []) { m.removeFromParent(); m.geometry.dispose(); }
@@ -2125,10 +2194,10 @@ function ptRestoreScene() {
   for (const im of vegInstanced) if (im.userData.ptHidden) { im.visible = true; im.userData.ptHidden = false; }
   for (const [o, v] of S.hidden || []) o.visible = v;
   for (const f of S.undo || []) { try { f(); } catch (e) {  } }
-  labelRenderer.domElement.style.display = $('showLbl').checked ? '' : 'none';
+  setSceneLabels($('showLbl').checked);
   if (hdrCurrent) { scene.environment = hdrCurrent.env.texture; scene.background = hdrCurrent.tex; }
   scene.environmentIntensity = 1; if (S.sunVisible !== undefined) sun.visible = S.sunVisible;
-  scene.fog = S.fog;
+  if ('fog' in S) scene.fog = S.fog;
 }
 function ptNanGuard(c, W, H) {
   const bad = [];
@@ -2269,17 +2338,20 @@ function ptDrawFloat(c, W, H, mode) {
   ptQuadDraw(m); const url = renderer.domElement.toDataURL('image/png'); m.dispose(); tex.dispose();
   return url;
 }
-async function ptDrawPNG(blob) {
+async function ptDrawPNG(blob, S = ptState) {
   const bmp = await createImageBitmap(blob, { imageOrientation: 'flipY', premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
+  if (ptState !== S) { bmp.close?.(); return false; }
   const tex = new THREE.Texture(bmp); tex.flipY = false; tex.colorSpace = THREE.NoColorSpace; tex.minFilter = tex.magFilter = THREE.NearestFilter; tex.generateMipmaps = false; tex.needsUpdate = true;
   const m = new THREE.ShaderMaterial({ uniforms: { map: { value: tex } }, vertexShader: PT_VS, depthTest: false, depthWrite: false, blending: THREE.NoBlending, toneMapped: false,
     fragmentShader: 'uniform sampler2D map; varying vec2 vUv;\nvoid main() { gl_FragColor = vec4( texelFetch( map, ivec2( gl_FragCoord.xy ), 0 ).rgb, 1.0 ); }' });
   ptQuadDraw(m); m.dispose(); tex.dispose(); bmp.close?.();
+  return true;
 }
 const blobToDataURL = (b) => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => rej(fr.error); fr.readAsDataURL(b); });
-async function ptFinalize(tag = '') {
+async function ptFinalize(tag = '', S = ptState) {
   await serverProbe;
-  const S = ptState, R = renderer, T = pt.target, W = T.width, H = T.height, t0 = performance.now();
+  if (!S || ptState !== S) return null;
+  const R = renderer, T = pt.target, W = T.width, H = T.height, t0 = performance.now();
   const info = { tag, spp: +pt.samples.toFixed(3), W, H, exposure: +R.toneMappingExposure.toFixed(4) };
   const col = new Float32Array(W * H * 4); R.readRenderTargetPixels(T, 0, 0, W, H, col);
   for (let k = 3; k < col.length; k += 4) col[k] = 1;
@@ -2298,10 +2370,15 @@ async function ptFinalize(tag = '') {
       const tm = {}; info.t = tm;
       const r = await ptServerDenoise(col, aov, W, H, R.toneMappingExposure, fog, { spp: info.spp, name: S.name || null, nanFixedInViewer: nan, fixes: [...S.fx] }, tm);
       if (ptState !== S) return null;
-      let t2 = performance.now(); await ptDrawPNG(r.blob); tm.drawMs = Math.round(performance.now() - t2);
+      let t2 = performance.now(); await ptDrawPNG(r.blob, S); tm.drawMs = Math.round(performance.now() - t2);
+      if (ptState !== S) return null;
       t2 = performance.now(); url = await blobToDataURL(r.blob); tm.dataUrlMs = Math.round(performance.now() - t2);
+      if (ptState !== S) return null;
       info.method = 'oidn'; info.server = r.stats; info.denoiseMs = Math.round(performance.now() - t1);
-    } catch (e) { info.serverError = String(e.message || e).slice(0, 300); console.warn('pt_denoise failed, falling back to DenoiseMaterial', info.serverError); }
+    } catch (e) {
+      if (ptState !== S) return null;
+      info.serverError = String(e.message || e).slice(0, 300); console.warn('pt_denoise failed, falling back to DenoiseMaterial', info.serverError);
+    }
   } else if (mode === 'oidn') info.serverError = SERVER.reason || 'no serve.py';
   if (!url) {
     const m = mode === 'raw' ? 'raw' : 'smart';
@@ -2344,10 +2421,10 @@ function ptName(suffix = '') {
   return suffix ? base.replace(/\.png$/i, '') + suffix + '.png' : base;
 }
 async function startPathTrace(opts = {}) {
-  if (ptState) return;
+  if (ptState || shotLock) return { error: 'Viewer busy: finish the current export or path trace first' };
   const spp = +(opts.spp || $('ptSpp').value || 128);
   const fx = opts.fixes !== undefined ? ptParseFixes(Array.isArray(opts.fixes) ? opts.fixes.join(',') : opts.fixes) : new Set(PT_CFG.fixes);
-  ptState = { spp, t0: performance.now(), startedAt: Date.now(), checked: false, done: false, busy: false, name: opts.name || null, auto: !!opts.auto, W: opts.W, H: opts.H,
+  const S = ptState = { spp, t0: performance.now(), startedAt: Date.now(), checked: false, done: false, busy: false, name: opts.name || null, auto: !!opts.auto, W: opts.W, H: opts.H,
     pr: renderer.getPixelRatio(), result: null, lastLog: 0, onDone: opts.onDone, fx, denoise: opts.denoise || null, debug: !!opts.debug,
     checkpoints: (opts.checkpoints || []).map(Number).filter((c) => c > 0 && c < spp).sort((a, b) => a - b), cpResults: [],
     injectNaN: opts.injectNaN ? { spp: +opts.injectNaN.spp || 1, px: opts.injectNaN.px || [], done: false } : null };
@@ -2356,7 +2433,9 @@ async function startPathTrace(opts = {}) {
   ptSetStatus('载入路径追踪库…');
   try {
     ptShim();
-    PTMOD = await import('three-gpu-pathtracer'); const { WebGLPathTracer } = PTMOD;
+    const mod = await import('three-gpu-pathtracer');
+    if (ptState !== S) return { cancelled: true };
+    PTMOD = mod; const { WebGLPathTracer } = PTMOD;
     if (opts.view) goView(opts.view, 0);
     tween = null;
     if (!ptState.W || !ptState.H) { const [W, H] = ptSizeFor(opts.size); ptState.W = W; ptState.H = H; ptState.uiSize = !opts.size; }
@@ -2365,6 +2444,7 @@ async function startPathTrace(opts = {}) {
     ptPrepareScene(fx);
     ptSetStatus('构建 BVH（约 10–15 s）…');
     await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 30)));
+    if (ptState !== S) return { cancelled: true };
     pt = new WebGLPathTracer(renderer);
     const k = opts.tiles ? [].concat(opts.tiles) : [ptTilesFor(ptState.W, ptState.H)];
     pt.tiles.set(+k[0], +(k[1] ?? k[0])); pt.bounces = PT_CFG.bounces; pt.filterGlossyFactor = PT_CFG.glossy; pt.renderScale = 1; pt.dynamicLowRes = false; pt.minSamples = 1;
@@ -2378,7 +2458,9 @@ async function startPathTrace(opts = {}) {
     ptSetStatus(`BVH ${ptState.bvhS.toFixed(1)} s · 编译着色器（首次约 1–2 分钟）… · ${ptState.W}×${ptState.H} / ${spp} spp 预计约 ${fmtMin(ptState.estS)}`);
     renderer.setAnimationLoop(ptTick);
   } catch (e) {
-    console.warn('path tracer failed', e); ptWarn('路径追踪启动失败：' + e.message); const r = { error: e.message }; stopPathTrace(); ptLast = r; return r;
+    if (ptState !== S) return { cancelled: true };
+    console.warn('path tracer failed', e); ptWarn('路径追踪启动失败：' + e.message);
+    const r = { error: e.message }; ptLast = r; stopPathTrace(r); return r;
   }
 }
 let ptLast = null;
@@ -2420,7 +2502,8 @@ async function ptCheckpoint(cp, s) {
   finally { S.cpResults.push(e); S.pauseMs = (S.pauseMs || 0) + (performance.now() - now); e.outputMs = Math.round(performance.now() - now); if (ptState === S) S.busy = false; }
 }
 async function finishPathTrace(ok) {
-  const S = ptState; const now = S.tDone || performance.now(); const s = pt ? pt.samples : 0;
+  const S = ptState; if (!S) return;
+  const now = S.tDone || performance.now(); const s = pt ? pt.samples : 0;
   S.result = { spp: +s.toFixed(3), ...ptTiming(S, s, now), estS: +(S.estS || 0).toFixed(0), bvhS: +(S.bvhS || 0).toFixed(1), check: S.check,
     W: renderer.domElement.width, H: renderer.domElement.height, tiles: pt ? [pt.tiles.x, pt.tiles.y] : null, textureSize: pt ? pt.textureSize.x : null,
     broken: !ok, random: S.random, sun: S.sunMode, env: +(scene.environmentIntensity ?? 1).toFixed(3), exposure: +renderer.toneMappingExposure.toFixed(4), fixes: [...S.fx], fixInfo: S.fixInfo,
@@ -2431,12 +2514,16 @@ async function finishPathTrace(ok) {
       ptSetStatus('读出浮点结果、降噪…');
       const r = await ptFinalize(''); if (!r || ptState !== S) return;
       S.url = r.url; S.result.denoise = r.info;
-    } catch (e) { console.warn('path tracer output', e); S.result.outputError = String(e.message || e); S.url = S.rawCanvas || null; }
+    } catch (e) {
+      if (ptState !== S) return;
+      console.warn('path tracer output', e); S.result.outputError = String(e.message || e); S.url = S.rawCanvas || null;
+    }
     S.busy = false;
   }
   if (S.url) {
     $('ptSave').disabled = false;
     const name = ptName(); S.result.name = name; S.result.saved = await ptSave(S.url, name);
+    if (ptState !== S) return;
     const d = S.result.denoise; const dz = d ? (d.method === 'oidn' ? 'OIDN 降噪' : d.method === 'DenoiseMaterial' ? 'DenoiseMaterial 降噪' : '未降噪') + (d.nanFixed ? ` · 修补 NaN ${d.nanFixed} 像素` : '') : '';
     ptSetStatus(`完成 ${S.result.spp.toFixed(0)} spp · ${S.result.seconds.toFixed(0)} s · ${S.result.W}×${S.result.H} · ${dz}${S.result.saved ? ' · 已存 ' + S.result.saved : ''}`);
     if (!S.auto) downloadURL(S.url, name);
@@ -2444,19 +2531,26 @@ async function finishPathTrace(ok) {
   S.result.checkpoints = S.cpResults;
   if (S.debug) { S.result.rawCanvas = S.rawCanvas || null; S.result.finalUrl = S.url || null; }
   ptLast = S.result;
-  if (S.onDone) S.onDone(S.result);
+  settlePathTrace(S, S.result);
+}
+function settlePathTrace(S, result) {
+  if (S.notified) return;
+  S.notified = true;
+  if (S.onDone) S.onDone(result);
 }
 function downloadURL(url, name) { const a = document.createElement('a'); a.download = name; a.href = url; a.click(); }
-function stopPathTrace() {
+function stopPathTrace(result = { cancelled: true }) {
   if (!ptState) return;
+  const S = ptState; ptState = null; // invalidate async work before restoring the realtime scene
   renderer.setAnimationLoop(null);
-  try { ptRestoreScene(); } catch (e) { console.warn(e); }
+  try { ptRestoreScene(S); } catch (e) { console.warn(e); }
   if (pt) { ptDisposeTracer(pt); pt = null; }
-  const pr = ptState.pr; ptState = null;
+  const pr = S.pr;
   renderer.setRenderTarget(null); restoreRenderSize(pr); syncLightUI();
   $('ptBar').style.display = 'none'; $('ptStart').disabled = false;
   shadowDirty = true; markDirty(1500);
   renderer.setAnimationLoop(tick);
+  settlePathTrace(S, result);
 }
 $('ptStart').onclick = () => startPathTrace({});
 for (const id of ['ptSpp', 'ptSize', 'ptDen']) if ($(id)) $(id).onchange = updatePtEstimate;
@@ -2503,24 +2597,25 @@ addEventListener('resize', () => markDirty(1000));
 controls.addEventListener('change', () => { movingUntil = performance.now() + 160; markDirty(900); });
 // headless still renders own the canvas; the interactive loop pauses meanwhile. window.__shots([[view, 'name.png'], ...], W, H)
 let shotLock = false;
-window.__shots = async (list, W = 2400, H = 1500) => {
-  shotLock = true; try { return await shotsImpl(list, W, H); } finally { shotLock = false; markDirty(1000); }
+window.__shots = async (list, W = 2400, H = 1500, opts = {}) => {
+  if (shotLock || ptActive()) throw new Error('Viewer busy: finish the current export or path trace first');
+  shotLock = true; try { return await shotsImpl(list, W, H, opts); } finally { shotLock = false; markDirty(1000); }
 };
-async function shotsImpl(list, W, H) {
-  const oldPR = renderer.getPixelRatio();
-  setRenderSize(W, H);
-  labelGroup.visible = false; labelRenderer.domElement.style.display = 'none';
-  const out = [];
-  for (const [view, name] of list) {
-    goView(view, 0); tween = null;
-    if (gtao) gtao.enabled = $('ao').checked;
-    for (let i = 0; i < 3; i++) { controls.update(); syncSunToTarget(true); renderer.shadowMap.needsUpdate = true; composer.render(); await new Promise((r) => setTimeout(r, 30)); }
-    composer.render(); const url = renderer.domElement.toDataURL('image/png');
-    await fetch('save?name=' + encodeURIComponent(name), { method: 'POST', body: url }); out.push(name);
-  }
-  restoreRenderSize(oldPR);
-  labelGroup.visible = $('showLbl').checked; labelRenderer.domElement.style.display = $('showLbl').checked ? '' : 'none';
-  return out;
+async function shotsImpl(list, W, H, opts = {}) {
+  const saved = captureExportState(); controls.enabled = false; tween = null;
+  try {
+    setRenderSize(W, H);
+    labelGroup.visible = false; labelRenderer.domElement.style.display = 'none';
+    const out = [];
+    for (const [view, name] of list) {
+      goView(view, 0); tween = null;
+      if (gtao) gtao.enabled = $('ao').checked;
+      for (let i = 0; i < 3; i++) { controls.update(); syncSunToTarget(true); renderer.shadowMap.needsUpdate = true; composer.render(); await new Promise((r) => setTimeout(r, 30)); }
+      composer.render(); const url = renderer.domElement.toDataURL('image/png');
+      out.push(await saveScreenshot(url, name, opts));
+    }
+    return out;
+  } finally { restoreExportState(saved); }
 }
 // debug / automation handle
 window.__v = {
