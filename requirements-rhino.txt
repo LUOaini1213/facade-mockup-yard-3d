@@ -1,0 +1,5 @@
+# Public GLB -> Rhino export and independent QA; Python 3.12+.
+numpy==2.5.3
+rhino3dm==8.32.0
+Pillow==11.3.0
+playwright==1.61.0

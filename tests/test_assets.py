@@ -208,7 +208,7 @@ class AssetTests(unittest.TestCase):
     def test_published_assets_match_declared_totals(self):
         result = assets.validate_public_assets(ROOT)
         self.assertEqual(result["triangles"], 2_223_601)
-        self.assertEqual(result["material_count"], 83)
+        self.assertEqual(result["material_count"], 87)
         self.assertEqual(len(result["models"]), 7)
         self.assertEqual(set(result["material_fallbacks"]), assets.FALLBACK_MATERIALS)
 

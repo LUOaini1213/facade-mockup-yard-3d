@@ -26,9 +26,9 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = ("site_context", "site_ground", "vmu01_canopy", "vmu02", "vmu04", "vmu05", "vmu_cad")
 TRIANGLES = 2_223_601
-MATERIALS = 83
-# These published context finishes deliberately use viewer/embedded GLB fallbacks.
-FALLBACK_MATERIALS = {"CTX_STEEL_GREY", "CTX_FENCE_MESH", "CTX_LAMP", "CTX_CONTAINER_GREY"}
+MATERIALS = 87
+# The four public CTX finishes are now registered by the native delivery.
+FALLBACK_MATERIALS = set()
 
 
 class AssetError(ValueError):

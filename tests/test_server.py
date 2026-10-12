@@ -64,7 +64,16 @@ class ServerTests(unittest.TestCase):
 
     def stop(self):
         if self.proc.poll() is None:
-            self.proc.terminate()
+            if os.name == 'nt':
+                # A Windows venv redirector may own a second CPython process.
+                # Terminate only this test's tree before closing its shared log.
+                result = subprocess.run(['taskkill', '/PID', str(self.proc.pid), '/T', '/F'],
+                                        capture_output=True, timeout=5,
+                                        creationflags=subprocess.CREATE_NO_WINDOW)
+                if result.returncode and self.proc.poll() is None:
+                    raise RuntimeError('could not stop the test server process tree')
+            else:
+                self.proc.terminate()
         self.proc.wait(timeout=5)
 
     def request(self, body=None, *, path='/save?name=shot.png', headers=None, method='POST'):

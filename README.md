@@ -17,11 +17,15 @@ the web viewer, or render path-traced stills from it.
   - the yard around them: ground slab, drains, crane runways, gantry crane, sheds, containers, hoarding, viewing
     platform and high masts, with a generic main road and roadside planting outside the hoarding.
 - **Size.** Seven glTF files hold 2,223,601 triangles. The same model is also provided as a Rhino file:
-  `model/vmu_site_future.3dm`, in millimetres, with 236 objects, 245 layers and 44 materials.
-- **Colour table.** `model/materials.json` contains 83 named records, including 38 aliases. Thirteen records carry
+  `model/vmu_site_future.3dm`, in millimetres, with 235 mesh components + 1 information TextDot,
+  245 layers and 44 materials. The Rhino export has 2,222,589 valid triangles after removing 1,012
+  degenerate faces, with no measured loss of surface area. Source GLBs are unchanged.
+- **Colour table.** `model/materials.json` contains 87 named records, including 38 aliases. Thirteen records carry
   SCI/SCE colour fields: seven canonical entries and six aliases, not thirteen independently measured finishes.
-  These include the indicative VMU-04 precast value. The renders use SCE (specular component excluded).
+  These include the indicative VMU-04 precast value. The four `CTX_*` display finishes are registered from the public GLB values.
+  The renders use SCE (specular component excluded).
   Where a finish is specified by RAL
+
   number, the number is kept: RAL 7005, RAL 7038 and RAL 9016.
 - **Canopy extension.** The default finish is a Mouse Grey top with T02 3 mm parts; the RAL 7038 option is an explicit comparison.
   The viewer can draw an outline around it (the outline toggle, or `?outline=1`), but it is never tinted.
@@ -87,8 +91,8 @@ node --test tests/viewer-lifecycle.test.cjs
 The same commands run in CI on Windows and Ubuntu without installing packages or requiring the private build inputs.
 The asset check reads all seven published GLBs, checks their buffer/accessor bounds, indices and finite values, and
 checks local module and texture dependencies. It supports the dense FLOAT VEC2/VEC3 and UINT32 triangle profile used
-here; it is not a general glTF conformance validator. It reports the four context materials that intentionally fall
-back outside the colour table: `CTX_STEEL_GREY`, `CTX_FENCE_MESH`, `CTX_LAMP`, `CTX_CONTAINER_GREY`.
+here; it is not a general glTF conformance validator. Every public GLB material name must be registered in the
+current colour table, including the four `CTX_*` finishes that previously used viewer fallbacks.
 
 Python regressions exercise the real HTTP server with temporary files. JavaScript regressions execute the viewer's
 actual interaction functions with controlled I/O and GPU boundaries, including cancelled or superseded renders and
@@ -96,6 +100,23 @@ failed exports. These checks do not run WebGL, evaluate OIDN image quality, reru
 reproduce the historical render timings. For visual verification, open the viewer in a WebGL2 browser, check both
 desktop and narrow layouts, clear and restore the date field, measure with scene labels hidden, and cancel a still
 render before returning to the live view. Optional models that fail to load should appear in the load warning.
+
+## Use Rhino 8
+
+Open `model/vmu_site_future_native.3dm` in Rhino 8 for embedded PBR images and all
+13 named views; `model/vmu_site_future.3dm` retains the geometry/source-UV baseline.
+Meshes retain their source UVs
+(194 meshes / 621,885 UV coordinates), stable source-derived object GUIDs and component UserText.
+Use `rhino/select_components.py` in `ScriptEditor` to select by group, finish, role or ID.
+`model/vmu_site_future_inventory.csv` provides a checked inventory of the 235 mesh components.
+See [the Rhino workflow](rhino/README.md) for public-file regeneration, validation and native Rhino QA.
+The native delivery adds world mapping to 41 meshes without source UVs, embeds
+19 image assets for 8 finishes at their physical scale, and includes 13 native
+1600 × 1000 viewport captures in `renders/rhino/`. The full quality CSV reports
+129 closed / 106 open / 101 solid meshes and supplies volume only for solids.
+This remains a mesh reference model; browser GLSL effects and engineering element
+classes are not inferred. See [the native contact sheet](renders/rhino/contact_sheet.jpg).
+
 
 ## Renders
 
@@ -122,10 +143,13 @@ model/                  vmu_cad.glb          VMU-01 tower, VMU-03, trellis      
                         vmu02.glb, vmu04.glb, vmu05.glb                                 2.5 MB
                         site_ground.glb      slab, drains, runways, generic road       1.3 MB
                         site_context.glb     sheds, gantry, containers, hoarding       2.1 MB
-                        materials.json       colour table (83 materials)
+                        materials.json       colour table (87 registered materials)
                         site_features.json   palms, trees, people, vehicles, labels
-                        vmu_site_future.3dm  the whole model for Rhino (mm)           60.6 MB
-build/                  build scripts: the method record (they do not run without the source inputs; see build/README.md)
+                        vmu_site_future.3dm  the whole model for Rhino (mm)           62.9 MB
+                        vmu_site_future_inventory.csv  checked mesh-component inventory
+                        vmu_site_future_qa.json        GLB/Rhino comparison report
+build/                  public Rhino export/checker + private-source modelling scripts (see build/README.md)
+rhino/                  Rhino 8 component selector, native QA and workflow
 textures/               CC0 textures and HDRIs (Poly Haven, ambientCG)
 vendor/                 three.js, three-mesh-bvh, three-gpu-pathtracer (MIT)
 renders/                16 stills + contact_sheet.jpg
@@ -142,8 +166,11 @@ THIRD_PARTY_LICENSES.md
     the five mock-up GLBs are byte-identical to the source files. The ground and surroundings (`site_ground.glb`,
     `site_context.glb`, `site_features.json`) were rebuilt for publication with the scripts in `build/` (see
     Limitations).
-- **Triangle totals.** The seven GLBs add up to 2,223,601 triangles. The viewer's load report gives the same number,
-  and so does the 3dm export when read back with rhino3dm.
+- **Rhino roundtrip.** The seven GLBs and the viewer still contain 2,223,601 source triangles. Rhino contains
+  2,222,589 triangles after culling 1,012 degenerate faces from 11 previously invalid meshes. The checker finds
+  no surface-area loss, verifies source triangle membership/winding, and compares all 621,885 UV coordinates
+  exactly. The native objects and inventory share stable source-derived IDs. Bounding-box round-off is at most
+  0.007568359375 mm. This public-file QA does not repeat the private plan/photo checks.
 - **Colour crops.** The published raster renders were measured with element-ID masks for five elements: canopy top,
   roof coping, VMU-01 fins, VMU-04 precast and wood-grain aluminium. All 48 of 48 crops fall inside their tolerance
   windows:
@@ -160,11 +187,13 @@ THIRD_PARTY_LICENSES.md
 
 - **Future state.** The model shows the planned completed state. Several finishes and dimensions are still waiting to
   be confirmed by site measurement. The VMU-04 precast colour is an indicative value.
-- **Build scripts.** The build scripts in `build/` are published as a record of the method. They need confidential
-  inputs that are not included (drawings, a CAD model, a site survey and site photos), so they do not run as shipped.
+- **Build scripts.** The geometry builders in `build/` record the method and read confidential inputs that are not
+  included (drawings, a CAD model, a site survey and site photos). The Rhino exporter, checker and regression tests
+  run directly from the committed public GLBs and material table; they do not rebuild the private source geometry.
 - **Still-render preparation.** Geometry/BVH preparation and parts of the first shader compilation run synchronously
   on the browser's main thread. The exit button may respond only when that work yields. Cancellation isolates late
   asynchronous results; it cannot interrupt those synchronous GPU/geometry operations.
+
 - **Surroundings.** Only the factories and structures next to the yard are modelled, from the layout plan, the site
   survey and site photos; buildings further away are not modelled. The sheds, the accessway canopy, the gantry crane,
   vehicles and people are approximate. The far ground is a neutral textured plane, not imagery.
@@ -192,3 +221,22 @@ THIRD_PARTY_LICENSES.md
   reserved unless the owner adds a LICENSE file. Third-party components remain under their own licences.
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md)。
+
+## Complete Rhino delivery
+
+Use the interpreter from the environment where `requirements-rhino.txt` was installed:
+
+```powershell
+.\.venv\Scripts\python.exe build\delivery.py --check
+.\.venv\Scripts\python.exe build\delivery.py --rebuild
+```
+
+Offline `--check` verifies the committed delivery index, source geometry, canonical material derivation, mesh topology, native PBR scalars, cameras and captures without starting Rhino or rewriting reports. Native `--rebuild` requires licensed Rhino on Windows and refreshes the public GLB source export, textures, cameras, native model, captures and independent reports. All subprocesses use the selected interpreter.
+
+`model/delivery_index.json` records source/code/configuration fingerprints, output fingerprints, Python/dependency versions and the native Rhino version. Changed inputs or outputs invalidate the old delivery. Interrupted builds remain failed rather than retaining an old success label. Text fingerprints normalize Git line endings; model and image fingerprints use exact bytes. The CI `--manifest-only` gate runs after the independent checks.
+
+The viewer reliability integration preserves the existing GLBs, Rhino models, textures, captures and native reports.
+The index retains their original build environment and timestamps; `read_only_verification` separately records the
+current code verification and saved-model readback. This verification generates no new render or private-source
+accuracy measurement. Viewer code, the local save/denoise service, JSON scene inputs, local JavaScript dependencies
+and both READMEs are included in the current fingerprints.
