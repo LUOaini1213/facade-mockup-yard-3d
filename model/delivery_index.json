@@ -6,9 +6,9 @@
   "construction_config": null,
   "started_at": "2026-10-09T09:10:24.462763+00:00",
   "inputs": {
-    ".gitattributes": "9beb10e26330f561a0fb875d6901c5c70856cf4ced6e676b986fbb921b47904f",
-    ".github/workflows/check.yml": "1cddf6453d6fa34905031bb758a152a4eb33f8d87a40f9d97b2e01ebc0746b9b",
-    ".github/workflows/rhino-delivery.yml": "6da8ef4b01ed3138d55221d6e2c390ebb20705a8573bc66e72bd3c911c0ca270",
+    ".gitattributes": "a61ec752ffa7cd1a908a1330011c3bf6f4ad6cd52a137bf4d41ae7a2b09f7fbd",
+    ".github/workflows/check.yml": "29dc5bdb2c5e4f77151418107af8f6a893249bfc7a860bc3c98790394bd5923b",
+    ".github/workflows/rhino-delivery.yml": "0a857d09ce696f017bb97449bf0bb43209f5a03e39d3df3848121dc140620fdd",
     "build/build_cad.py": "143bae8d1682f309d1ca3ab1e56001ec2690e68d11a34bccfb39a562e2134b43",
     "build/build_canopy.py": "bd0f52b0d4d91913e497e189baefdbfe93e63faf3a45dbc8321030a1a2360d67",
     "build/build_context.py": "639cfa9addbccf9b6bc2589cf95d710ce3926236f4b1d5a7ca7ba41e8878db8b",
@@ -29,7 +29,7 @@
     "build/check_3dm.py": "5287432f229d95d933506f66f61b3d55634eccc2b5f20d166f32571c117e83b6",
     "build/check_delivery.py": "aeaa976bdb6ab4f2b2d6ee0b7fd45e05b8a78f74f44232bea918a947dcdecc53",
     "build/delivery.py": "010920c0961e1825614bbe3a236bcfde7e4e5e9bfd3b976816157e74b687201d",
-    "build/export_3dm.py": "d99914ff5cf5e716efcca6a07cd1a1290bac0da7c3eeaddfc5df7feeaee5536e",
+    "build/export_3dm.py": "c0a01540585afb59b96b1660dfa860dbf79abcd132e3e14300af182c0481f78d",
     "build/georef.py": "0e9a6ff2d8d1e820d38f971237ac49278797a7cb9e5a682c90b91b1093527fb1",
     "build/glb_reader.py": "19255fc4110e2db6aa7e3d16de062e8ea37dd33c2f308a0e4915f6b423915e19",
     "build/gltfw.py": "f1547b54a354c247e77ac2b11d3baad0575249dcf4e97a5b8b497680df340c9d",
@@ -52,6 +52,8 @@
     "build/test_rhino_mesh.py": "a49761996f5127bc4becdb82547544bcf4c50fd9f869a9603a58ed81bcf0705c",
     "build/topview.py": "d1d40742d06facb34f85ee2f34749ad55a76a1d1662e67b7a23417fc7a0ae95c",
     "build/validate.py": "18b5efe27683d0b4f14a987bb4ad61a344a9488fa95ded1dd7ddbb3b45613d56",
+    "checks/check_readme.py": "1e7c121622e1b4c59e9ab4ce089018e51ad5f325b3264f193d9450d5deea2b19",
+    "checks/scan_local_paths.py": "82787dd5c5e56791c480b2c832f88680e132939f82a800f207d2d9154c1fb3a6",
     "checks/validate_assets.py": "f55a7fbdc9bd61548da67587aeba293e90e032c8056a195e366013e99f567700",
     "index.html": "20bf9ba377a0979e9454f191c877099912e7a546f1da98e7e8212a0fb12b7f53",
     "model/materials.json": "543b1a7f52ac0c2dd0329c8c33a2fe7a63793b48250baafae2be9777bf4ada77",
@@ -66,8 +68,8 @@
     "model/vmu05.glb": "6375e00838f41279cbfc0e4bf3653e3a7530c4ba4a3023b20fa1e1ae7d8ca203",
     "model/vmu_cad.glb": "897e767721530f134a03983279efe59dcf9323ea5265bc468a61a5c3d1dde62b",
     "ptdenoise.py": "b2240835c52947b9ca3fce9150facdc87de039b6501b5927da0bdff09f56e667",
-    "README.md": "c5627f87439e01a51c36ea1136372162ba0fc6390d68d5f13abcf86fdd044f79",
-    "README.zh-CN.md": "a95931060aa977efd486708a9535c59b44bb66284dfe300d8fa60cb0989e43c9",
+    "README.md": "83400e46f7854757b410710887c74a3fd66a17223ed0ed335efe581f1434a576",
+    "README.zh-CN.md": "9fbd92414f72ec419024276ab69cbe087da7c7d914108c6e36e4e895b645caac",
     "requirements-rhino.txt": "44aaeb8313ac36d353740c51e8dad6b065aa7643c914cd3a4e5f09051c1e6867",
     "rhino/enrich_model.py": "5fcbb88e5d379ab3f8438648ea3527ac69fa1c75cedcc8abd693cfb48df715da",
     "rhino/probe_render.py": "6289f884315558e73b58e389d4d7042821850055eb720736c417e31c211483bb",
@@ -78,6 +80,8 @@
     "serve.py": "ba20ccc3a3368124e3990e7ac425227c821e4c289e5e9d9b8db188012dbe25fa",
     "start_viewer.bat": "657fe78222dc43d806294a347b548ae1aeea24a793f907fddd02978404bb59de",
     "tests/test_assets.py": "3b6749f6f896326d618f2a53d035374122e7bb1ab1d787b21c34de0450792494",
+    "tests/test_local_paths.py": "123cf738cd62f43ace21903fca5bbe33fed713964a9f88145adf957e19d6a15d",
+    "tests/test_readme_numbers.py": "391d910e78e94963fd6fc8a48022b5fe15e69455e4137de64af4e13cd097efc5",
     "tests/test_server.py": "ca9faded6f72c8ed05e741f2410032af92b3e8de760e931b0beefa4f05179b47",
     "tests/viewer-lifecycle.test.cjs": "34cc8cb882904c280c15062ca1f762df1cab1c1ccc8176e2212313612dacd5a9",
     "textures/acg/Metal009/Metal009_1K-JPG_NormalGL.jpg": "45c7c88685e6b44da7e8d25e2cf6d8645d42209793ccc4354e68c16cdae15d62",
@@ -182,24 +186,36 @@
   "read_only_verification": {
     "schema": 1,
     "mode": "existing_artifacts_readback",
-    "verified_at": "2026-10-12T03:59:12.119863+00:00",
+    "verified_at": "2026-11-03T12:48:59.393014+00:00",
     "baseline_delivery_commit": "8cdbe1f3576659dc0302b92ce5b1f3ef5204468d",
     "baseline_index_sha256_lf": "024a5950e16532d138db7ec179f15153bb9839f3b780af96ea0df2537f923483",
-    "viewer_reliability_commit": "1f9aeaa170c7f314c5f344fc00fd8417ca756374",
+    "review_fixes_base_commit": "7c5a68bc14be70c7841034b844f1d4c4353d8062",
+    "changed_inputs": [
+      ".gitattributes",
+      ".github/workflows/check.yml",
+      ".github/workflows/rhino-delivery.yml",
+      "README.md",
+      "README.zh-CN.md",
+      "build/export_3dm.py",
+      "checks/check_readme.py",
+      "checks/scan_local_paths.py",
+      "tests/test_local_paths.py",
+      "tests/test_readme_numbers.py"
+    ],
     "environment": {
-      "python": "3.13.14",
-      "platform": "Windows-11-10.0.26200-SP0",
+      "python": "3.11.5",
+      "platform": "Windows-10-10.0.26200-SP0",
       "packages": {
-        "numpy": "2.5.3",
+        "numpy": "2.4.6",
         "rhino3dm": "8.32.0",
-        "Pillow": "11.3.0",
-        "playwright": "1.61.0"
+        "Pillow": "11.3.0"
       },
-      "node": "v24.18.0"
+      "node": "v24.19.0",
+      "note": "Python 3.11 with NumPy 2.4 locally; CI repeats the readback on Python 3.13 with the pinned requirements."
     },
     "gates": {
       "native_regression_tests": 37,
-      "public_python_tests": 44,
+      "public_python_tests": 53,
       "javascript_tests": 29,
       "final_fingerprint_tests": 10,
       "skips": 0,
@@ -227,6 +243,14 @@
         [
           "build/check_delivery.py",
           "--no-write-reports"
+        ],
+        [
+          "checks/check_readme.py",
+          "--rhino"
+        ],
+        [
+          "checks/scan_local_paths.py",
+          "--require-lfs"
         ]
       ],
       "native_saved_model_readback": {
@@ -239,12 +263,81 @@
         "material_slots": 27,
         "scalar_materials": 44,
         "historical_report_values_equal": true
-      }
+      },
+      "readme_phrases": 53
     },
     "preserved_artifact_count": 44,
     "native_model_rebuilt": false,
     "captures_regenerated": false,
     "private_source_accuracy_rerun": false,
-    "scope": "Current source fingerprints after existing-artifact checks. Original native build environment, times, source models, images, material table and reports are preserved; no new rendering or metric run."
+    "scope": "Review fixes 2026-11-03: README, checks, tests, workflows and exporter code changed; every artifact fingerprint is unchanged. No new model, render or private-source measurement.",
+    "previous": {
+      "schema": 1,
+      "mode": "existing_artifacts_readback",
+      "verified_at": "2026-10-12T03:59:12.119863+00:00",
+      "baseline_delivery_commit": "8cdbe1f3576659dc0302b92ce5b1f3ef5204468d",
+      "baseline_index_sha256_lf": "024a5950e16532d138db7ec179f15153bb9839f3b780af96ea0df2537f923483",
+      "viewer_reliability_commit": "1f9aeaa170c7f314c5f344fc00fd8417ca756374",
+      "environment": {
+        "python": "3.13.14",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "packages": {
+          "numpy": "2.5.3",
+          "rhino3dm": "8.32.0",
+          "Pillow": "11.3.0",
+          "playwright": "1.61.0"
+        },
+        "node": "v24.18.0"
+      },
+      "gates": {
+        "native_regression_tests": 37,
+        "public_python_tests": 44,
+        "javascript_tests": 29,
+        "final_fingerprint_tests": 10,
+        "skips": 0,
+        "public_assets": {
+          "glbs": 7,
+          "triangles": 2223601,
+          "material_records": 87,
+          "unregistered_materials": 0
+        },
+        "offline_readback_commands": [
+          [
+            "build/prepare_rhino_assets.py",
+            "--check"
+          ],
+          [
+            "build/check_3dm.py"
+          ],
+          [
+            "build/check_3dm.py",
+            "--model",
+            "model/vmu_site_future_native.3dm",
+            "--inventory",
+            "model/vmu_site_future_inventory.csv"
+          ],
+          [
+            "build/check_delivery.py",
+            "--no-write-reports"
+          ]
+        ],
+        "native_saved_model_readback": {
+          "passed": true,
+          "rhino_version": "8.33.26188.13001",
+          "source_sha256": "f3aa4ee4020d7f3cb770d9479eb29ddd1ea54a7de9c75828fae895d0c2c3b9bc",
+          "output_sha256": "b05c298e180812522847ae9381ef29a6b7840b2469101b0e9c591ae412ad51cd",
+          "named_views": 13,
+          "embedded_assets": 19,
+          "material_slots": 27,
+          "scalar_materials": 44,
+          "historical_report_values_equal": true
+        }
+      },
+      "preserved_artifact_count": 44,
+      "native_model_rebuilt": false,
+      "captures_regenerated": false,
+      "private_source_accuracy_rerun": false,
+      "scope": "Current source fingerprints after existing-artifact checks. Original native build environment, times, source models, images, material table and reports are preserved; no new rendering or metric run."
+    }
   }
 }

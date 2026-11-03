@@ -4,7 +4,7 @@ primitive becomes one Rhino mesh with its own normals and UVs, layers follow the
 (root layers MOCKUP_VMU and SITE), layer colours are the sRGB material colours, node extras become object user text
 and a few document user strings (MOCKUP.*) summarise the build. The VMU layers are asserted to contain no red colour.
 """
-import colorsys, csv, json, os, sys, time
+import base64, colorsys, csv, json, os, sys, time
 from glb_reader import read_glb, accessor, walk
 from rhino_mesh import make_mesh, source_key, component_id
 from material_integrity import validate_materials
@@ -289,8 +289,19 @@ if _ctx.get('attribution'):
 S['MOCKUP.ground'] = ('SITE::Ground = site_ground.glb: yard slab, damp patches (the viewer blurs them into soft stains), drains, IC chambers, '
                      'hydrants, crane rails + red safety lines, yellow line, main road carriageway ~0.8-0.95 m below the yard, kerbs, verges')
 os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
-if not out.Write(OUT, 8):
-    raise RuntimeError('Could not write Rhino file: ' + OUT)
+# File3dm.Write(path) records the absolute output path inside the archive (a local folder name).
+# Serialise in memory instead and write the bytes, so the published file carries no machine path.
+# rhino3dm still stores the writing OS account in CreatedBy/LastEditedBy; it has no setter for them.
+data = base64.b64decode(out.Encode())
+local = [os.path.abspath(OUT), os.path.dirname(os.path.abspath(OUT))]
+if not data.startswith(b'3D Geometry File Format') or any(
+        text.encode(codec) in data for text in local for codec in ('utf-8', 'utf-16-le')):
+    raise RuntimeError('Unexpected in-memory Rhino archive for ' + OUT)
+with open(OUT + '.tmp', 'wb') as stream:
+    stream.write(data)
+os.replace(OUT + '.tmp', OUT)
+if r.File3dm.ReadArchiveVersion(OUT) != 80:  # openNURBS reports Rhino 8 archives as 80
+    raise RuntimeError('Rhino file is not a version 8 archive: ' + OUT)
 os.makedirs(os.path.dirname(os.path.abspath(INVENTORY)), exist_ok=True)
 with open(INVENTORY, 'w', encoding='utf-8-sig', newline='') as stream:
     writer = csv.DictWriter(stream, fieldnames=list(inventory_rows[0]))

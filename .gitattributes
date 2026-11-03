@@ -21,3 +21,4 @@ model/vmu_site_future_native.3dm filter=lfs diff=lfs merge=lfs -text
 *.md text eol=lf
 *.yml text eol=lf
 *.js text eol=lf
+*.cjs text eol=lf
