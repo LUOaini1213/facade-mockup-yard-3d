@@ -27,7 +27,7 @@ class LocalPathScan(unittest.TestCase):
     def test_text_paths_fail_and_install_defaults_pass(self):
         self.assertFalse(self.run_scan({'a.md': ('see ' + HOME).encode()})['passed'])
         self.assertFalse(self.run_scan({'a.py': ('x = r"' + OTHER_DRIVE + '"').encode()})['passed'])
-        self.assertFalse(self.run_scan({'a.txt': b'log at /home/someone/run'})['passed'])
+        self.assertFalse(self.run_scan({'a.txt': b'log at /' + b'home/someone/run'})['passed'])
         self.assertFalse(self.run_scan({'a.json': ('"' + 'claude' + ' student"').encode()})['passed'])
         self.assertTrue(self.run_scan({'a.md': ('OIDN from ' + INSTALL).encode()})['passed'])
         self.assertTrue(self.run_scan({'a.md': b'see https://example.org/home/page and e.g. a:b'})['passed'])

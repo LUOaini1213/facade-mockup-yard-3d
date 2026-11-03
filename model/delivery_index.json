@@ -80,7 +80,7 @@
     "serve.py": "ba20ccc3a3368124e3990e7ac425227c821e4c289e5e9d9b8db188012dbe25fa",
     "start_viewer.bat": "657fe78222dc43d806294a347b548ae1aeea24a793f907fddd02978404bb59de",
     "tests/test_assets.py": "3b6749f6f896326d618f2a53d035374122e7bb1ab1d787b21c34de0450792494",
-    "tests/test_local_paths.py": "123cf738cd62f43ace21903fca5bbe33fed713964a9f88145adf957e19d6a15d",
+    "tests/test_local_paths.py": "3f1a25424726248c3f8eab11e7b177e1dfaee9bbb8cba57ab0e315e44b48708a",
     "tests/test_readme_numbers.py": "391d910e78e94963fd6fc8a48022b5fe15e69455e4137de64af4e13cd097efc5",
     "tests/test_server.py": "ca9faded6f72c8ed05e741f2410032af92b3e8de760e931b0beefa4f05179b47",
     "tests/viewer-lifecycle.test.cjs": "34cc8cb882904c280c15062ca1f762df1cab1c1ccc8176e2212313612dacd5a9",
@@ -186,7 +186,7 @@
   "read_only_verification": {
     "schema": 1,
     "mode": "existing_artifacts_readback",
-    "verified_at": "2026-11-03T12:48:59.393014+00:00",
+    "verified_at": "2026-11-03T12:55:19.330176+00:00",
     "baseline_delivery_commit": "8cdbe1f3576659dc0302b92ce5b1f3ef5204468d",
     "baseline_index_sha256_lf": "024a5950e16532d138db7ec179f15153bb9839f3b780af96ea0df2537f923483",
     "review_fixes_base_commit": "7c5a68bc14be70c7841034b844f1d4c4353d8062",
