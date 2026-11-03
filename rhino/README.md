@@ -48,6 +48,9 @@ It is a coordination inventory, **not a fabrication quantity take-off**.
 
 These commands use only the seven committed GLBs and `model/materials.json`.
 The confidential drawing/CAD inputs are not needed for this conversion.
+They need Python 3.12 or newer (CI uses 3.13; the pinned NumPy 2.5.3 has no Python 3.11 build).
+The exporter serialises the archive in memory, so the written file does not record the local
+output folder; rhino3dm still stores the writing OS account name in the file's author fields.
 
 ```powershell
 python -m venv .venv

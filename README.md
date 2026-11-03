@@ -2,11 +2,27 @@
 
 ![Path-traced overview of the mock-up yard](renders/pt_01_overview.png)
 
-This is a browser-based 3D model of five facade visual mock-ups (VMU-01 to VMU-05) standing in a precast yard. It shows
-the yard as it will look once all five mock-ups are complete, including the VMU-01 canopy extension. The geometry comes
-from CAD and shop-drawing data. Mock-up finishes use a shared colour table; some yard materials use GLB or procedural
-defaults. You can explore the model in real time in
-the web viewer, or render path-traced stills from it.
+A three.js web viewer and a Rhino 8 model of five facade visual mock-ups (VMU-01 to VMU-05) in a precast yard, in their
+planned completed state, including the VMU-01 canopy extension.
+
+- **Built here:** Python builders that turned shop drawings, a legacy CAD model, a site survey and site photos into seven
+  GLBs (2,223,601 triangles); a WebGL2 viewer with path-traced, OIDN-denoised stills; a hardened local save/denoise
+  server; and a Rhino 8 export with independent readback QA.
+- **Checked:** the Rhino export keeps all 621,885 source UV coordinates exactly and loses no surface area after culling
+  1,012 degenerate faces; 129 of its 235 mesh components are closed and 101 are solid.
+- **Limits:** the drawings, CAD model, survey and photos are confidential and not included, so the builders cannot run
+  here and the plan-fit, colour and camera checks are reported rather than reproducible; this is a mesh reference
+  model, not BIM elements; several finishes still await site confirmation.
+
+### What this repository adds, and what comes from the sources
+
+- **From the confidential sources:** the facade designs, dimensions and specified finishes of the five mock-ups (shop
+  drawings and element specifications), the VMU-01 tower, VMU-03 and trellis render meshes (legacy CAD model), the
+  yard layout plan and the surveyed lot lines.
+- **Produced by the code in this repository:** the parametric rebuilds of the VMU-01 canopy and extension, VMU-02,
+  VMU-04 and VMU-05 from those specifications, the placement of the legacy CAD meshes on the layout plan, the yard and
+  surroundings (`build/build_ground.py`, `build/build_context2.py`, `build/build_features2.py`), the viewer and
+  local server, the Rhino export and every check and test listed below.
 
 ## What is in the model
 
@@ -24,9 +40,7 @@ the web viewer, or render path-traced stills from it.
   SCI/SCE colour fields: seven canonical entries and six aliases, not thirteen independently measured finishes.
   These include the indicative VMU-04 precast value. The four `CTX_*` display finishes are registered from the public GLB values.
   The renders use SCE (specular component excluded).
-  Where a finish is specified by RAL
-
-  number, the number is kept: RAL 7005, RAL 7038 and RAL 9016.
+  Where a finish is specified by RAL number, the number is kept: RAL 7005, RAL 7038 and RAL 9016.
 - **Canopy extension.** The default finish is a Mouse Grey top with T02 3 mm parts; the RAL 7038 option is an explicit comparison.
   The viewer can draw an outline around it (the outline toggle, or `?outline=1`), but it is never tinted.
 
@@ -84,11 +98,15 @@ From the repository root, with Python 3.12 and Node.js 22:
 
 ```sh
 python -B checks/validate_assets.py
+python -B checks/check_readme.py
+python -B checks/scan_local_paths.py
 python -B -m unittest discover -s tests -p "test_*.py"
 node --test tests/viewer-lifecycle.test.cjs
 ```
 
 The same commands run in CI on Windows and Ubuntu without installing packages or requiring the private build inputs.
+`check_readme.py` recomputes the counts quoted in both READMEs from the committed QA files, inventory, colour table
+and images; `scan_local_paths.py` fails on local machine paths in tracked files.
 The asset check reads all seven published GLBs, checks their buffer/accessor bounds, indices and finite values, and
 checks local module and texture dependencies. It supports the dense FLOAT VEC2/VEC3 and UINT32 triangle profile used
 here; it is not a general glTF conformance validator. Every public GLB material name must be registered in the
@@ -105,6 +123,8 @@ render before returning to the live view. Optional models that fail to load shou
 
 Open `model/vmu_site_future_native.3dm` in Rhino 8 for embedded PBR images and all
 13 named views; `model/vmu_site_future.3dm` retains the geometry/source-UV baseline.
+The native file (121 MB) is stored in Git LFS: install Git LFS before cloning, or run
+`git lfs pull` in an existing clone. Without it the file is a small text pointer.
 Meshes retain their source UVs
 (194 meshes / 621,885 UV coordinates), stable source-derived object GUIDs and component UserText.
 Use `rhino/select_components.py` in `ScriptEditor` to select by group, finish, role or ID.
@@ -117,6 +137,38 @@ The native delivery adds world mapping to 41 meshes without source UVs, embeds
 This remains a mesh reference model; browser GLSL effects and engineering element
 classes are not inferred. See [the native contact sheet](renders/rhino/contact_sheet.jpg).
 
+### Check or rebuild the Rhino delivery
+
+These commands need Python 3.12 or newer (CI uses 3.13; the pinned NumPy 2.5.3 has no Python 3.11 build) and the
+LFS-fetched native file. On Windows:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-rhino.txt
+.\.venv\Scripts\python.exe build\delivery.py --check
+```
+
+The full `--check` is Windows-only: the derived PNG assets that `prepare_rhino_assets.py --check` compares byte for
+byte came out different on Ubuntu in CI. On Linux or macOS, the geometry readback and the README figures still run:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-rhino.txt
+.venv/bin/python build/check_3dm.py
+.venv/bin/python checks/check_readme.py --rhino
+```
+
+Offline `--check` verifies the committed delivery index, source geometry, canonical material derivation, mesh
+topology, native PBR scalars, cameras and captures without starting Rhino or rewriting reports. CI runs it on
+Windows and runs the two Linux commands above on Ubuntu. `--rebuild` (Windows only) needs licensed
+Rhino 8 and a one-time `python -m playwright install chromium`; it refreshes the public GLB source export, textures,
+cameras, native model, captures and independent reports. All subprocesses use the selected interpreter.
+
+`model/delivery_index.json` records source/code/configuration fingerprints, output fingerprints, Python/dependency
+versions and the native Rhino version; changed inputs or outputs invalidate the old delivery. Text fingerprints
+normalize Git line endings; model and image fingerprints use exact bytes. Code and documentation changes made
+without a Rhino rebuild are recorded in its `read_only_verification` block after the offline checks pass; they do
+not regenerate any model, render or private-source measurement.
 
 ## Renders
 
@@ -146,10 +198,13 @@ model/                  vmu_cad.glb          VMU-01 tower, VMU-03, trellis      
                         materials.json       colour table (87 registered materials)
                         site_features.json   palms, trees, people, vehicles, labels
                         vmu_site_future.3dm  the whole model for Rhino (mm)           62.9 MB
+                        vmu_site_future_native.3dm     textured Rhino model with named views (Git LFS)
                         vmu_site_future_inventory.csv  checked mesh-component inventory
                         vmu_site_future_qa.json        GLB/Rhino comparison report
 build/                  public Rhino export/checker + private-source modelling scripts (see build/README.md)
 rhino/                  Rhino 8 component selector, native QA and workflow
+checks/                 asset, README-figure and local-path checks (standard library only)
+tests/                  HTTP server, asset, README-figure and viewer regression tests
 textures/               CC0 textures and HDRIs (Poly Haven, ambientCG)
 vendor/                 three.js, three-mesh-bvh, three-gpu-pathtracer (MIT)
 renders/                16 stills + contact_sheet.jpg
@@ -158,30 +213,42 @@ THIRD_PARTY_LICENSES.md
 
 ## How accuracy was checked
 
-- **Plan fit.** The plan edges of each unit were compared with the layout drawing. The check measured the nearest
-  distance in both directions, then ran a trimmed ICP re-fit.
-  - The re-fit would move a unit by at most 0.053 m (VMU-04).
-  - For the other units, the canopy and the trellis, it would move them by 0.031 m or less.
-  - These checks ran on the source model. The mock-up geometry in this repository is the same: the binary chunks of
-    the five mock-up GLBs are byte-identical to the source files. The ground and surroundings (`site_ground.glb`,
-    `site_context.glb`, `site_features.json`) were rebuilt for publication with the scripts in `build/` (see
-    Limitations).
+### Checked from the files in this repository
+
 - **Rhino roundtrip.** The seven GLBs and the viewer still contain 2,223,601 source triangles. Rhino contains
   2,222,589 triangles after culling 1,012 degenerate faces from 11 previously invalid meshes. The checker finds
   no surface-area loss, verifies source triangle membership/winding, and compares all 621,885 UV coordinates
   exactly. The native objects and inventory share stable source-derived IDs. Bounding-box round-off is at most
-  0.007568359375 mm. This public-file QA does not repeat the private plan/photo checks.
+  0.007568359375 mm. Evidence: `model/vmu_site_future_qa.json` and `model/vmu_site_future_native_source_qa.json`,
+  recomputed by `build/check_3dm.py`.
+- **Published assets.** `checks/validate_assets.py` rereads all seven GLBs, their materials and dependencies.
+- **README figures.** `checks/check_readme.py` recomputes the counts quoted in both READMEs from the committed files.
+
+### Private-source checks (reported, not reproducible here)
+
+These checks need the confidential drawings, the source renders and the element-ID masks. Those inputs, the
+colour-crop script and the result files are not published, so the figures below are the values reported by the
+private run and cannot be recomputed from this repository.
+
+- **Plan fit.** The plan edges of each unit were compared with the layout drawing. The check measured the nearest
+  distance in both directions, then ran a trimmed ICP re-fit (`build/validate.py`, which needs the private inputs).
+  - The re-fit would move a unit by at most 0.053 m (VMU-04).
+  - For the other units, the canopy and the trellis, it would move them by 0.031 m or less.
+  - These checks ran on the source model. The binary chunks of the five mock-up GLBs were compared with the source
+    files and reported byte-identical. The ground and surroundings (`site_ground.glb`, `site_context.glb`,
+    `site_features.json`) were rebuilt for publication with the scripts in `build/` (see Limitations).
 - **Colour crops.** The published raster renders were measured with element-ID masks for five elements: canopy top,
-  roof coping, VMU-01 fins, VMU-04 precast and wood-grain aluminium. All 48 of 48 crops fall inside their tolerance
-  windows:
+  roof coping, VMU-01 fins, VMU-04 precast and wood-grain aluminium. The private run reported all 48 of 48 crops
+  inside their tolerance windows:
   - CIELAB ΔL* / Δb* windows against the preceding baseline renders;
   - hue 32–38° and saturation 0.36–0.47 for the wood grain;
   - |b*| ≤ 3.5 for the white coping.
 
-  Against the source renders, the mean colours of the masked crops agree within 0.15 in L*, a* and b*, except where
-  the rebuilt surroundings (roadside trees, their shadows, the west factory and the gantry crane) change the masked
-  pixels: views 01, 07 and 11, up to 20.7 in L* for the VMU-04 precast in view 11.
-- **Cameras.** The 13 standard views reproduce the source camera positions and targets to within 0.01 m.
+  Against the source renders, the mean colours of the masked crops were reported within 0.15 in L*, a* and b*,
+  except where the rebuilt surroundings (roadside trees, their shadows, the west factory and the gantry crane) change
+  the masked pixels: views 01, 07 and 11, up to 20.7 in L* for the VMU-04 precast in view 11.
+- **Cameras.** The 13 standard views were reported to reproduce the source camera positions and targets to within
+  0.01 m.
 
 ## Limitations
 
@@ -193,7 +260,6 @@ THIRD_PARTY_LICENSES.md
 - **Still-render preparation.** Geometry/BVH preparation and parts of the first shader compilation run synchronously
   on the browser's main thread. The exit button may respond only when that work yields. Cancellation isolates late
   asynchronous results; it cannot interrupt those synchronous GPU/geometry operations.
-
 - **Surroundings.** Only the factories and structures next to the yard are modelled, from the layout plan, the site
   survey and site photos; buildings further away are not modelled. The sheds, the accessway canopy, the gantry crane,
   vehicles and people are approximate. The far ground is a neutral textured plane, not imagery.
@@ -221,22 +287,3 @@ THIRD_PARTY_LICENSES.md
   reserved unless the owner adds a LICENSE file. Third-party components remain under their own licences.
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md)。
-
-## Complete Rhino delivery
-
-Use the interpreter from the environment where `requirements-rhino.txt` was installed:
-
-```powershell
-.\.venv\Scripts\python.exe build\delivery.py --check
-.\.venv\Scripts\python.exe build\delivery.py --rebuild
-```
-
-Offline `--check` verifies the committed delivery index, source geometry, canonical material derivation, mesh topology, native PBR scalars, cameras and captures without starting Rhino or rewriting reports. Native `--rebuild` requires licensed Rhino on Windows and refreshes the public GLB source export, textures, cameras, native model, captures and independent reports. All subprocesses use the selected interpreter.
-
-`model/delivery_index.json` records source/code/configuration fingerprints, output fingerprints, Python/dependency versions and the native Rhino version. Changed inputs or outputs invalidate the old delivery. Interrupted builds remain failed rather than retaining an old success label. Text fingerprints normalize Git line endings; model and image fingerprints use exact bytes. The CI `--manifest-only` gate runs after the independent checks.
-
-The viewer reliability integration preserves the existing GLBs, Rhino models, textures, captures and native reports.
-The index retains their original build environment and timestamps; `read_only_verification` separately records the
-current code verification and saved-model readback. This verification generates no new render or private-source
-accuracy measurement. Viewer code, the local save/denoise service, JSON scene inputs, local JavaScript dependencies
-and both READMEs are included in the current fingerprints.

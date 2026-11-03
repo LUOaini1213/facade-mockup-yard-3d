@@ -25,6 +25,10 @@ jobs:
           node-version: '22'
       - name: Check published assets and dependencies
         run: python -B checks/validate_assets.py
+      - name: Check README figures against committed artifacts
+        run: python -B checks/check_readme.py
+      - name: Reject local machine paths in tracked files
+        run: python -B checks/scan_local_paths.py
       - name: Test HTTP service and asset rejection cases
         run: python -B -m unittest discover -s tests -p "test_*.py"
       - name: Test viewer lifecycle and interactions
