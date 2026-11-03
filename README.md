@@ -148,17 +148,19 @@ python -m venv .venv
 .\.venv\Scripts\python.exe build\delivery.py --check
 ```
 
-On Linux or macOS:
+The full `--check` is Windows-only: the derived PNG assets that `prepare_rhino_assets.py --check` compares byte for
+byte came out different on Ubuntu in CI. On Linux or macOS, the geometry readback and the README figures still run:
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-rhino.txt
-.venv/bin/python build/delivery.py --check
+.venv/bin/python build/check_3dm.py
+.venv/bin/python checks/check_readme.py --rhino
 ```
 
 Offline `--check` verifies the committed delivery index, source geometry, canonical material derivation, mesh
 topology, native PBR scalars, cameras and captures without starting Rhino or rewriting reports. CI runs it on
-Windows, and runs the steps that do not need the LFS file on Ubuntu. `--rebuild` (Windows only) needs licensed
+Windows and runs the two Linux commands above on Ubuntu. `--rebuild` (Windows only) needs licensed
 Rhino 8 and a one-time `python -m playwright install chromium`; it refreshes the public GLB source export, textures,
 cameras, native model, captures and independent reports. All subprocesses use the selected interpreter.
 

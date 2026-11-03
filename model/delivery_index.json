@@ -8,7 +8,7 @@
   "inputs": {
     ".gitattributes": "a61ec752ffa7cd1a908a1330011c3bf6f4ad6cd52a137bf4d41ae7a2b09f7fbd",
     ".github/workflows/check.yml": "29dc5bdb2c5e4f77151418107af8f6a893249bfc7a860bc3c98790394bd5923b",
-    ".github/workflows/rhino-delivery.yml": "0a857d09ce696f017bb97449bf0bb43209f5a03e39d3df3848121dc140620fdd",
+    ".github/workflows/rhino-delivery.yml": "35018bb1f740e6a7c2bcfa443567e0910fe93eb90d62a79a9ca39ddcb94d7544",
     "build/build_cad.py": "143bae8d1682f309d1ca3ab1e56001ec2690e68d11a34bccfb39a562e2134b43",
     "build/build_canopy.py": "bd0f52b0d4d91913e497e189baefdbfe93e63faf3a45dbc8321030a1a2360d67",
     "build/build_context.py": "639cfa9addbccf9b6bc2589cf95d710ce3926236f4b1d5a7ca7ba41e8878db8b",
@@ -68,8 +68,8 @@
     "model/vmu05.glb": "6375e00838f41279cbfc0e4bf3653e3a7530c4ba4a3023b20fa1e1ae7d8ca203",
     "model/vmu_cad.glb": "897e767721530f134a03983279efe59dcf9323ea5265bc468a61a5c3d1dde62b",
     "ptdenoise.py": "b2240835c52947b9ca3fce9150facdc87de039b6501b5927da0bdff09f56e667",
-    "README.md": "83400e46f7854757b410710887c74a3fd66a17223ed0ed335efe581f1434a576",
-    "README.zh-CN.md": "9fbd92414f72ec419024276ab69cbe087da7c7d914108c6e36e4e895b645caac",
+    "README.md": "82a1a8539de64c10a1c2edcb3c24f1f695f4135829b8af82f47e5918658ab11c",
+    "README.zh-CN.md": "95acc1331002445f2deaa022f8044641ecd7341f18d46cba3f6469776c2177da",
     "requirements-rhino.txt": "44aaeb8313ac36d353740c51e8dad6b065aa7643c914cd3a4e5f09051c1e6867",
     "rhino/enrich_model.py": "5fcbb88e5d379ab3f8438648ea3527ac69fa1c75cedcc8abd693cfb48df715da",
     "rhino/probe_render.py": "6289f884315558e73b58e389d4d7042821850055eb720736c417e31c211483bb",
@@ -186,7 +186,7 @@
   "read_only_verification": {
     "schema": 1,
     "mode": "existing_artifacts_readback",
-    "verified_at": "2026-11-03T12:55:19.330176+00:00",
+    "verified_at": "2026-11-03T13:03:55.306072+00:00",
     "baseline_delivery_commit": "8cdbe1f3576659dc0302b92ce5b1f3ef5204468d",
     "baseline_index_sha256_lf": "024a5950e16532d138db7ec179f15153bb9839f3b780af96ea0df2537f923483",
     "review_fixes_base_commit": "7c5a68bc14be70c7841034b844f1d4c4353d8062",

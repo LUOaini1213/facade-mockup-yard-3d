@@ -83,15 +83,16 @@ python -m venv .venv
 .\.venv\Scripts\python.exe build\delivery.py --check
 ```
 
-Linux 或 macOS：
+完整的 `--check` 只能在 Windows 上运行：`prepare_rhino_assets.py --check` 逐字节比对的派生 PNG 资产在 CI 的 Ubuntu 上生成结果不同。在 Linux 或 macOS 上仍可运行几何回读和说明数字核对：
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-rhino.txt
-.venv/bin/python build/delivery.py --check
+.venv/bin/python build/check_3dm.py
+.venv/bin/python checks/check_readme.py --rhino
 ```
 
-离线 `--check` 核对交付索引、源几何、标准材质派生、网格拓扑、原生 PBR 数值、相机和截图，不启动 Rhino，也不重写报告。CI 在 Windows 上运行完整检查，在 Ubuntu 上运行不需要 LFS 文件的步骤。`--rebuild`（仅 Windows）需要有许可的 Rhino 8，并需先运行一次 `python -m playwright install chromium`；它会重新生成公开 GLB 导出、纹理、相机、原生模型、截图和独立报告。
+离线 `--check` 核对交付索引、源几何、标准材质派生、网格拓扑、原生 PBR 数值、相机和截图，不启动 Rhino，也不重写报告。CI 在 Windows 上运行完整检查，在 Ubuntu 上运行上面两条 Linux 命令。`--rebuild`（仅 Windows）需要有许可的 Rhino 8，并需先运行一次 `python -m playwright install chromium`；它会重新生成公开 GLB 导出、纹理、相机、原生模型、截图和独立报告。
 
 `model/delivery_index.json` 记录源码/配置指纹、产物指纹、Python 与依赖版本及原生 Rhino 版本，输入或产物变化即视为交付过期。未经 Rhino 重建的代码和文档修改，在离线检查通过后记录于其中的 `read_only_verification`，不会重新生成模型、渲染图或保密资料精度测量。
 
